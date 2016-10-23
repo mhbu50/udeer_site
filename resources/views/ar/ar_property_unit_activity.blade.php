@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDEER</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-rtl.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    
+    <link href="../css/main.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+</head>
+
+<body  >
+
+    <section id="temp1">
+        
+            <!-- Static navbar -->
+            <div id="c-nav">
+            </div>
+              
+              
+    <div class="container c-body-con">
+        <div class="col-md-9">
+            <div class="raw">
+                <div class="col-md-12 col-md-offset-0" >
+                    <div id="propriety_unit_activity_form.html" class="page-content">
+                        
+                            <div class="raw">
+                                  <h2>title2<h2>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_time">date_time</label>
+                                <input type="date" class="form-control" id="date_time" placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="activity_description">activity description</label>
+                                <textarea class="form-control" rows="5" id="activity_description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="property_unit">property unit</label>
+                                <input type="text" class="form-control" id="property_unit" placeholder="">
+                            </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div id="side_menu" >
+               
+
+            </div>
+        </div>
+    </div>
+
+ 
+    <footer id="footer">
+        <div class="container text-center">
+            <div class="col-md-2 ">
+                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                    <a href="#">Term of use</a>
+                    
+                </div>
+            </div>
+            <div class="col-md-2 ">
+                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                    <a href="#">Privecy Policy</a>
+                    
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                    <img src="../img/Udeer_Logo.jpg" width="50%">
+                    
+                </div>
+            </div>
+            <div class="col-md-2 ">
+                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                    <a href="#">Contact Us</a>
+                    
+                </div>
+            </div>
+            <div class="col-md-2 ">
+                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                    <a href="#">About Us</a>
+                    
+                </div>
+            </div>
+
+        
+        </div>
+    </footer>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    
+    
+    <script src="../js/wow.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
