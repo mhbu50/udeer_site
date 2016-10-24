@@ -270,41 +270,6 @@
     </div>
 
  
-    <footer id="footer">
-        <div class="container text-center">
-            <div class="col-md-2 ">
-                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <a href="#">Term of use</a>
-                    
-                </div>
-            </div>
-            <div class="col-md-2 ">
-                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <a href="#">Privecy Policy</a>
-                    
-                </div>
-            </div>
-            <div class="col-md-4 ">
-                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <img src="../img/Udeer_Logo.jpg" width="50%">
-                    
-                </div>
-            </div>
-            <div class="col-md-2 ">
-                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <a href="#">Contact Us</a>
-                    
-                </div>
-            </div>
-            <div class="col-md-2 ">
-                <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <a href="#">About Us</a>
-                    
-                </div>
-            </div>
-
-        
-        </div>
-    </footer>
+    @include('ar.ar_footer')
 </body>
 @endsection

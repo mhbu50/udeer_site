@@ -1,37 +1,32 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UDEER</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/bootstrap-rtl.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/animate.min.css" rel="stylesheet">
-    
-    <link href="../css/main.css" rel="stylesheet">
-    
-    <link rel="shortcut icon" href="../img/favicon.ico">
-</head>
+@extends('template')
+@section('lang','ar')
+@section('head')
+    <link href="/css/bootstrap-rtl.css" rel="stylesheet">
+@endsection
+
+@section('body')
 
 <body  >
 
     <section id="temp1">
         
             <div id="c-nav">
-                @include('ar.nav')
+                @include('ar.ar_nav')
             </div>
 
-    <div class="container c-body-con">
+   <div class="container c-body-con">
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="propriety_unit_form" class="page-content">
-                        <div class="form-column col-sm-6">
-
-                            <div class="raw">
-                                <h2>عنوان<h2>
+                         <div class="raw">
+                                <div class='col-md-12'>
+                                    <h2>عنوان<h2>
+                                </div>
+                                
                             </div>
+                           
+                        <div class="form-column col-sm-6">
                            
 
                             <div class="form-group">
@@ -47,40 +42,44 @@
                                 <label for="rent_writing_date">تاربخ امضاء العقد</label>
                                 <input type="text" class="form-control" id="rent_writing_date" placeholder="">
                             </div>
-                            
-                            
 
                             <div class="form-group">
-                              <label for="Property type">نوع العقار</label>
-                              <select id="Property type" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
-                              </select>
+                                <label for="rent_starting_date">تاربخ بدء الايجار</label>
+                                <input type="text" class="form-control" id="rent_starting_date" placeholder="">
+                            </div>
+                         
+                        </div>
+                        <div class="form-column col-sm-6">
+
+                       
+
+                            <div class="form-group">
+                                <label for="renter">المستاجر</label>
+                                <input type="text" class="form-control" id="renter" placeholder="">
                             </div>
 
-                           
-                                <div class="panel-footer">
-                                    <a href="#" class="btn btn-info" role="button">اضافة</a>
-                                </div>
+                            <div class="form-group">
+                                <label for="property">العقار</label>
+                                <input type="text" class="form-control" id="property" placeholder="">
+                            </div>
+
+                             <div class="form-group">
+                                <label for="number_of_payments">عدد الدفعات</label>
+                                <input type="text" class="form-control" id="number_of_payments" placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="property unit">وحدة العقار</label>
+                                <input type="text" class="form-control" id="property unit" placeholder="">
                             </div>
 
                         </div>
-                      
-
-                        
-
-                        
-                        
-
-                        
-                        
-                        
-
-
-                        
-                        
+                        <div class='raw'>
+                            <div class='col-md-12'><button class='btn btn-ud'>ارسال</button></div>
+                        </div>
                        
                     </div>
+
                 </div>
             </div>
         </div>
@@ -91,7 +90,10 @@
         </div>
     </div>
 
+
  
-    @include('ar.ar_footer')
+    <footer id="footer">
+       @include('ar.ar_footer')
+    </footer>
 </body>
-</html>
+@endsection
