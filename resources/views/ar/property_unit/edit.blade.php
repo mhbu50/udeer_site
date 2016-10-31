@@ -21,6 +21,8 @@
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="propriety_uni_form.html" class="page-content">
+                      <form method='post' action="{!!action('Property_unitController@edit',['name' => $property_unit->name ])!!}" enctype="multipart/form-data">
+                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                         <div class="form-column col-sm-6">
 
                             <div class="raw">
@@ -29,96 +31,96 @@
 
 
 
+
+
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Property name</label>
-                                <input type="text" class="form-control" id="property_name" placeholder="">
+                                <label for="unit_number">رقم الوحدة</label>
+                                <input type="text" class="form-control" id="unit_number" placeholder="" name='unit_number'  value='{{ isset($property_unit->unit_number) ? $property_unit->unit_number : ""}}' >
                             </div>
-                            
+
                             <div class="form-group">
-                              <label for="disabledSelect">input select</label>
-                              <select id="disabledSelect" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
+                              <label for="unit_type">نوع الوحدة</label>
+                              <select id="unit_type" class="form-control" name='unit_type' value='{{ isset($property_unit->unit_type) ? $property_unit->unit_type : ""}}'>
+                                <option value='apartment'>شقة</option>value
+                                <option value='room'>غرفة</option>
+                                <option value='villa'>فيلا </option>
+                                <option value='house'>بيت</option>
+                              </select>
+                            </div>
+
+
+
+
+
+
+                            <div class="form-group">
+                                <label for="annual_rent_amount">شعر تاجير السنوي</label>
+                                <input type="text" class="form-control" id="annual_rent_amount" placeholder="" name='annual_rent_amount' value='{{ isset($property_unit->annual_rent_amount) ? $property_unit->annual_rent_amount : ""}}'>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="insurance_amount">مبلغ التامين</label>
+                                <input type="text" class="form-control" id="insurance_amount" placeholder="" name='insurance_amount' value='{{ isset($property_unit->insurance_amount) ? $property_unit->insurance_amount : ""}}'>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="commission_type">العمولة</label>
+                              <select id="commission_type" class="form-control" name='commission_type' value='{{ isset($property_unit->commission_type) ? $property_unit->commission_type : ""}}'>
+                                <option value='percentage'>مئوية</option>
+                                <option value='cash'>كاش</option>
                               </select>
                             </div>
 
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">unit number</label>
-                                <input type="text" class="form-control" id="unit_number" placeholder="">
+                                <label for="commission_amount">قيمة العمولة</label>
+                                <input type="text" class="form-control" id="commission_amount" placeholder="" name='commission_amount' value='{{ isset($property_unit->commission_amount) ? $property_unit->commission_amount : ""}}'>
                             </div>
 
                             <div class="form-group">
-                              <label for="unit_type">unit type</label>
-                              <select id="unit_type" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
+                              <label for="unit_description">وصف الوحدة</label>
+                              <select id="commission_type" class="form-control" name='unit_description' value='{{ isset($property_unit->property_unit) ? $property_unit->property_unit : ""}}'>
+                                <option value='For families'>للعوائل</option>
+                                <option value='For singles'>للعزاب</option>
+                                <option value='For both'>عوائل و عزاب</option>
+                                <option value='Commercial'>تجاري</option>
                               </select>
                             </div>
 
 
+
                             <div class="form-group">
-                                <label for="exampleInputEmail1">annual rent amount</label>
-                                <input type="text" class="form-control" id="annual_rent_amount" placeholder="">
+                                <label for="unit_space">المساحة</label>
+                                <input type="text" class="form-control" id="unit_space" placeholder="" name='unit_space' value='{{ isset($property_unit->unit_space) ? $property_unit->unit_space : ""}}'>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">insurance amount</label>
-                                <input type="text" class="form-control" id="insurance_amount" placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                              <label for="commission_type">commission type</label>
-                              <select id="commission_type" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
+                              <label for="finishing_status">نوع التجهيز</label>
+                              <select id="finishing_status" class="form-control" name='finishing_status' value='{{ isset($property_unit->finishing_status) ? $property_unit->finishing_status : ""}}'>
+                                <option value='Standard'>عادي</option>
+                                <option value='Air conditioned'>مكيف</option>
+                                <option value='Furnished and air conditioned'>موثث و مكيف</option>
                               </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">commission amount</label>
-                                <input type="text" class="form-control" id="commission_amount" placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                              <label for="unit_description">unit description</label>
-                              <select id="commission_type" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
+                              <label for="room_slot">الغرفة\الفتحات</label>
+                              <select id="room_slot" class="form-control" name='room_slot' value='{{ isset($property_unit->room_slot) ? $property_unit->room_slot : ""}}'>
+                                 <option>1</option>
+                                <option>2</option>
                               </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">unit_space</label>
-                                <input type="text" class="form-control" id="unit_space" placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                              <label for="finishing_status">finishing status</label>
-                              <select id="finishing_status" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
-                              </select>
-                            </div>
-
-                            <div class="form-group">
-                              <label for="room_slot">room slot</label>
-                              <select id="room_slot" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
-                              </select>
-                            </div>
-
-                            <div class="form-group">
-                              <label for="number_of_bathrooms">number of bathrooms</label>
-                              <select id="number_of_bathrooms" class="form-control">
-                                <option>a</option>
-                                <option>b</option>
+                              <label for="number_of_bathrooms">دورات مياه</label>
+                              <select id="number_of_bathrooms" class="form-control" name='number_of_bathrooms' value='{{ isset($property_unit->number_of_bathrooms) ? $property_unit->number_of_bathrooms : ""}}'>
+                                <option>1</option>
+                                <option>2</option>
                               </select>
 
                               <div class="form-group">
-                                  <label for="unit_activity">unit activity</label>
-                                  <input type="text" class="form-control" id="unit_activity" placeholder="">
+                                  <label for="unit_activity">نشاط الوحدة</label>
+                                  <input type="text" class="form-control" id="unit_activity" placeholder="" name='unit_activity' value='{{ isset($property_unit->unit_activity) ? $property_unit->unit_activity : ""}}'>
                               </div>
                             </div>
 
@@ -132,17 +134,17 @@
                                   <h2>title2<h2>
                             </div>
                             <div class="form-group">
-                                <label for="water_meter_number">water meter number</label>
-                                <input type="text" class="form-control" id="water_meter_number" placeholder="">
+                                <label for="water_meter_number">رقم عداد المياه</label>
+                                <input type="text" class="form-control" id="water_meter_number" placeholder="" name='water_meter_number' value='{{ isset($property_unit->water_meter_number) ? $property_unit->water_meter_number : ""}}'>
                             </div>
 
                             <div class="form-group">
-                                <label for="electricity_meter_number">electricity meter number</label>
-                                <input type="text" class="form-control" id="electricity_meter_number" placeholder="">
+                                <label for="electricity_meter_number">رقم عداد الكهرباء</label>
+                                <input type="text" class="form-control" id="electricity_meter_number" placeholder="" name='electricity_meter_number' value='{{ isset($property_unit->electricity_meter_number) ? $property_unit->electricity_meter_number : ""}}'>
                             </div>
                             <div class="form-group">
-                                <label for="property">property</label>
-                                <input type="text" class="form-control" id="property" placeholder="">
+                                <label for="property">العقار</label>
+                                <input type="text" class="form-control" id="property" placeholder="" name='property' value='{{ isset($property_unit->property) ? $property_unit->property : ""}}'>
                             </div>
                             
                             
@@ -243,21 +245,9 @@
                                 </div>
                             </div>
                         </div>
-                      
+                        <input type='submit' class='btn btn-default'value='ارسال '/>
+                      </form>
 
-                        
-
-                        
-                        
-
-                        
-                        
-                        
-
-
-                        
-                        
-                       
                     </div>
                 </div>
             </div>

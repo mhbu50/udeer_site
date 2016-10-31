@@ -19,14 +19,48 @@ Route::get('/user/register', function () {
     return view('ar.ar_register');
 });
 
-Route::get('/property/create', function () {
-    return view('ar.ar_propriety_form');
-});
-Route::get('/property_unit/create', function () {
-    return view('ar.ar_propriety_unit_form');
-});
-Route::get('/property_unit_activity/create', function () {
-    return view('ar.ar_property_unit_activity_form');
+Route::post('/login', 'UdeerController@login');
+
+
+// prperty routes
+Route::get('/property/create', 'PropertyController@create');
+Route::post('/property/create','PropertyController@store');
+
+Route::get('/property/{name?}/edit','PropertyController@edit');
+Route::post('/property/{name?}/edit','PropertyController@update');
+
+Route::get('/property/index','PropertyController@index');
+
+Route::post('/property/{name?}/delete','PropertyController@delete');
+
+
+// prperty unit routes
+Route::get('/property_unit/create', 'Property_unitController@create');
+Route::post('/property_unit/create','Property_unitController@store');
+
+Route::get('/property_unit/{name?}/edit','Property_unitController@edit');
+Route::post('/property_unit/{name?}/edit','Property_unitController@update');
+
+Route::get('/property_unit/index','Property_unitController@index');
+
+Route::post('/property_unit/{name?}/delete','Property_unitController@delete');
+
+
+// prperty unit activity routes
+Route::get('/property_unit_activity/create', 'Property_unit_activityController@create');
+Route::post('/property_unit_activity/create','Property_unit_activityController@store');
+
+Route::get('/property_unit_activity/{name?}/edit','Property_unit_activityController@edit');
+Route::post('/property_unit_activity/{name?}/edit','Property_unit_activityController@update');
+
+Route::get('/property_unit_activity/index','Property_unit_activityController@index');
+
+Route::post('/property_unit_activity/{name?}/delete','Property_unit_activityController@delete');
+
+
+
+Route::get('/test', function () {
+    return view('test');
 });
 
 Route::get('/lease/create', function () {
@@ -37,7 +71,6 @@ Route::get('/lease/create', function () {
 Route::get('/dashboard', function () {
     return view('ar.ar_dashboard');
 });
-
 Route::get('/control', function () {
     
 	define("COOKIE_FILE", "cookie.txt");
@@ -48,6 +81,7 @@ Route::get('/control', function () {
 	curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE);
 	curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_PORT, 8000);
 	// curl_setopt($ch, CURLOPT_HEADER, true);
 	$result=curl_exec($ch);
 	if($result === false){
@@ -66,5 +100,5 @@ Route::get('/control', function () {
 
 });
 
-Route::post('/login', 'UdeerController@login');
+
 

@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Validator;
+
+// use app\Frappe;
+
 class UdeerController extends Controller
 {
    
@@ -18,20 +22,19 @@ class UdeerController extends Controller
    
     public function login(Request $request)
     {
-        $ch = curl_init( "http://52.8.230.142/api/method/login" );
-        $email = $request->get('email');
-        $password = $request->get('password');
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, array(
-        'usr' => $email,
-        'pwd' => $password ) );
+        $usr=$request->get('email');
+        $pwd=$request->get('password');
+        $result = frappe_login($usr,$pwd);
+        return $result;
+    }   
+    
 
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $ch, CURLOPT_PORT, '80' );
 
-        $result = curl_exec($ch);
-        curl_close($ch);
-        // json_decode($json)
-        echo $result;
-     }
+
+
+
+        
+       
+     
     
 }

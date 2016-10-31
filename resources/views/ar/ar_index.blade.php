@@ -5,20 +5,25 @@
     <script>
     $( document ).ready(function() {
       $("#login").click(function(){
-        console.log("befor");
           $.ajax({
          url: "{{ url('/login') }}",
          data: $("#login-form").serialize(),
          type: "POST",
         beforeSend: function(request){request.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'))
                                      }
-        ,success: function(msg) { 
-            console.log(msg);
-            console.log("after");
+        ,success: function(msg) {
+            $(".modal .alert").remove(); 
+            if(msg =='success'){
+                window.location.href = "dashboard";
+            }else{
+                $('.modal-body').append('<div class="alert alert-danger alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>  كلمة المرور غير صحيحة </div>');
+            }
+            // console.log(JSON.parse(msg));
           }
       });
       });
     });
+
     </script>
 @endsection
 
@@ -217,9 +222,10 @@
            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-ud" data-dismiss="modal" id="login">تسجيل دخول</button>
+            <button type="button" class="btn btn-ud"  id="login">تسجيل دخول</button>
             <a class="btn btn-primary" href="/user/register">حساب جديد</a>
           </div>
+
 
         </div>
       </div>
