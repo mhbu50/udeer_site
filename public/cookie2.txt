@@ -6,4 +6,4 @@ localhost	FALSE	/	FALSE	0	user_image
 localhost	FALSE	/	FALSE	0	user_id	Administrator
 localhost	FALSE	/	FALSE	0	system_user	yes
 localhost	FALSE	/	FALSE	0	full_name	Administrator
-localhost	FALSE	/	FALSE	1478185058	sid	731915d93c0b5627449a8f3a735e34eaa15641304de56412e0b72808
+localhost	FALSE	/	FALSE	1478952379	sid	a5e656c72cb2f81c3a2c38c9b7767d1f2b612b4a1200789ff797fcf5

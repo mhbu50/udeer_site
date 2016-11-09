@@ -40,6 +40,7 @@ use Exception;
                         $result = curl_exec($ch);
                         json_encode($result);
                         return $result;
+
                         
                 } catch (Exception $e) {
                         return 'eror';
@@ -78,6 +79,17 @@ use Exception;
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                $result = curl_exec($ch);
+                return $result;
+        }
+
+        function frappe_register($data){
+                
+                $ch = curl_init('http://localhost:8002/api/method/frappe.www.login.custom_re'); 
+                curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+                curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($data)));
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
                 $result = curl_exec($ch);
                 return $result;
         }

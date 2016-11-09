@@ -57,15 +57,112 @@ Route::get('/property_unit_activity/index','Property_unit_activityController@ind
 
 Route::post('/property_unit_activity/{name?}/delete','Property_unit_activityController@delete');
 
+// lease routes
+Route::get('/lease/create', 'LeaseController@create');
+Route::post('/lease/create','LeaseController@store');
+
+Route::get('/lease/{name?}/edit','LeaseController@edit');
+Route::post('/lease/{name?}/edit','LeaseController@update');
+
+Route::get('/lease/index','LeaseController@index');
+
+Route::post('/lease/{name?}/delete','LeaseController@delete');
+
+// lease rent payment routes
+Route::get('/lease_rent_payment/create', 'Lease_rent_paymentController@create');
+Route::post('/lease_rent_payment/create','Lease_rent_paymentController@store');
+
+Route::get('/lease_rent_payment/{name?}/edit','Lease_rent_paymentController@edit');
+Route::post('/lease_rent_payment/{name?}/edit','Lease_rent_paymentController@update');
+
+Route::get('/lease_rent_payment/index','Lease_rent_paymentController@index');
+
+Route::post('/lease_rent_payment/{name?}/delete','Lease_rent_paymentController@delete');
+
+// lease expence routes
+Route::get('/lease_expense/create', 'Lease_expensesController@create');
+Route::post('/lease_expense/create','Lease_expensesController@store');
+
+Route::get('/lease_expense/{name?}/edit','Lease_expensesController@edit');
+Route::post('/lease_expense/{name?}/edit','Lease_expensesController@update');
+
+Route::get('/lease_expense/index','Lease_expensesController@index');
+
+Route::post('/lease_expense/{name?}/delete','Lease_expensesController@delete');
+
+// complain routes
+Route::get('/complain/create', 'ComplainController@create');
+Route::post('/complain/create','ComplainController@store');
+
+Route::get('/complain/{name?}/edit','ComplainController@edit');
+Route::post('/complain/{name?}/edit','ComplainController@update');
+
+Route::get('/complain/index','ComplainController@index');
+
+Route::post('/complain/{name?}/delete','ComplainController@delete');
+
+// lease_re routes
+Route::get('/lease_receipt/create', 'Lease_receiptController@create');
+Route::post('/lease_receipt/create','Lease_receiptController@store');
+
+Route::get('/lease_receipt/{name?}/edit','Lease_receiptController@edit');
+Route::post('/lease_receipt/{name?}/edit','Lease_receiptController@update');
+
+Route::get('/lease_receipt/index','Lease_receiptController@index');
+
+Route::post('/lease_receipt/{name?}/delete','Lease_receiptController@delete');
 
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/user/register', 'UserController@create_user');
+Route::post('/user/register', 'UserController@store_user');
 
-Route::get('/lease/create', function () {
-    return view('ar.ar_lease_form');
-});
+// renter routes
+Route::get('/renter/create', 'Lease_receiptController@create');
+Route::post('/renter/create','Lease_receiptController@store');
+
+Route::get('/renter/{name?}/edit','Lease_receiptController@edit');
+Route::post('/renter/{name?}/edit','Lease_receiptController@update');
+
+Route::get('/renter/index','Lease_receiptController@index');
+
+Route::post('/renter/{name?}/delete','Lease_receiptController@delete');
+
+
+Route::get('/user/register', 'UserController@create_user');
+Route::post('/user/register', 'UserController@store_user');
+
+// renter routes
+Route::get('/renter/create', 'Lease_receiptController@create');
+Route::post('/renter/create','Lease_receiptController@store');
+
+Route::get('/renter/{name?}/edit','Lease_receiptController@edit');
+Route::post('/renter/{name?}/edit','Lease_receiptController@update');
+
+Route::get('/renter/index','Lease_receiptController@index');
+
+Route::post('/renter/{name?}/delete','Lease_receiptController@delete');
+
+
+Route::get('/user/register', 'UserController@create_user');
+Route::post('/user/register', 'UserController@store_user');
+
+// renter routes
+Route::get('/reciver/create', 'Lease_receiptController@create');
+Route::post('/reciver/create','Lease_receiptController@store');
+
+Route::get('/reciver/{name?}/edit','Lease_receiptController@edit');
+Route::post('/reciver/{name?}/edit','Lease_receiptController@update');
+
+Route::get('/reciver/index','Lease_receiptController@index');
+
+Route::post('/reciver/{name?}/delete','Lease_receiptController@delete');
+
+
+Route::get('/user/register', 'UserController@create_user');
+Route::post('/user/register', 'UserController@store_user');
+
+
+
 
 
 Route::get('/dashboard', function () {

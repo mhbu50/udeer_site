@@ -23,26 +23,28 @@
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>اسم العقار</th>  
-                                        <th>صاحب العقار</th> 
+                                        <th>الموضوع</th>  
+                                        <th>عنوان</th> 
+                                        <th>الحالة</th>
                                         <th></th> 
-                                        <th></th>
                                     </tr> 
                                 </thead> 
                                 <tbody> 
                                     <tr>
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('PropertyController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->property_name}}</td>
-                                        <td>{{$result[$i]->owner}}</td> 
-                                        <td><form action="{!!action('PropertyController@delete',['name'=>$result[$i]->name])!!}" method="post">
+                                        <th scope="row"><a href="{!!action('ComplainController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
+                                        <td>{{$result[$i]->about}}</td>
+                                        <td>{{$result[$i]->title}}</td> 
+                                        <td>{{$result[$i]->status}}</td> 
+                                        <td><form action="{!!action('ComplainController@delete',['name'=>$result[$i]->name])!!}" method="post">
                                                 <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                                                 <input type="submit" value="مسح" />
                                            </form>   
                                        </td>
-                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
                                     </tr>
-                                        @endfor                  
+
+                                        @endfor
+                                                               
 
                                     </tr> 
                                 </tbody> 
@@ -64,22 +66,5 @@
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $checkbox = $('.checky');
-            var chkArray = [];
-            $('.checky').change(function(){
-                var values = $('input:checkbox:checked').map(function () {
-                  return this.id;
-                }).get();
-                unique = values.filter(function(elem, index, self) {
-                    return index == self.indexOf(elem);
-                })
-                console.log(values);
-
-
-            });
-        });
-    </script>
 </body>
 @endsection
