@@ -12,14 +12,14 @@
                   <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-center c-menu-center">
                       
-                      <li class="c-menue-item"><a href="#"><img src="/image/home.png"><p>الصفحة الرئيسية</p></a></li>
-                      <li class="c-menue-item"><a href="#"><img src="/image/Office.png"><p>ادارة الاملاك العقارية</p></a></li>
+                      <li class="c-menue-item"><a href="{{url('/')}}"><img src="/image/home.png"><p>الصفحة الرئيسية</p></a></li>
+                      <li class="c-menue-item"><a href="{{action('PropertyController@index')}}"><img src="/image/Office.png"><p>ادارة الاملاك العقارية</p></a></li>
                       <li class="c-menue-item"><a href="#"><img src="/image/File.png"><p>التقارير</p></a></li>
                       <li class="c-menue-item"><a href="#"><img src="/image/Tag.png"><p>العروض و الصيانة</p></a></li>
                       <li class="c-menue-item"><a href="#"><img src="/image/setting.png"><p></p>الصيانة</a></li>
                       <li class="c-menue-item"><a href="#"><img src="/image/Bell.png"><p>الاشعارات</p></a></li>
                       <li class="c-menue-item"><a href="#"><img src="/image/tick.png"><p>التذاكر و المهام</p></a></li>
-                      <li class="c-menue-item"><a href="#"><img src="/image/search.png"><p>الشكاوي و التحقيق</p></a></li>
+                      <li class="c-menue-item"><a href="{{action('ComplainController@index')}}"><img src="/image/search.png"><p>الشكاوي و التحقيق</p></a></li>
                       
                       
                     </ul>

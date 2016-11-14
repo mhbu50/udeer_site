@@ -29,9 +29,11 @@ use Exception;
         }
 
         function frappe_get_data($doctype,$params){
-               
-                $url = 'http://localhost:8002/api/resource/'.$doctype.'/'.$params;
+                $doctype = str_replace(' ', '%20', $doctype);
+                $params = str_replace(' ', '%20', $params);
+                $url = 'http://localhost:8002/api/resource/'.$doctype.'/'.$params ;
                 $ch = curl_init($url);
+
                 curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -61,7 +63,8 @@ use Exception;
         }
 
         function frappe_update($doctype,$doctype_name,$params){
-                
+                $doctype = str_replace(' ', '%20', $doctype);
+                $doctype_name = str_replace(' ', '%20', $doctype_name);
                 $ch = curl_init('http://localhost:8002/api/resource/'.$doctype.'/'.$doctype_name); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 $arr = $params;
@@ -74,7 +77,8 @@ use Exception;
         }
 
         function frappe_delete($doctype,$doctype_name){
-                
+                $doctype = str_replace(' ', '%20', $doctype);
+                $doctype_name = str_replace(' ', '%20', $doctype_name);
                 $ch = curl_init('http://localhost:8002/api/resource/'.$doctype.'/'.$doctype_name); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );

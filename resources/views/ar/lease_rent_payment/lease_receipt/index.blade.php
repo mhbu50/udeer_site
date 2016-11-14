@@ -16,7 +16,6 @@
 
    <div class="container c-body-con">
         <div class="col-md-9">
-            
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
@@ -24,20 +23,20 @@
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>الموضوع</th>  
-                                        <th>عنوان</th> 
-                                        <th>الحالة</th>
+                                        <th>مقدار</th>  
+                                        <th>نوع السند</th> 
+                                        <th>العقد</th>
                                         <th></th> 
                                     </tr> 
                                 </thead> 
                                 <tbody> 
                                     <tr>
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('ComplainController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->about}}</td>
-                                        <td>{{$result[$i]->title}}</td> 
-                                        <td>{{$result[$i]->status}}</td> 
-                                        <td><form action="{!!action('ComplainController@delete',['name'=>$result[$i]->name])!!}" method="post">
+                                        <th scope="row"><a href="{!!action('Lease_receiptControllerController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
+                                        <td>{{$result[$i]->amount}}</td>
+                                        <td>{{$result[$i]->type}}</td> 
+                                        <td>{{$result[$i]->lease}}</td> 
+                                        <td><form action="{!!action('Lease_receiptControllerController@delete',['name'=>$result[$i]->name])!!}" method="post">
                                                 <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                                                 <input type="submit" value="مسح" />
                                            </form>   

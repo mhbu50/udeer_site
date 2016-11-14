@@ -2,12 +2,11 @@
 @section('lang','ar')
 @section('head')
     <link href="/css/bootstrap-rtl.css" rel="stylesheet">
+    
 @endsection
 
 @section('body')
     
-
-<body  >
 
     <section id="temp1">
         
@@ -55,7 +54,7 @@
                                   </div>
                                   <div>
                                     <div class='col-md-4'>
-                                      <select id="currency" class="form-control" name='currency' placeholder="العملة" >
+                                      <select id="rent_currency" class="form-control" name='rent_currency' placeholder="العملة" >
                                         <option >SAR</option>
                                         <option >USD</option>
                                       </select>
@@ -71,8 +70,8 @@
                             <div class="form-group">
                               <label for="commission_type">العمولة</label>
                               <select id="commission_type" class="form-control" name='commission_type'>
-                                <option value='percentage'></option>
-                                <option value='cash'></option>
+                                <option value='percentage'>نسبة</option>
+                                <option value='cash'>كاش</option>
                               </select>
                             </div>
                             <div class="form-group">
@@ -85,10 +84,11 @@
                             <div class="form-group">
                               <label for="unit_description">وصف الوحدة</label>
                               <select id="commission_type" class="form-control" name='unit_description'>
-                                <option value='for_families'>للعوائل</option>
-                                <option value='for_singles'>للعزاب</option>
-                                <option value='for_both'>عوائل و عزاب</option>
-                                <option value='commercial'>تجاري</option>
+                                <option value=''></option>
+                                <option value='For families'>للعوائل</option>
+                                <option value='For singles'>للعزاب</option>
+                                <option value='For both'>عوائل و عزاب</option>
+                                <option value='Commercial'>تجاري</option>
                               </select>
                             </div>
                             <div class="form-group">
@@ -98,10 +98,11 @@
 
                             <div class="form-group">
                               <label for="finishing_status">نوع التجهيز</label>
+                              <option value=''></option>
                               <select id="finishing_status" class="form-control" name='finishing_status'>
                                 <option value='Standard'>عادي</option>
-                                <option value='air_conditioned'>مكيف</option>
-                                <option value='furnished_and_air_conditioned'>موثث و مكيف</option>
+                                <option value='Air conditioned'>مكيف</option>
+                                <option value='Furnished and air conditioned'>موثث و مكيف</option>
                               </select>
                             </div>
                           </div>
@@ -111,6 +112,7 @@
                             <div class="form-group">
                               <label for="room_slot">الغرفة\الفتحات</label>
                               <select id="room_slot" class="form-control" name='room_slot'>
+                                 <option> </option>
                                  <option>1</option>
                                 <option>2</option>
                               </select>
@@ -139,33 +141,6 @@
                             </div>
 
                           </div>
-
-
-
-
-
-
-                            
-
-                           
-
-                           
-
-
-                            
-
-                            
-
-
-
-                            
-
-
-                            
-
-                            
-
-                        
                         
                         <input type='submit' class='btn btn-default'value='ارسال '/>
                       </form>
@@ -180,8 +155,19 @@
             </div>
         </div>
     </div>
-
  
     @include('ar.ar_footer')
-</body>
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+          $('#property').typeahead({
+              source: [
+                @foreach( $properties as $property)
+                  {  name: '{{$property->name}}' },
+                @endforeach 
+                  
+              ]
+          });
+      });
+    </script>
 @endsection

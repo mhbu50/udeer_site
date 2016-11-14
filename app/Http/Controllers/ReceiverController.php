@@ -9,19 +9,17 @@ use App\Http\Controllers\Controller;
 
 use Validator;
 
-class Property_unitController extends Controller
+class ReceiverController extends Controller
 {
-   public function create()
+    public function create()
     {
-        $properties = frappe_get_data('property','');
-        $properties = json_decode($properties)->data;
-        return view('ar.property_unit.create',compact('properties'));
+        return view('ar.receiver.create');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'property' => 'required',
+               
                 
             ]);
 
@@ -32,20 +30,19 @@ class Property_unitController extends Controller
                 
         }
         $data = $request->all();
+        $data["gender"] = "Male" ;
         unset($data["_token"]);
-        $result = frappe_insert('property%20unit',$data);
-        return redirect('property/index');
+        $result = frappe_insert('Employee',$data);
+        return redirect('receiver/index');
     }
 
 
     public function edit($name)
     {
-        $properties = frappe_get_data('property','');
-        $properties = json_decode($properties)->data;
-
-        $resultObj = frappe_get_data('property%20unit',$name);
-        $property_unit = json_decode($resultObj)->data;
-        return view('ar.property_unit.edit',compact('property_unit','properties'));
+        $name = str_replace('*', '%2F', $name);
+        $resultObj = frappe_get_data('Employee',$name);
+        $reciever = json_decode($resultObj)->data;
+        return view('ar.receiver.edit',compact('reciever'));
 
     }
 
@@ -60,27 +57,29 @@ class Property_unitController extends Controller
                         ->withInput();
                 
         }
+        $name = str_replace('*', '%2F', $name);
         $data = $request->all();
         unset($data["_token"]);
         
-        $result = frappe_update('property%20unit',$name,$data);
+        $result = frappe_update('Employee',$name,$data);
+        
         return redirect()->back();
     }
 
     public function index()
     {
 
-       $resultObj = frappe_get_data('property%20unit','?fields=["name","property","unit_number"]');
+       $resultObj = frappe_get_data('Employee','?fields=["name","employee_name","company","date_of_joining","date_of_birth"]');
        $result = json_decode($resultObj)->data;
        
-       return view('ar.property_unit.index',compact('result'));
+       return view('ar.receiver.index',compact('result'));
 
     }
 
     public function delete($name)
     {
 
-        $resultObj = frappe_delete('property%20unit',$name);
-        return redirect('property_unit/index');
+        $resultObj = frappe_delete('Employee',$name);
+        return redirect('receiver/index');
     }
 }

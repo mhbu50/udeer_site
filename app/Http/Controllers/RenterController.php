@@ -7,81 +7,78 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Validator;
+
 class RenterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('ar.renter.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+               
+                
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        $data["customer_group"] = "Commercial";
+        $result = frappe_insert('Customer',$data);
+       return redirect('renter/index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function edit($name)
     {
-        //
+       
+        $resultObj = frappe_get_data('Customer',$name);
+        $renter = json_decode($resultObj)->data;
+        return view('ar.renter.edit',compact('renter'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(Request $request,$name)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        
+        $result = frappe_update('Customer',$name,$data);
+        
+        return redirect()->back();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function index()
     {
-        //
+
+       $resultObj = frappe_get_data('Customer','?fields=["name","customer_name","email"]');
+       $result = json_decode($resultObj)->data;
+       
+       return view('ar.renter.index',compact('result'));
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete($name)
     {
-        //
+
+        $resultObj = frappe_delete('Customer',$name);
+        return redirect('renter/index');
     }
 }

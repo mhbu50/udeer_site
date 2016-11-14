@@ -16,28 +16,36 @@
 
    <div class="container c-body-con">
         <div class="col-md-9">
-            
             <div class="raw">
+                <div class="raw">
+                    <div class="col-md-2">
+                        <button class="btn btn-default" value='ss'>جديد</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-default"value='ssaa'>مسح</button>
+                    </div>
+                </div>
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>الموضوع</th>  
-                                        <th>عنوان</th> 
-                                        <th>الحالة</th>
+                                        <th>اسم الموظف</th>  
+                                        <th>تاريخ الالتحاق</th> 
+                                        <th>تاريخ الولادة</th> 
                                         <th></th> 
                                     </tr> 
                                 </thead> 
                                 <tbody> 
                                     <tr>
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('ComplainController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->about}}</td>
-                                        <td>{{$result[$i]->title}}</td> 
-                                        <td>{{$result[$i]->status}}</td> 
-                                        <td><form action="{!!action('ComplainController@delete',['name'=>$result[$i]->name])!!}" method="post">
+                                     <?php $doctype = str_replace('/', '*', $result[$i]->name) ?>
+                                        <th scope="row"><a href="{!!action('ReceiverController@edit',['name' => $doctype])!!}">{{ $result[$i]->name  }}</a></th>
+                                        <td>{{$result[$i]->employee_name}}</td>
+                                        <td>{{$result[$i]->date_of_joining}}</td>
+                                        <td>{{$result[$i]->date_of_birth}}</td> 
+                                        <td><form action="{!!action('RenterController@delete',['name'=>$result[$i]->name])!!}" method="post">
                                                 <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                                                 <input type="submit" value="مسح" />
                                            </form>   

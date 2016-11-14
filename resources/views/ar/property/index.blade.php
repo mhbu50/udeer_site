@@ -54,7 +54,19 @@
         </div>
         <div class="col-md-3">
             <div id="side_menu" >
-                @include('ar.ar_side')
+                {!! $data['property_management']['label'] = 'ادارة املاك العقارية';
+
+                    $data['property_management']['property']['url'] = action("PropertyController@index");
+                    $data['property_management']['property']['label'] = 'العرقارات';
+
+                    $data['property_management']['property_unit']['url'] = action("Property_unitController@index");
+                    $data['property_management']['property_unit']['label'] = 'وحدات العقارات';
+
+                    $data['property_management']['property_unit_activity']['url'] = action("Property_unit_activityController@index");
+                    $data['property_management']['property_unit_activity']['label'] = 'نشاط الوحدات';
+                    
+                 !!}
+                @include('ar.ar_side',['data' => $data])
             </div>
         </div>
     </div>

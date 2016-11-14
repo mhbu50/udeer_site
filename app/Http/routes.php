@@ -117,49 +117,28 @@ Route::get('/user/register', 'UserController@create_user');
 Route::post('/user/register', 'UserController@store_user');
 
 // renter routes
-Route::get('/renter/create', 'Lease_receiptController@create');
-Route::post('/renter/create','Lease_receiptController@store');
+Route::get('/renter/create', 'RenterController@create');
+Route::post('/renter/create','RenterController@store');
 
-Route::get('/renter/{name?}/edit','Lease_receiptController@edit');
-Route::post('/renter/{name?}/edit','Lease_receiptController@update');
+Route::get('/renter/{name?}/edit','RenterController@edit');
+Route::post('/renter/{name?}/edit','RenterController@update');
 
-Route::get('/renter/index','Lease_receiptController@index');
+Route::get('/renter/index','RenterController@index');
 
-Route::post('/renter/{name?}/delete','Lease_receiptController@delete');
+Route::post('/renter/{name?}/delete','RenterController@delete');
 
-
-Route::get('/user/register', 'UserController@create_user');
-Route::post('/user/register', 'UserController@store_user');
 
 // renter routes
-Route::get('/renter/create', 'Lease_receiptController@create');
-Route::post('/renter/create','Lease_receiptController@store');
+Route::get('/receiver/create', 'ReceiverController@create');
+Route::post('/receiver/create','ReceiverController@store');
 
-Route::get('/renter/{name?}/edit','Lease_receiptController@edit');
-Route::post('/renter/{name?}/edit','Lease_receiptController@update');
+Route::get('/receiver/{name?}/edit','ReceiverController@edit');
+Route::post('/receiver/{name?}/edit','ReceiverController@update');
 
-Route::get('/renter/index','Lease_receiptController@index');
+Route::get('/receiver/index','ReceiverController@index');
 
-Route::post('/renter/{name?}/delete','Lease_receiptController@delete');
+Route::post('/receiver/{name?}/delete','ReceiverController@delete');
 
-
-Route::get('/user/register', 'UserController@create_user');
-Route::post('/user/register', 'UserController@store_user');
-
-// renter routes
-Route::get('/reciver/create', 'Lease_receiptController@create');
-Route::post('/reciver/create','Lease_receiptController@store');
-
-Route::get('/reciver/{name?}/edit','Lease_receiptController@edit');
-Route::post('/reciver/{name?}/edit','Lease_receiptController@update');
-
-Route::get('/reciver/index','Lease_receiptController@index');
-
-Route::post('/reciver/{name?}/delete','Lease_receiptController@delete');
-
-
-Route::get('/user/register', 'UserController@create_user');
-Route::post('/user/register', 'UserController@store_user');
 
 
 
