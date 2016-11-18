@@ -57,7 +57,7 @@
         </div>
         <div class="col-md-3">
             <div id="side_menu" >
-                @include('ar.ar_side')
+                
             </div>
         </div>
     </div>

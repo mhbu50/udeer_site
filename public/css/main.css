@@ -653,3 +653,7 @@ tbody {
   width: 100%;
   height: 300px;
 }
+
+#side_menu a{
+  color: #FFF !important;
+}

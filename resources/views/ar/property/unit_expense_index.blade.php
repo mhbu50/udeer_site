@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body>
 
     <section id="temp1">
         
@@ -18,44 +18,43 @@
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-2">
-                    
-                    <a class="btn btn-default" href="{{action('Lease_receiptController@create')}}">اضافة</a>
+                   
+                    <a class="btn btn-default" href="{{action('Unit_expensesController@create')}}">اضافة</a>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-danger"value='ssaa'>مسح</button>
+                    <button class="btn btn-danger"value=''>مسح</button>
                 </div>
             </div>
-
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
+                     @include('ar.tabs.property')
                     <div id="" class="page-content">
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>مقدار</th>  
-                                        <th>نوع السند</th> 
-                                        <th>العقد</th>
-                                        <th></th> 
-                                        <th></th> 
+                                        <th>تاريخ</th>  
+                                        <th>مقدار</th> 
+                                        <th>العميل</th> 
+                                        <th>الوحدة</th> 
+                                        <th></th>
                                     </tr> 
                                 </thead> 
                                 <tbody> 
-                                    <tr>
+                                    
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('Lease_receiptControllerController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->amount}}</td>
-                                        <td>{{$result[$i]->type}}</td> 
-                                        <td>{{$result[$i]->lease}}</td> 
-                                        <td><form action="{!!action('Lease_receiptControllerController@delete',['name'=>$result[$i]->name])!!}" method="post">
-                                                <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                                                <input type="submit" value="مسح" />
-                                           </form>   
-                                       </td>
-                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
-                                    </tr>
-
+                                        @for ($e = 0; $e < count($result[$i]); $e++)
+                                            <tr>
+                                            <th scope="row"><a href="{!!action('Unit_expensesController@edit',['name'=>$result[$i][$e]->name])!!}">{{ $result[$i][$e]->name  }}</a></th>
+                                            <td>{{$result[$i][$e]->date}}</td> 
+                                            <td>{{$result[$i][$e]->amount}}</td>
+                                            <td>{{$result[$i][$e]->customer}}</td>
+                                            <td>{{$result[$i][$e]->unit}}</td>
+                                            <td><input type='checkbox' class='checky' id="{!!$result[$i][$e]->name!!}"></td>
+                                            </tr>
                                         @endfor
+                                    @endfor
+                                    
                                                                
 
                                     </tr> 
@@ -74,9 +73,16 @@
     </div>
 
 
+
  
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
+    <script type="text/javascript">
+        $(".nav-tabs #expenses").addClass('active')
+    </script>
+    
+
 </body>
+
 @endsection

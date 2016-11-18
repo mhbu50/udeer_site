@@ -25,7 +25,7 @@
                                 </div>
                                 
                             </div>
-                        <form method='post' action="{!!action('Lease_expensesController@create')!!}" enctype="multipart/form-data">
+                        <form method='post' action="{!!action('Unit_expensesController@create')!!}" enctype="multipart/form-data">
                             <input type='hidden' name='_token' value="{!! csrf_token() !!}">   
                             <div class="form-column col-sm-12">
                                

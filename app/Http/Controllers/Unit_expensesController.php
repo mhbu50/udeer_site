@@ -9,17 +9,16 @@ use App\Http\Controllers\Controller;
 
 use Validator;
 
-class Lease_expensesController extends Controller
+class Unit_expensesController extends Controller
 {
     public function create()
     {
-        return view('ar.lease_expenses.create');
+        return view('ar.unit_expenses.create');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'lease' => 'required',
                 'unit' => 'required',
                 'amount' => 'required',
             ]);
@@ -32,17 +31,17 @@ class Lease_expensesController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('Lease%20expenses',$data);
-       return redirect('Lease_expense/index');
+        $result = frappe_insert('unit%20expenses',$data);
+       return redirect('unit_expense/index');
     }
 
 
     public function edit($name)
     {
        
-        $resultObj = frappe_get_data('Lease%20expenses',$name);
-        $lease_expense = json_decode($resultObj)->data;
-        return view('ar.lease_expenses.edit',compact('lease_expense'));
+        $resultObj = frappe_get_data('unit%20expenses',$name);
+        $unit_expense = json_decode($resultObj)->data;
+        return view('ar.unit_expenses.edit',compact('unit_expense'));
 
     }
 
@@ -60,24 +59,25 @@ class Lease_expensesController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         
-        $result = frappe_update('Lease%20expenses',$name,$data);
+        $result = frappe_update('unit%20expenses',$name,$data);
         return redirect()->back();
     }
 
     public function index()
     {
 
-       $resultObj = frappe_get_data('Lease%20expenses','?fields=["name","lease","unit","amount","date"]');
+       $resultObj = frappe_get_data('unit%20expenses','?fields=["name","unit","lease","unit","amount","date"]');
+       
        $result = json_decode($resultObj)->data;
        
-       return view('ar.lease_expenses.index',compact('result'));
+       return view('ar.unit_expenses.index',compact('result'));
 
     }
 
     public function delete($name)
     {
 
-        $resultObj = frappe_delete('Lease%20expenses',$name);
-        return redirect('Lease_expense/index');
+        $resultObj = frappe_delete('unit%20expenses',$name);
+        return redirect('unit_expense/index');
     }
 }

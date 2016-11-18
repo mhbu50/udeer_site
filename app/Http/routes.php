@@ -26,24 +26,40 @@ Route::post('/login', 'UdeerController@login');
 Route::get('/property/create', 'PropertyController@create');
 Route::post('/property/create','PropertyController@store');
 
-Route::get('/property/{name?}/edit','PropertyController@edit');
-Route::post('/property/{name?}/edit','PropertyController@update');
+Route::get('/property/{property_name?}/show','PropertyController@show');
+
+Route::get('/property/{property_name?}/leases','PropertyController@lease_index');
+
+Route::get('/property/{property_name?}/unit_expense','PropertyController@unit_expense_index');
+
+Route::get('/property/{property_name?}/units','PropertyController@unit_index');
+
+Route::get('/property/{property_name?}/edit','PropertyController@edit');
+Route::post('/property/{property_name?}/edit','PropertyController@update');
 
 Route::get('/property/index','PropertyController@index');
 
-Route::post('/property/{name?}/delete','PropertyController@delete');
+Route::post('/property/{property_name?}/delete','PropertyController@delete');
+
+Route::post('/property/delete','PropertyController@delete_array');
 
 
 // prperty unit routes
 Route::get('/property_unit/create', 'Property_unitController@create');
 Route::post('/property_unit/create','Property_unitController@store');
 
-Route::get('/property_unit/{name?}/edit','Property_unitController@edit');
-Route::post('/property_unit/{name?}/edit','Property_unitController@update');
+Route::get('/property_unit/{unit_name?}/edit','Property_unitController@edit');
+Route::post('/property_unit/{unit_name?}/edit','Property_unitController@update');
+
+Route::get('/property_unit/{unit_name?}/show','Property_unitController@show');
 
 Route::get('/property_unit/index','Property_unitController@index');
 
-Route::post('/property_unit/{name?}/delete','Property_unitController@delete');
+Route::get('/property_unit/{unit_name?}/rents','Property_unitController@rent_index');
+
+Route::get('/property_unit/{unit_name?}/leases','Property_unitController@lease_index');
+
+Route::post('/property_unit/{unit_name?}/delete','Property_unitController@delete');
 
 
 // prperty unit activity routes
@@ -80,15 +96,15 @@ Route::get('/lease_rent_payment/index','Lease_rent_paymentController@index');
 Route::post('/lease_rent_payment/{name?}/delete','Lease_rent_paymentController@delete');
 
 // lease expence routes
-Route::get('/lease_expense/create', 'Lease_expensesController@create');
-Route::post('/lease_expense/create','Lease_expensesController@store');
+Route::get('/unit_expense/create', 'Unit_expensesController@create');
+Route::post('/unit_expense/create','Unit_expensesController@store');
 
-Route::get('/lease_expense/{name?}/edit','Lease_expensesController@edit');
-Route::post('/lease_expense/{name?}/edit','Lease_expensesController@update');
+Route::get('/unit_expense/{name?}/edit','Unit_expensesController@edit');
+Route::post('/unit_expense/{name?}/edit','Unit_expensesController@update');
 
-Route::get('/lease_expense/index','Lease_expensesController@index');
+Route::get('/unit_expense/index','Unit_expensesController@index');
 
-Route::post('/lease_expense/{name?}/delete','Lease_expensesController@delete');
+Route::post('/unit_expense/{name?}/delete','Unit_expensesController@delete');
 
 // complain routes
 Route::get('/complain/create', 'ComplainController@create');

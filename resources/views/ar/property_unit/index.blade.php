@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body>
 
     <section id="temp1">
         
@@ -17,6 +17,15 @@
    <div class="container c-body-con">
         <div class="col-md-9">
             <div class="raw">
+                <div class="col-md-2">
+                    
+                    <a class="btn btn-default" href="{{action('Property_unitController@create')}}">اضافة</a>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-danger"value=''>مسح</button>
+                </div>
+            </div>
+            <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
                          <table class="table table-strip"> 
@@ -25,6 +34,7 @@
                                         <th>#</th>
                                         <th>رقم الوحدة</th>  
                                         <th>العقار</th> 
+                                        <th></th> 
                                         <th></th> 
                                     </tr> 
                                 </thead> 
@@ -39,6 +49,7 @@
                                                 <input type="submit" value="مسح" />
                                            </form>   
                                        </td>
+                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
                                     </tr>
 
                                         @endfor
@@ -60,9 +71,13 @@
     </div>
 
 
+
  
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
+    
+
 </body>
+
 @endsection

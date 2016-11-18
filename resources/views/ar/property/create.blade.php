@@ -22,6 +22,7 @@
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
+                 
                     <div id="propriety_unit_form" class="page-content">
                         <form method='post' action="{!!action('PropertyController@store')!!}" enctype="multipart/form-data">
                             <input type='hidden' name='_token' value="{!! csrf_token() !!}">

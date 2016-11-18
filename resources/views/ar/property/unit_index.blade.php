@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body>
 
     <section id="temp1">
         
@@ -18,24 +18,23 @@
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-2">
-                    
-                    <a class="btn btn-default" href="{{action('Lease_receiptController@create')}}">اضافة</a>
+                   
+                    <a class="btn btn-default" href="{{action('Property_unitController@create')}}">اضافة</a>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-danger"value='ssaa'>مسح</button>
+                    <button class="btn btn-danger"value=''>مسح</button>
                 </div>
             </div>
-
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
+                     @include('ar.tabs.property')
                     <div id="" class="page-content">
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>مقدار</th>  
-                                        <th>نوع السند</th> 
-                                        <th>العقد</th>
+                                        <th>رقم الوحدة</th>  
+                                        <th>العقار</th> 
                                         <th></th> 
                                         <th></th> 
                                     </tr> 
@@ -43,11 +42,9 @@
                                 <tbody> 
                                     <tr>
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('Lease_receiptControllerController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->amount}}</td>
-                                        <td>{{$result[$i]->type}}</td> 
-                                        <td>{{$result[$i]->lease}}</td> 
-                                        <td><form action="{!!action('Lease_receiptControllerController@delete',['name'=>$result[$i]->name])!!}" method="post">
+                                        <th scope="row"><a href="{!!action('Property_unitController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
+                                        <td>{{$result[$i]->unit_number}}</td> 
+                                        <td><form action="{!!action('Property_unitController@delete',['name'=>$result[$i]->name])!!}" method="post">
                                                 <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                                                 <input type="submit" value="مسح" />
                                            </form>   
@@ -74,9 +71,16 @@
     </div>
 
 
+
  
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
+    <script type="text/javascript">
+        $(".nav-tabs #units").addClass('active')
+    </script>
+    
+
 </body>
+
 @endsection

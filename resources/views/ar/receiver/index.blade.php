@@ -17,14 +17,15 @@
    <div class="container c-body-con">
         <div class="col-md-9">
             <div class="raw">
-                <div class="raw">
-                    <div class="col-md-2">
-                        <button class="btn btn-default" value='ss'>جديد</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-default"value='ssaa'>مسح</button>
-                    </div>
+                <div class="col-md-2">
+                    <a class="btn btn-default" href="{{action('ReceiverController@create')}}">اضافة</a>
                 </div>
+                <div class="col-md-2">
+                    <button class="btn btn-danger"value='ssaa'>مسح</button>
+                </div>
+            </div>
+            <div class="raw">
+                
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
                          <table class="table table-strip"> 
@@ -34,6 +35,7 @@
                                         <th>اسم الموظف</th>  
                                         <th>تاريخ الالتحاق</th> 
                                         <th>تاريخ الولادة</th> 
+                                        <th></th> 
                                         <th></th> 
                                     </tr> 
                                 </thead> 

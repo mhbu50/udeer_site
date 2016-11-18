@@ -38,18 +38,18 @@ class Property_unitController extends Controller
     }
 
 
-    public function edit($name)
+    public function edit($unit_name)
     {
         $properties = frappe_get_data('property','');
         $properties = json_decode($properties)->data;
 
-        $resultObj = frappe_get_data('property%20unit',$name);
+        $resultObj = frappe_get_data('property%20unit',$unit_name);
         $property_unit = json_decode($resultObj)->data;
         return view('ar.property_unit.edit',compact('property_unit','properties'));
 
     }
 
-    public function update(Request $request,$name)
+    public function update(Request $request,$unit_name)
     {
         $validator = Validator::make($request->all(), [
             ]);
@@ -77,10 +77,46 @@ class Property_unitController extends Controller
 
     }
 
-    public function delete($name)
+     public function show($unit_name)
     {
 
-        $resultObj = frappe_delete('property%20unit',$name);
+       $resultObj = frappe_get_data('property%20unit',$unit_name);
+       $property_unit = json_decode($resultObj)->data;
+       
+       return view('ar.property_unit.show',compact('property_unit'));
+
+    }
+
+
+ 
+    public function lease_index($unit_name)
+    {
+
+       $result = frappe_get_data('lease','?fields=["name","date","active"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]');
+       $result = json_decode($result)->data;
+       return view('ar.property_unit.lease_index',compact('result','unit_name'));
+       
+
+    }
+    public function rent_index($unit_name)
+    {
+       $lease = frappe_get_data('lease','?filters=[["lease","active","=",1],["lease","property_unit","=","'.$unit_name.'"]]');
+       $lease = json_decode($lease)->data;
+       $result= array();
+       if($lease){
+            $result = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease[0]->name.'"]]');
+            $result = json_decode($result)->data;
+       }
+       
+    return view('ar.property_unit.rent_index',compact('result','unit_name'));
+   
+    }
+
+
+    public function delete($unit_name)
+    {
+
+        $resultObj = frappe_delete('property%20unit',$unit_name);
         return redirect('property_unit/index');
     }
 }

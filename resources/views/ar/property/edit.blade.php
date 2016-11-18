@@ -22,6 +22,7 @@
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
+                  @include('ar.tabs.property',['property_name' => $property->name])
                     <div id="propriety_unit_form" class="page-content">
                         <form method='post' action="{!!action('PropertyController@update',['name' => $property->name])!!}" enctype="multipart/form-data">
                             <input type='hidden' name='_token' value="{!! csrf_token() !!}">
@@ -40,8 +41,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                  <label for="Property_type">نوع العقار</label>
-                                  <select id="Property_type" class="form-control" name='property_type' value='{{ isset($property->property_type) ? $property->property_type : ""}}'>
+                                  <label for="property_type">نوع العقار</label>
+                                  <select id="property_type" class="form-control" name='property_type' >
                                     <option>house</option>
                                     <option>schema</option>
                                     <option>residential building</option>
@@ -92,6 +93,7 @@
                                   <textarea class="form-control" rows="5" id="property_advantage" name="property_advantage">{{ isset($property->property_advantage) ? $property->property_advantage : ""}}</textarea>
                                 </div>
                                 
+                                
 
                             </div>
 
@@ -136,6 +138,9 @@
  
     @include('ar.ar_footer')
     <script type="text/javascript">
+      $(document).ready(function(){
+        $("#property_type").val('{{ isset($property->property_type) ? $property->property_type : ""}}');
+      })
         var geocoder = new google.maps.Geocoder();
 
         function geocodePosition(pos) {
