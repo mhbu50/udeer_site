@@ -34,14 +34,21 @@ Route::get('/property/{property_name?}/unit_expense','PropertyController@unit_ex
 
 Route::get('/property/{property_name?}/units','PropertyController@unit_index');
 
+Route::get('/property/{property_name?}/financial_movements','PropertyController@financial_movements');
+
 Route::get('/property/{property_name?}/edit','PropertyController@edit');
 Route::post('/property/{property_name?}/edit','PropertyController@update');
+
+Route::get('/property/{property_name?}/comments','PropertyController@comments');
 
 Route::get('/property/index','PropertyController@index');
 
 Route::post('/property/{property_name?}/delete','PropertyController@delete');
 
 Route::post('/property/delete','PropertyController@delete_array');
+
+
+Route::post('/search_link','PropertyController@search_link');
 
 
 // prperty unit routes
@@ -154,6 +161,52 @@ Route::post('/receiver/{name?}/edit','ReceiverController@update');
 Route::get('/receiver/index','ReceiverController@index');
 
 Route::post('/receiver/{name?}/delete','ReceiverController@delete');
+
+// supplier  routes
+Route::get('/supplier/create', 'SupplierController@create');
+Route::post('/supplier/create','SupplierController@store');
+
+Route::get('/supplier/{name?}/edit','SupplierController@edit');
+Route::post('/supplier/{name?}/edit','SupplierController@update');
+
+Route::get('/supplier/index','SupplierController@index');
+
+Route::post('/supplier/{name?}/delete','SupplierController@delete');
+
+// property_owner  routes
+Route::get('/property_owner/create', 'Property_ownerController@create');
+Route::post('/property_owner/create','Property_ownerController@store');
+
+Route::get('/property_owner/{name?}/edit','Property_ownerController@edit');
+Route::post('/property_owner/{name?}/edit','Property_ownerController@update');
+
+Route::get('/property_owner/index','Property_ownerController@index');
+
+Route::post('/property_owner/{name?}/delete','Property_ownerController@delete');
+
+
+// lease_script  routes
+Route::get('/lease_script/create', 'Lease_scriptController@create');
+Route::post('/lease_script/create','Lease_scriptController@store');
+
+Route::get('/lease_script/{name?}/edit','Lease_scriptController@edit');
+Route::post('/lease_script/{name?}/edit','Lease_scriptController@update');
+
+Route::get('/lease_script/index','Lease_scriptController@index');
+
+Route::post('/lease_script/{name?}/delete','Lease_scriptController@delete');
+
+// comment  routes
+
+// Route::get('/lease_script/create', 'Lease_scriptController@create');
+Route::post('/comment/{doctype?}/{name?}','CommentController@store');
+
+// Route::get('/comment/{name?}/edit','Lease_scriptController@edit');
+// Route::post('/comment/{name?}/edit','Lease_scriptController@update');
+
+// Route::get('/comment/index','Lease_scriptController@index');
+
+// Route::post('/comment/{name?}/delete','Lease_scriptController@delete');
 
 
 

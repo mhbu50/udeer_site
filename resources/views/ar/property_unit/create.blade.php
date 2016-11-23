@@ -50,7 +50,7 @@
                                 <label for="annual_rent_amount">سعر تاجير السنوي</label>
                                 <div class='raw'>
                                   <div class='col-md-8'>
-                                    <input type="text" class="form-control" id="annual_rent_amount" placeholder="" name='annual_rent_amount'>
+                                    <input type="number" class="form-control" id="annual_rent_amount" placeholder="" name='annual_rent_amount'>
                                   </div>
                                   <div>
                                     <div class='col-md-4'>
@@ -128,7 +128,11 @@
 
                             <div class="form-group">
                                   <label for="unit_activity">نشاط الوحدة</label>
-                                  <input type="text" class="form-control" id="unit_activity" placeholder="" name='unit_activity'>
+                                  
+                                  <select class="form-control" id="unit_activity" placeholder="" name='unit_activity'>
+                                    <option value="commercial">تجاري</option>
+                                    <option value="residential">سكني</option>
+                                  </select>
                             </div>
                             <div class="form-group">
                                 <label for="water_meter_number">رقم عداد المياه</label>
@@ -168,6 +172,35 @@
                   
               ]
           });
+
+          $("#annual_rent_amount").change(function(){
+              com_val = $(this).val()*(5/100);
+
+            $("#commission_amount").val(com_val);
+          })
+            
+          
+
+          
+            $('#property').keyup(function(){
+                $.ajax({
+                   url: "{{ url('/search_link') }}",
+                   data: {
+                      doctype:'property',
+                      text: $(this).val()
+                   },
+                   type: "POST",
+                  beforeSend: function(request){request.setRequestHeader('X-CSRF-TOKEN', '{!! csrf_token() !!}')
+                                               }
+                  ,success: function(msg) {
+                       console.log(msg);
+                      
+                    }
+                });
+              
+              
+            });
+         
       });
     </script>
 @endsection

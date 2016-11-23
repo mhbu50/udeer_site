@@ -140,6 +140,7 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $("#property_type").val('{{ isset($property->property_type) ? $property->property_type : ""}}');
+        $(".nav-tabs #show").addClass('active');
       })
         var geocoder = new google.maps.Geocoder();
 

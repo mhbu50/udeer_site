@@ -13,8 +13,10 @@
     <script src="/javascript/jquery.js"></script>
     <script src="/javascript/bootstrap.min.js"></script>
     <script src="/javascript/wow.min.js"></script>
-    <script src="/javascript/main.js"></script>
     <script src="/javascript/bootstrap-typeahead.js"></script>
+    <script src="/javascript/main.js"></script>
+
+    
     @yield('head')
 </head>
 @yield('body')

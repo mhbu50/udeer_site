@@ -126,22 +126,31 @@ class PropertyController extends Controller
        }
        
        return view('ar.property.unit_expense_index',compact('result','property_name'));
-       
-
     }
 
 
-    public function rent_index($unit_name)
+    
+    public function financial_movements($property_name)
     {
-       $lease = frappe_get_data('lease','?filters=[["lease","active","=",1],["lease","property_unit","=","'.$unit_name.'"]]');
-       $lease = json_decode($lease)->data;
-       $result= array();
-       if($lease){
-            $result = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease[0]->name.'"]]');
-            $result = json_decode($result)->data;
+        $result = array();
+        $leases = frappe_get_data('lease','?filters=[["lease","property","=","'.$property_name.'"]]');
+        $leases = json_decode($leases)->data; 
+        foreach ($leases as $lease) {
+           $lease_rent_payments = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease->name.'"]]');
+           $lease_rent_payments = json_decode($lease_rent_payments)->data; 
+           array_push($result,$lease_rent_payments);
+          
         }
+        return view('ar.property.financial_movements',compact('result','property_name'));
     }
        
+
+    public function comments($property_name)
+    {
+        $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","reference_name","=","'.$property_name.'"]]');
+        $result = json_decode($result)->data;
+        return view('ar.property.comments',compact('result','property_name'));
+    }   
 
 
 
@@ -160,4 +169,14 @@ class PropertyController extends Controller
         return redirect('property/index');
     }
 
+
+    public function search_link(Request $request)
+    {
+      $txt = $request->get('text');
+      $doctype = $request->get('doctype');
+      $result = frappe_search_link($doctype ,$txt);
+      return $result; 
+    }
+
+    
 }

@@ -16,15 +16,7 @@
 
    <div class="container c-body-con">
         <div class="col-md-9">
-            <div class="raw">
-                <div class="col-md-2">
-                   
-                    <a class="btn btn-default" href="{{action('Property_unitController@create')}}">اضافة</a>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-danger"value=''>مسح</button>
-                </div>
-            </div>
+           
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
                      @include('ar.tabs.property')

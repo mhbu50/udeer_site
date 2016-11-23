@@ -16,43 +16,34 @@
 
    <div class="container c-body-con">
         <div class="col-md-9">
-            <div class="raw">
-                <div class="raw">
-                    <div class="col-md-2">
-                        
-                        <a class="btn btn-default" href="{{action('LeaseController@create')}}">اضافة</a>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-danger"value='ssaa'>مسح</button>
-                    </div>
-                </div>
+            
 
+            <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
+                        @include('ar.tabs.property')
                     <div id="" class="page-content">
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>اسم العقار</th>  
-                                        <th>رقم الوحدة</th> 
+                                        <th>رقم العقد</th>  
+                                        <th>مقدار</th> 
+                                        <th>اسم الموستأجر</th> 
                                         <th></th> 
-                                        <th></th> 
+                                        <th></th>
                                     </tr> 
                                 </thead> 
                                 <tbody> 
                                     <tr>
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('LeaseController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->property}}</td>
-                                        <td>{{$result[$i]->property_unit}}</td> 
-                                        <td><form action="{!!action('LeaseController@delete',['name'=>$result[$i]->name])!!}" method="post">
-                                                <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                                                <input type="submit" value="مسح" />
-                                           </form>   
-                                       </td>
-                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
+                                        @for ($e = 0; $e < count($result[$i]); $e++)
+                                        <th scope="row"><a href="{!!action('Lease_rent_paymentController@edit',['name'=>$result[$i][$e]->name])!!}">{{ $result[$i][$e]->name  }}</a></th>
+                                        <td>{{$result[$i][$e]->lease}}</td>
+                                        <td>{{$result[$i][$e]->amount}}</td>
+                                        <td>{{$result[$i][$e]->renter}}</td> 
+                                       <td><input type='checkbox' class='checky' id="{!!$result[$i][$e]->name!!}"></td>
                                     </tr>
-                                    
+                                            @endfor
                                         @endfor
                                                                
 
@@ -76,5 +67,8 @@
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
+    <script type="text/javascript">
+        $(".nav-tabs #financial_movements").addClass('active')
+    </script>
 </body>
 @endsection

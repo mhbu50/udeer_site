@@ -17,8 +17,10 @@
               
     <div class="container c-body-con">
         <div class="col-md-9">
+
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
+                  @include('ar.tabs.property_unit')
                     <div id="propriety_uni_form.html" class="page-content">
                       <form method='post' action="{!!action('Property_unitController@edit',['name' => $property_unit->name ])!!}" enctype="multipart/form-data">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
@@ -125,7 +127,10 @@
 
                             <div class="form-group">
                                   <label for="unit_activity">نشاط الوحدة</label>
-                                  <input type="text" class="form-control" id="unit_activity" placeholder="" name='unit_activity' value='{{ isset($property_unit->unit_activity) ? $property_unit->unit_activity : ""}}'>
+                                  <select class="form-control" id="unit_activity" placeholder="" name='unit_activity'>
+                                    <option value="commercial">تجاري</option>
+                                    <option value="residential">سكني</option>
+                                  </select>
                             </div>
                             <div class="form-group">
                                 <label for="water_meter_number">رقم عداد المياه</label>
@@ -164,7 +169,11 @@
         $("#finishing_status").val('{{ isset($property_unit->finishing_status) ? $property_unit->finishing_status : ""}}');
         $("#room_slot").val('{{ isset($property_unit->room_slot) ? $property_unit->room_slot : ""}}');
         $("#number_of_bathrooms").val('{{ isset($property_unit->number_of_bathrooms) ? $property_unit->number_of_bathrooms : ""}}');
-
+        $("#unit_activity").val('{{ isset($property_unit->unit_activity) ? $property_unit->unit_activity : ""}}');
+        
+         $(".nav-tabs #show").addClass('active');
+        
+    
 
         
           $('#property').typeahead({

@@ -657,3 +657,7 @@ tbody {
 #side_menu a{
   color: #FFF !important;
 }
+
+#rtl-support .tt-dropdown-menu {
+  text-align: right;
+}

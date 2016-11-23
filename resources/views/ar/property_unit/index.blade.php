@@ -27,6 +27,7 @@
             </div>
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
+                    
                     <div id="" class="page-content">
                          <table class="table table-strip"> 
                                 <thead> 

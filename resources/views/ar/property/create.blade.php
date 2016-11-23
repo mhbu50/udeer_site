@@ -137,6 +137,8 @@
  
     @include('ar.ar_footer')
     <script type="text/javascript">
+    
+        
         var geocoder = new google.maps.Geocoder();
 
         function geocodePosition(pos) {
@@ -215,6 +217,8 @@
 
         // Onload handler to fire off the app.
         google.maps.event.addDomListener(window, 'load', initialize);
+
+
     </script>
 </body>
 @endsection

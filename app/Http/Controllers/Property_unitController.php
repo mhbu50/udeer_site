@@ -45,7 +45,7 @@ class Property_unitController extends Controller
 
         $resultObj = frappe_get_data('property%20unit',$unit_name);
         $property_unit = json_decode($resultObj)->data;
-        return view('ar.property_unit.edit',compact('property_unit','properties'));
+        return view('ar.property_unit.edit',compact('property_unit','properties','unit_name'));
 
     }
 
@@ -63,7 +63,7 @@ class Property_unitController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         
-        $result = frappe_update('property%20unit',$name,$data);
+        $result = frappe_update('property%20unit',$unit_name,$data);
         return redirect()->back();
     }
 
