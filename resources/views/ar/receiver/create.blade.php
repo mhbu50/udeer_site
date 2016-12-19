@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="customer_management receiver-show">
 
     <section id="temp1">
         
@@ -56,6 +56,15 @@
                                         <input type="date" class="form-control" id="date_of_birth" placeholder="" name="date_of_birth">
                                     </div>
                                 </div>
+                            </div>
+                            <div class='raw'>
+                               <div class='col-md-6'>
+                                    <div class="form-group">
+                                        <label for="employee_number">رقم الوظيفي</label>
+                                        <input type="text" class="form-control" id="employee_number" placeholder="" name="employee_number">
+                                    </div>
+                                </div>
+                                
                             </div>
 
                            

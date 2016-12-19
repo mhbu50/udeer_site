@@ -6,7 +6,7 @@
 @endsection
 
 @section('body')
-    
+    <body class="property_management p_u-create">
 
     <section id="temp1">
         
@@ -27,6 +27,8 @@
                             <div class="form-group">
                                 <label for="property">العقار</label>
                                 <input type="text" class="form-control" id="property" placeholder="" name='property'>
+                               <a href="#" data-toggle="modal" data-target="#PropertyModal"><i class="glyphicon glyphicon-plus"></i></a>
+                              
                             </div>
                             <div class="form-group">
                                 <label for="unit_number">رقم الوحدة</label>
@@ -83,7 +85,7 @@
                           <div class='form-column col-sm-6'>
                             <div class="form-group">
                               <label for="unit_description">وصف الوحدة</label>
-                              <select id="commission_type" class="form-control" name='unit_description'>
+                              <select id="unit_description" class="form-control" name='unit_description'>
                                 <option value=''></option>
                                 <option value='For families'>للعوائل</option>
                                 <option value='For singles'>للعزاب</option>
@@ -120,7 +122,7 @@
 
                             <div class="form-group">
                               <label for="number_of_bathrooms">دورات مياه</label>
-                              <select id="number_of_bathrooms" class="form-control" name='number_of_bathrooms'>
+                              <select id="number_of_bathrooms" class="form-control" name='number_of_bathrooms' required>
                                 <option>1</option>
                                 <option>2</option>
                               </select>
@@ -144,6 +146,11 @@
                                 <input type="text" class="form-control" id="electricity_meter_number" placeholder="" name='electricity_meter_number'>
                             </div>
 
+                            <div class="form-group">
+                                    <label for="number_of_copies">عدد النسخ</label>
+                                    <input type="number" class="form-control" id="number_of_copies" placeholder="" name="number_of_copies">
+                                </div>
+
                           </div>
                         
                         <input type='submit' class='btn btn-default'value='ارسال '/>
@@ -159,8 +166,17 @@
             </div>
         </div>
     </div>
+    <section>
+      @include('ar.modals.property_modal')
+    </section>
+    
+
+   
+
  
-    @include('ar.ar_footer')
+    <footer id="footer">
+       @include('ar.ar_footer')
+    </footer>
     <script type="text/javascript">
 
       $(document).ready(function(){
@@ -174,7 +190,7 @@
           });
 
           $("#annual_rent_amount").change(function(){
-              com_val = $(this).val()*(5/100);
+              com_val = $(this).val()*(5/200);
 
             $("#commission_amount").val(com_val);
           })
@@ -182,25 +198,29 @@
           
 
           
-            $('#property').keyup(function(){
-                $.ajax({
-                   url: "{{ url('/search_link') }}",
-                   data: {
-                      doctype:'property',
-                      text: $(this).val()
-                   },
-                   type: "POST",
-                  beforeSend: function(request){request.setRequestHeader('X-CSRF-TOKEN', '{!! csrf_token() !!}')
-                                               }
-                  ,success: function(msg) {
-                       console.log(msg);
+            // $('#property').keyup(function(){
+            //     $.ajax({
+            //        url: "{{ url('/search_link') }}",
+            //        data: {
+            //           doctype:'property',
+            //           text: $(this).val()
+            //        },
+            //        type: "POST",
+            //       beforeSend: function(request){request.setRequestHeader('X-CSRF-TOKEN', '{!! csrf_token() !!}')
+            //                                    }
+            //       ,success: function(msg) {
+            //            console.log(msg);
                       
-                    }
-                });
+            //         }
+            //     });
               
               
-            });
+            // });
+
+
          
       });
     </script>
+
+    </body>
 @endsection

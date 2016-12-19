@@ -19,12 +19,22 @@ Route::get('/user/register', function () {
     return view('ar.ar_register');
 });
 
+Route::get('/test', 'UdeerController@test');
+
+
 Route::post('/login', 'UdeerController@login');
+
+Route::post('/admin', 'UdeerController@admin');
+
+
+
 
 
 // prperty routes
 Route::get('/property/create', 'PropertyController@create');
 Route::post('/property/create','PropertyController@store');
+
+Route::post('/property/create_ajax','PropertyController@store_ajax');
 
 Route::get('/property/{property_name?}/show','PropertyController@show');
 
@@ -43,7 +53,11 @@ Route::get('/property/{property_name?}/comments','PropertyController@comments');
 
 Route::get('/property/index','PropertyController@index');
 
+Route::post('/property/index','PropertyController@set_index');
+
 Route::post('/property/{property_name?}/delete','PropertyController@delete');
+
+Route::post('/property/delete_array', 'PropertyController@delete_array');
 
 Route::post('/property/delete','PropertyController@delete_array');
 
@@ -55,6 +69,8 @@ Route::post('/search_link','PropertyController@search_link');
 Route::get('/property_unit/create', 'Property_unitController@create');
 Route::post('/property_unit/create','Property_unitController@store');
 
+Route::post('/property_unit/create_ajax','Property_unitController@store_ajax');
+
 Route::get('/property_unit/{unit_name?}/edit','Property_unitController@edit');
 Route::post('/property_unit/{unit_name?}/edit','Property_unitController@update');
 
@@ -62,11 +78,15 @@ Route::get('/property_unit/{unit_name?}/show','Property_unitController@show');
 
 Route::get('/property_unit/index','Property_unitController@index');
 
+Route::post('/property_unit/index','Property_unitController@set_index');
+
 Route::get('/property_unit/{unit_name?}/rents','Property_unitController@rent_index');
 
 Route::get('/property_unit/{unit_name?}/leases','Property_unitController@lease_index');
 
 Route::post('/property_unit/{unit_name?}/delete','Property_unitController@delete');
+
+Route::post('/property_unit/delete_array', 'Property_unitController@delete_array');
 
 
 // prperty unit activity routes
@@ -80,27 +100,37 @@ Route::get('/property_unit_activity/index','Property_unit_activityController@ind
 
 Route::post('/property_unit_activity/{name?}/delete','Property_unit_activityController@delete');
 
+Route::post('/property_unit_activity/delete_array', 'Property_unit_activityController@delete_array');
+
 // lease routes
 Route::get('/lease/create', 'LeaseController@create');
 Route::post('/lease/create','LeaseController@store');
+
+Route::post('/lease/create_ajax','LeaseController@store_ajax');
 
 Route::get('/lease/{name?}/edit','LeaseController@edit');
 Route::post('/lease/{name?}/edit','LeaseController@update');
 
 Route::get('/lease/index','LeaseController@index');
 
+Route::post('/lease/index','LeaseController@set_index');
+
 Route::post('/lease/{name?}/delete','LeaseController@delete');
 
+Route::post('/lease/delete_array', 'LeaseController@delete_array');
+
 // lease rent payment routes
-Route::get('/lease_rent_payment/create', 'Lease_rent_paymentController@create');
-Route::post('/lease_rent_payment/create','Lease_rent_paymentController@store');
+Route::get('/rent_payment/create', 'Lease_rent_paymentController@create');
+Route::post('/rent_payment/create','Lease_rent_paymentController@store');
 
-Route::get('/lease_rent_payment/{name?}/edit','Lease_rent_paymentController@edit');
-Route::post('/lease_rent_payment/{name?}/edit','Lease_rent_paymentController@update');
+Route::get('/rent_payment/{name?}/edit','Lease_rent_paymentController@edit');
+Route::post('/rent_payment/{name?}/edit','Lease_rent_paymentController@update');
 
-Route::get('/lease_rent_payment/index','Lease_rent_paymentController@index');
+Route::get('/rent_payment/index','Lease_rent_paymentController@index');
 
-Route::post('/lease_rent_payment/{name?}/delete','Lease_rent_paymentController@delete');
+Route::post('/rent_payment/{name?}/delete','Lease_rent_paymentController@delete');
+
+Route::post('/rent_payment/delete_array', 'Lease_rent_paymentController@delete_array');
 
 // lease expence routes
 Route::get('/unit_expense/create', 'Unit_expensesController@create');
@@ -113,6 +143,8 @@ Route::get('/unit_expense/index','Unit_expensesController@index');
 
 Route::post('/unit_expense/{name?}/delete','Unit_expensesController@delete');
 
+Route::post('/unit_expense/delete_array', 'Unit_expensesController@delete_array');
+
 // complain routes
 Route::get('/complain/create', 'ComplainController@create');
 Route::post('/complain/create','ComplainController@store');
@@ -124,6 +156,8 @@ Route::get('/complain/index','ComplainController@index');
 
 Route::post('/complain/{name?}/delete','ComplainController@delete');
 
+Route::post('/complain/delete_array', 'ComplainController@delete_array');
+
 // lease_re routes
 Route::get('/lease_receipt/create', 'Lease_receiptController@create');
 Route::post('/lease_receipt/create','Lease_receiptController@store');
@@ -134,10 +168,14 @@ Route::post('/lease_receipt/{name?}/edit','Lease_receiptController@update');
 Route::get('/lease_receipt/index','Lease_receiptController@index');
 
 Route::post('/lease_receipt/{name?}/delete','Lease_receiptController@delete');
+Route::post('/lease_receipt/delete_array', 'Lease_receiptController@delete_array');
 
 
+// user
 Route::get('/user/register', 'UserController@create_user');
 Route::post('/user/register', 'UserController@store_user');
+
+
 
 // renter routes
 Route::get('/renter/create', 'RenterController@create');
@@ -148,12 +186,18 @@ Route::post('/renter/{name?}/edit','RenterController@update');
 
 Route::get('/renter/index','RenterController@index');
 
+Route::post('/renter/index','RenterController@set_index');
+
 Route::post('/renter/{name?}/delete','RenterController@delete');
 
+
+Route::post('/renter/delete_array', 'RenterController@delete_array');
 
 // renter routes
 Route::get('/receiver/create', 'ReceiverController@create');
 Route::post('/receiver/create','ReceiverController@store');
+
+Route::post('/receiver/create_ajax','ReceiverController@store_ajax');
 
 Route::get('/receiver/{name?}/edit','ReceiverController@edit');
 Route::post('/receiver/{name?}/edit','ReceiverController@update');
@@ -161,6 +205,8 @@ Route::post('/receiver/{name?}/edit','ReceiverController@update');
 Route::get('/receiver/index','ReceiverController@index');
 
 Route::post('/receiver/{name?}/delete','ReceiverController@delete');
+
+Route::post('/receiver/delete_array', 'ReceiverController@delete_array');
 
 // supplier  routes
 Route::get('/supplier/create', 'SupplierController@create');
@@ -171,18 +217,31 @@ Route::post('/supplier/{name?}/edit','SupplierController@update');
 
 Route::get('/supplier/index','SupplierController@index');
 
+Route::post('/supplier/index','SupplierController@set_index');
+
+
+
 Route::post('/supplier/{name?}/delete','SupplierController@delete');
+
+Route::post('/supplier/delete_array', 'SupplierController@delete_array');
 
 // property_owner  routes
 Route::get('/property_owner/create', 'Property_ownerController@create');
 Route::post('/property_owner/create','Property_ownerController@store');
+
+Route::post('/property_owner/create_ajax','Property_ownerController@store_ajax');
+
 
 Route::get('/property_owner/{name?}/edit','Property_ownerController@edit');
 Route::post('/property_owner/{name?}/edit','Property_ownerController@update');
 
 Route::get('/property_owner/index','Property_ownerController@index');
 
+Route::post('/property_owner/index','Property_ownerController@set_index');
+
 Route::post('/property_owner/{name?}/delete','Property_ownerController@delete');
+
+Route::post('/property_owner/delete_array', 'Property_ownerController@delete_array');
 
 
 // lease_script  routes
@@ -196,6 +255,8 @@ Route::get('/lease_script/index','Lease_scriptController@index');
 
 Route::post('/lease_script/{name?}/delete','Lease_scriptController@delete');
 
+Route::post('/lease_script/delete_array', 'Lease_scriptController@delete_array');
+
 // comment  routes
 
 // Route::get('/lease_script/create', 'Lease_scriptController@create');
@@ -207,6 +268,50 @@ Route::post('/comment/{doctype?}/{name?}','CommentController@store');
 // Route::get('/comment/index','Lease_scriptController@index');
 
 // Route::post('/comment/{name?}/delete','Lease_scriptController@delete');
+
+// catch_receipt routes
+Route::get('/catch_receipt/create', 'Catch_receiptController@create');
+Route::post('/catch_receipt/create','Catch_receiptController@store');
+
+Route::get('/catch_receipt/{name?}/edit','Catch_receiptController@edit');
+Route::post('/catch_receipt/{name?}/edit','Catch_receiptController@update');
+
+Route::get('/catch_receipt/index','Catch_receiptController@index');
+Route::post('/catch_receipt/index','Catch_receiptController@set_index');
+
+Route::post('/catch_receipt/{name?}/delete','Catch_receiptController@delete');
+
+Route::post('/catch_receipt/delete_array', 'Catch_receiptController@delete_array');
+
+
+// pay_receipt routes
+Route::get('/pay_receipt/create', 'Pay_receiptController@create');
+Route::post('/pay_receipt/create','Pay_receiptController@store');
+
+Route::get('/pay_receipt/{name?}/edit','Pay_receiptController@edit');
+Route::post('/pay_receipt/{name?}/edit','Pay_receiptController@update');
+
+Route::get('/pay_receipt/index','Pay_receiptController@index');
+Route::post('/pay_receipt/index','Pay_receiptController@set_index');
+
+Route::post('/pay_receipt/{name?}/delete','Pay_receiptController@delete');
+
+Route::post('/pay_receipt/delete_array', 'Pay_receiptController@delete_array');
+
+
+// debt routes
+Route::get('/debt/create', 'DebtController@create');
+Route::post('/debt/create','DebtController@store');
+
+Route::get('/debt/{name?}/edit','DebtController@edit');
+Route::post('/debt/{name?}/edit','DebtController@update');
+
+Route::get('/debt/index','DebtController@index');
+Route::post('/debt/index','DebtController@set_index');
+
+Route::post('/debt/{name?}/delete','DebtController@delete');
+
+Route::post('/debt/delete_array', 'DebtController@delete_array');
 
 
 

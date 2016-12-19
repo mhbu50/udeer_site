@@ -31,16 +31,16 @@ class Lease_scriptController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('lease%20script',$data);
-        var_dump($result);
-        // return redirect('lease_script/index');
+        $result = frappe_insert('lease%20pattern',$data);
+        
+        return redirect('lease_script/index');
     }
 
 
     public function edit($name)
     {
         
-        $resultObj = frappe_get_data('lease%20script',$name);
+        $resultObj = frappe_get_data('lease%20pattern',$name);
         $lease_script = json_decode($resultObj)->data;
         return view('ar.lease_script.edit',compact('lease_script'));
 
@@ -60,7 +60,7 @@ class Lease_scriptController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         
-        $result = frappe_update('lease%20script',$name,$data);
+        $result = frappe_update('lease%20pattern',$name,$data);
         
         return redirect()->back();
     }
@@ -68,17 +68,26 @@ class Lease_scriptController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('lease%20script','?fields=["name"]');
+       $resultObj = frappe_get_data('lease%20pattern','?fields=["name","script_name"]');
        $result = json_decode($resultObj)->data;
        
        return view('ar.lease_script.index',compact('result'));
 
     }
 
+    public function delete_array(Request $request)
+    {
+        $pids = json_decode($request->get('names'));
+        foreach ($pids as $property_name) {
+            $resultObj = frappe_delete('lease%20pattern',$property_name);
+        }
+        return redirect('lease_script/index');
+    }
+
     public function delete($name)
     {
 
-        $resultObj = frappe_delete('lease%20script',$name);
+        $resultObj = frappe_delete('lease%20pattern',$name);
         return redirect('lease_script/index');
     }
 }

@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="p_lease_index" class="property_management p-show">
 
     <section id="temp1">
         

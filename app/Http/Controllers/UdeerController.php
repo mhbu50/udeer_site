@@ -27,6 +27,23 @@ class UdeerController extends Controller
         $result = frappe_login($usr,$pwd);
         return $result;
     }   
+
+    public function test()
+    {
+       
+        return test_d();
+        // return "ss";
+    } 
+
+    public function admin()
+    {
+       
+        return view('admin');
+        
+    }   
+
+
+
     
 
 

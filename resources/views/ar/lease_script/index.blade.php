@@ -17,26 +17,38 @@
    <div class="container c-body-con">
         <div class="col-md-9">
             <div class="raw">
+                <div class="col-md-2">
+                    
+                    <a class="btn btn-default" href="{{action('Lease_scriptController@create')}}">اضافة</a>
+                </div>
+                <div class="col-md-2">
+                    <form action="{!!action('Lease_scriptController@delete_array')!!}" method="post">
+                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                        <input name="names" id="del-arr" hidden/>
+                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                    </form>
+                </div>
+            </div>
+            <div class="raw">
                
 
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
+                         @if(count($result))
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>اسم المالك</th>  
-                                        <th>بيد الالكتروني</th> 
+                                        <th>اسم نموذج العقد</th>   
                                         <th></th> 
                                     </tr> 
                                 </thead> 
                                 <tbody> 
                                     <tr>
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('Property_ownerController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->full_name}}</td>
-                                        <td>{{$result[$i]->email}}</td> 
-                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
+                                        <th scope="row"><a href="{!!action('Lease_scriptController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
+                                        <td>{{$result[$i]->script_name}}</td> 
+                                       <td><input type='checkbox' class='del-check' id="{!!$result[$i]->name!!}" name=""></td>
                                     </tr>
                                     
                                         @endfor
@@ -45,6 +57,9 @@
                                     </tr> 
                                 </tbody> 
                             </table>
+                            @else
+                                <p>لا يوجد </p>
+                            @endif
                     </div>
 
                 </div>

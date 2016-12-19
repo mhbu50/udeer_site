@@ -19,7 +19,14 @@ class Property_ownerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-               
+               'full_name' => 'required|Min:3|Max:80|AlphaNum',
+               'id_number' => 'numeric|Min:9|Max:11',
+               'mobile_number' => 'numeric|Min:9|Max:11',
+               'email' => 'email|Min:3|Max:80|AlphaNum',
+               'bank' => 'Min:3|Max:80|AlphaNum',
+               'bank_acount' => 'Min:3|Max:80|AlphaNum',
+               'telephone_number' => 'numeric|Min:9|Max:11',
+               'fax' => 'Min:3|Max:80|AlphaNum',
                 
             ]);
 
@@ -33,6 +40,23 @@ class Property_ownerController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('property_owner',$data);
         return redirect('property_owner/index');
+    }
+
+    public function store_ajax(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                
+            ]);
+
+            if ($validator->fails()) {
+                return 'error';
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        $result = frappe_insert('property_owner',$data);
+        $result = json_decode($result)->data;
+        return $result->name;
     }
 
 
@@ -72,6 +96,34 @@ class Property_ownerController extends Controller
        
        return view('ar.property_owner.index',compact('result'));
 
+    }
+
+    public function set_index(Request $request)
+    { 
+
+      $filters = array();
+
+
+      if($request->has('owner_name')){
+        $filters['owner_name'] = '["property_owner","full_name","=","'.$request->get('owner_name').'"]';
+      }
+
+      $f_ = refactor_filter($filters);
+
+      $resultObj = frappe_get_data('property_owner','?fields=["name","full_name","email"]&filters=['.$f_.']');
+      $result = json_decode($resultObj)->data;
+      return view('ar.property_owner.index',compact('result'));
+
+    }
+
+    
+    public function delete_array(Request $request)
+    {
+        $pids = json_decode($request->get('names'));
+        foreach ($pids as $property_name) {
+            $resultObj = frappe_delete('property_owner',$property_name);
+        }
+        return redirect('property_owner/index');
     }
 
     public function delete($name)

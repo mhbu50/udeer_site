@@ -19,7 +19,11 @@ class ReceiverController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-               
+               'employee_name' => 'required|Min:3|Max:80|AlphaNum',
+               'company' => 'Min:3|Max:80|AlphaNum',
+               'date_of_joining' => 'date|date_format:Y-m-d',
+               'date_of_birth' => 'date|date_format:Y-m-d|before:today',
+               'employee_number' => 'numeric|Min:1|Max:20',
                 
             ]);
 
@@ -34,7 +38,26 @@ class ReceiverController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('Employee',$data);
         return redirect('receiver/index');
+        
     }
+
+    public function store_ajax(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                
+            ]);
+
+            if ($validator->fails()) {
+                return 'error';
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        $result = frappe_insert('Employee',$data);
+        $result = json_decode($result)->data;
+        return $result->name;
+    }
+
 
 
     public function edit($name)
@@ -74,6 +97,15 @@ class ReceiverController extends Controller
        
        return view('ar.receiver.index',compact('result'));
 
+    }
+
+    public function delete_array(Request $request)
+    {
+        $pids = json_decode($request->get('names'));
+        foreach ($pids as $property_name) {
+            $resultObj = frappe_delete('Employee',$property_name);
+        }
+        return redirect('receiver/index');
     }
 
     public function delete($name)

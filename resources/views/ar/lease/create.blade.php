@@ -6,9 +6,9 @@
 
 @section('body')
 
-<body  >
+<body id="" class="lease_management l-create">
 
-    <section id="temp1">
+    
         
             <div id="c-nav">
                 @include('ar.ar_nav')
@@ -47,10 +47,15 @@
                                     <input type="text" class="form-control" id="duration" placeholder="" name="duration">
                                 </div>
  -->
-                               <!--  <div class="form-group">
+                                <div class="form-group">
                                     <label for="rent_writing_date">تاربخ امضاء العقد</label>
-                                    <input type="date" class="form-control" id="rent_writing_date" placeholder="" name="rent_writing_date">
-                                </div> -->
+                                    <input type="date" class="form-control" id="lease_writing_date" placeholder="" name="rent_writing_date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expiry_date">تاربخ انتهاء العقد</label>
+                                    <input type="date" class="form-control" id="expiry_date" placeholder="" name="expiry_date">
+                                </div>
+
 
                                 
                              
@@ -61,20 +66,22 @@
 
                                 
                                 <div class="form-group">
-                                    <label for="property">مدة العقد</label>
+                                    <label for="lease_duration">مدة العقد</label>
                                     <input type="text" class="form-control" id="lease_duration" placeholder="" name="property">
                                 </div>
                                 <div class="form-group">
-                                    <label for="rent_starting_date">تاربخ بدء الايجار</label>
+                                    <label for="lease_starting_date">تاربخ بدء الايجار</label>
                                     <input type="date" class="form-control" id="rent_starting_date" placeholder="" name="rent_starting_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="property">اسم العقار</label>
                                     <input type="text" class="form-control" id="property" placeholder="" name="property">
+                                    <a href="#" data-toggle="modal" data-target="#PropertyModal"><i class="glyphicon glyphicon-plus"></i></a>
                                 </div>
                                 <div class="form-group">
                                     <label for="property unit">وحدة العقار</label>
                                     <input type="text" class="form-control" id="property_unit" placeholder="" name="property_unit">
+                                    <a href="#" data-toggle="modal" data-target="#Property_unitModal"><i class="glyphicon glyphicon-plus"></i></a>
                                 </div>
                                 
 <!--                                  <div class="form-group">
@@ -88,6 +95,7 @@
                             <div class='raw'>
                                 <div class='col-md-12'><button class='btn btn-ud'>ارسال</button></div>
                             </div>
+                        </form>
                        
                     </div>
 
@@ -101,10 +109,28 @@
         </div>
     </div>
 
-
- 
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
+    @include('ar.modals.property_modal')
+    @include('ar.modals.property_unit_modal')
+    <script type="text/javascript">
+       $('#property').typeahead({
+              source: [
+                @foreach( $properties as $property)
+                  {  name: '{{$property->name}}' },
+                @endforeach 
+                  
+              ]
+          });
+          $('#property_unit').typeahead({
+              source: [
+                @foreach( $property_units as $property_unit)
+                  {  name: '{{$property_unit->name}}' },
+                @endforeach 
+                  
+              ]
+          }); 
+    </script>
 </body>
 @endsection

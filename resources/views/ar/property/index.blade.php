@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="property_index" class="property_management p-show">
 
     <section id="temp1">
         
@@ -24,16 +24,41 @@
                 </div>
                 <div class="col-md-2">
                     <form action="{!!action('PropertyController@delete_array')!!}" method="post">
-                        <input type='text' name="names" id="del-arr" hidden>
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                        <input type="submit" class="btn btn-danger" value="مسح" id="del-btn" disabled/>
-                    </form>  
+                        <input name="names" id="del-arr" hidden/>
+                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                    </form>
+                    
                 </div>
             </div>
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
 
                     <div id="" class="page-content">
+                        @if(count($result))
+                        <form action="{!!action('PropertyController@set_index')!!}" method="post">
+                            <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                            <div class="raw">
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>اسم العقار</label>
+                                        <input type="text" name="name"/>
+                                    </div>  
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>المدينة</label>
+                                        <input type="text" name="city"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                        <input type="submit" class="btn btn-default" width="100%">
+                                    </div>
+                                
+                            </div>
+                        </form> 
+                        
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
@@ -50,13 +75,16 @@
                                         <td>{{$result[$i]->property_name}}</td>
                                         <td>{{$result[$i]->owner}}</td> 
                                         
-                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}" name=></td>
+                                       <td><input type='checkbox' class='del-check' id="{!!$result[$i]->name!!}" name=""></td>
                                     </tr>
                                         @endfor                  
 
                                     </tr> 
                                 </tbody> 
                             </table>
+                            @else
+                                <p>لا يوجد </p>
+                            @endif
                     </div>
 
                 </div>
@@ -76,22 +104,7 @@
     </footer>
     <script type="text/javascript">
         $(document).ready(function(){
-            $checkbox = $('.checky');
-            var chkArray = [];
-            $('.checky').change(function(){
-                var values = $('input:checkbox:checked').map(function () {
-                  return '"'+this.id+'"';
-                }).get();
-                unique = values.filter(function(elem, index, self) {
-                    return index == self.indexOf(elem);
-                })
-                $('#del-arr').val('['+unique+']');
-                if(unique.length){
-                    $("#del-btn").prop('disabled', false);
-                }else{
-                    $("#del-btn").prop('disabled', true);
-                }
-            });
+            
             
 
         });

@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="lease_management l-show">
 
     <section id="temp1">
         
@@ -40,13 +40,18 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="rent_writing_date">تاربخ امضاء العقد</label>
-                                    <input type="text" class="form-control" id="rent_writing_date" placeholder="" name="rent_writing_date" value='{{ isset($lease->rent_writing_date) ? $lease->rent_writing_date : ""}}'>
+                                    <label for="lease_writing_date">تاربخ امضاء العقد</label>
+                                    <input type="date" class="form-control" id="lease_writing_date" placeholder="" name="lease_writing_date" value='{{ isset($lease->lease_writing_date) ? $lease->lease_writing_date : ""}}'>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="rent_starting_date">تاربخ بدء الايجار</label>
-                                    <input type="text" class="form-control" id="rent_starting_date" placeholder="" name="rent_starting_date" value='{{ isset($lease->rent_starting_date) ? $lease->rent_starting_date : ""}}'>
+                                    <label for="lease_starting_date">تاربخ بدء الايجار</label>
+                                    <input type="date" class="form-control" id="lease_starting_date" placeholder="" name="lease_starting_date" value='{{ isset($lease->lease_starting_date) ? $lease->lease_starting_date : ""}}'>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="expiry_date">تاربخ انتهاء العقد</label>
+                                    <input type="date" class="form-control" id="expiry_date" placeholder="" name="expiry_date" value='{{ isset($lease->expiry_date) ? $lease->expiry_date : ""}}'>
                                 </div>
                              
                             </div>

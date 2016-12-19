@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="financial_system re_pa-show">
 
     <section id="temp1">
         
@@ -40,6 +40,7 @@
                                       <select id="payment_method" class="form-control" name='payment_method'>
                                         <option value='cash'>كاش</option>
                                         <option vlaue='bank transfer'>تحويل بنكي</option>
+                                        <option vlaue='cheque'>الشيك</option>
                                       </select>
                                     </div>
                                 </div>
@@ -72,12 +73,14 @@
                                     <div class="form-group">
                                         <label for="renter">الموأجر</label>
                                         <input type="text" class="form-control" id="renter" placeholder="" name="renter">
+                                        <a href="#" data-toggle="modal" data-target="#Renter_Modal"><i class="glyphicon glyphicon-plus"></i></a>
                                     </div>
                                 </div>
                                 <div class='col-md-6'>
                                     <div class="form-group">
                                         <label for="duration">اسم العقد</label>
                                         <input type="text" class="form-control" id="lease" placeholder="" name="lease">
+                                        <a href="#" data-toggle="modal" data-target="#Lease_Modal"><i class="glyphicon glyphicon-plus"></i></a>
                                     </div>
                                 </div>
                             </div> 
@@ -85,7 +88,8 @@
                                 <div class='col-md-6'>
                                     <div class="form-group">
                                         <label for="employee">اسم المحصل</label>
-                                        <input type="text" class="form-control" id="employee" placeholder="" name="employee">
+                                        <input type="text" class="form-control" id="receiver" placeholder="" name="employee">
+                                        <a href="#" data-toggle="modal" data-target="#Receiver_Modal"><i class="glyphicon glyphicon-plus"></i></a>
                                     </div>
                                 </div>
                                 <div class='col-md-6'>
@@ -119,7 +123,7 @@
                             <div class='raw'>
                                 <div class='col-md-12'><button class='btn btn-ud'>ارسال</button></div>
                             </div>
-                       <form>
+                       </form>
                     </div>
 
                 </div>
@@ -137,5 +141,34 @@
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
+    @include('ar.modals.lease_modal')
+    @include('ar.modals.receiver_modal')
+    @include('ar.modals.renter_modal')
+    <script type="text/javascript">
+        $('#lease').typeahead({
+              source: [
+                @foreach( $leases as $lease)
+                  {  name: '{{$lease->name}}' },
+                @endforeach 
+                  
+              ]
+          });
+        $('#receiver').typeahead({
+              source: [
+                @foreach( $receivers as $receiver)
+                  {  name: '{{$receiver->name}}' },
+                @endforeach 
+                  
+              ]
+          });
+        $('#renter').typeahead({
+              source: [
+                @foreach( $renters as $renter)
+                  {  name: '{{$renter->name}}' },
+                @endforeach 
+                  
+              ]
+          });
+    </script>
 </body>
 @endsection

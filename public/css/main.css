@@ -616,6 +616,12 @@ input[type="color"]:focus,
   width: 29%;
   display: inline-block;
 }
+.c-col-50{
+  margin: 0px;
+  padding: 0px;
+  width: 49%;
+  display: inline-block;
+}
 
 .c-body-con{
   margin-top: 180px;
@@ -660,4 +666,33 @@ tbody {
 
 #rtl-support .tt-dropdown-menu {
   text-align: right;
+}
+
+.side-active{
+  background: #789cb4 !important;
+}
+
+.c-body-con > .col-md-9{
+  float: left;
+}
+
+.c-body-con > .col-md-3{
+  float: left;
+}
+
+
+.pd-0-p .col-md-6:first-child{
+  padding-right: 0px !important;
+}
+
+.pd-0-p .col-md-6:last-child{
+  padding-left: 0px !important;
+}
+
+
+.raw{
+  overflow: auto !important;
+}
+.p-r-0{
+  padding-right: 0 !important;
 }

@@ -75,6 +75,15 @@ class ComplainController extends Controller
 
     }
 
+    public function delete_array(Request $request)
+    {
+        $pids = json_decode($request->get('names'));
+        foreach ($pids as $property_name) {
+            $resultObj = frappe_delete('complain',$property_name);
+        }
+        return redirect('complain/index');
+    }
+
     public function delete($name)
     {
 

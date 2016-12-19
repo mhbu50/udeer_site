@@ -10,7 +10,7 @@
 
 
 
-<body>
+<body id="property_edit" class="property_management p-show">
 
     <section id="temp1">
         

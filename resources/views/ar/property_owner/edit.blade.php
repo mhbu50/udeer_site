@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="customer_management owner-show">
 
     <section id="temp1">
         

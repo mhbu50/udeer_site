@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body>
+<body id="p_unit_index" class="property_management p-show">
 
     <section id="temp1">
         
@@ -36,11 +36,7 @@
                                      @for ($i = 0; $i < count($result); $i++)
                                         <th scope="row"><a href="{!!action('Property_unitController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
                                         <td>{{$result[$i]->unit_number}}</td> 
-                                        <td><form action="{!!action('Property_unitController@delete',['name'=>$result[$i]->name])!!}" method="post">
-                                                <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                                                <input type="submit" value="مسح" />
-                                           </form>   
-                                       </td>
+                                        
                                        <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
                                     </tr>
 

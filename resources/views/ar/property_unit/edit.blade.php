@@ -7,7 +7,7 @@
 
 @section('body')
     
-
+  <body class="property_management p_u-show">
     <section id="temp1">
         
             <!-- Static navbar -->
@@ -186,4 +186,6 @@
           });
       });
     </script>
+
+  </body>
 @endsection

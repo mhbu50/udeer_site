@@ -19,7 +19,17 @@ class RenterController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-               
+
+               'customer_name' => 'required|Min:3|Max:80|AlphaNum',
+               'id_number' => 'numeric|Min:1|Max:20',
+               'mobile_number'=> 'numeric|Min:1|Max:20',
+               'email'=> 'email|Min:3|Max:80|AlphaNum',
+               'bank' => 'Min:3|Max:80|AlphaNum',
+               'bank_account_number' => 'Min:3|Max:80|AlphaNum',
+               'telephone_number' => 'numeric|Min:1|Max:20',
+               'territory' => 'Min:3|Max:80|AlphaNum',
+               'customer_type' => 'in:Individual,Company',
+               'address' => 'Min:3|Max:300|AlphaNum',
                 
             ]);
 
@@ -73,6 +83,34 @@ class RenterController extends Controller
        
        return view('ar.renter.index',compact('result'));
 
+    }
+
+    public function set_index(Request $request)
+    { 
+
+      $filters = array();
+
+
+      if($request->has('name')){
+        $filters['property_name'] = '["Customer","name","=","'.$request->get('name').'"]';
+      }
+      
+
+      $f_ = refactor_filter($filters);
+
+      $resultObj = frappe_get_data('Customer','?fields=["name","customer_name","email"]&filters=['.$f_.']');
+      $result = json_decode($resultObj)->data;
+      return view('ar.renter.index',compact('result'));
+
+    }
+
+    public function delete_array(Request $request)
+    {
+        $pids = json_decode($request->get('names'));
+        foreach ($pids as $property_name) {
+            $resultObj = frappe_delete('Customer',$property_name);
+        }
+        return redirect('renter/index');
     }
 
     public function delete($name)

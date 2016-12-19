@@ -1,6 +1,6 @@
 <?php
 // namespace App\Frappe;
-use Exception;
+
 
         
         define("COOKIE_FILE", "cookie2.txt");
@@ -61,8 +61,14 @@ use Exception;
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($arr)));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 
-                $result = curl_exec($ch);
-                return $result;
+                
+                try {
+                        $result = curl_exec($ch);
+                        return $result;
+                } catch (Exception $e) {
+                        return 'error';
+                }
+                
 
         }
 
@@ -119,7 +125,46 @@ use Exception;
               } catch (Exception $e) {
                       return 'eror';
               }
-      }
+        }
+
+
+        // add "," character between filters
+        function refactor_filter($filters){
+              $count = 0; 
+              $f_ = '' ;
+              foreach ($filters as $filter ) {
+                
+                if($count > 0 ){
+                  $f_ .= ',';
+                }
+                $count++;
+                $f_ .= $filter;
+              }
+              return $f_;
+        }
+
+        function test_d(){
+            $arr = array("items" => array("3126643d3d","c9ae4fbc0d"), "doctype" => "complain");
+            $ch = curl_init('http://localhost:8002/api/method/frappe.desk.reportview.delete_items'); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($arr)));
+            $result = curl_exec($ch);
+            return $result;
+
+        }
+
+        function get_list($doctype){
+                try {
+                    $resultObj = frappe_get_data($doctype,'?fields=["name"]');
+                    $result = json_decode($resultObj)->data;
+                    return $result;
+                } catch (Exception $e) {
+                    return 'error';
+                }
+                
+        }
 
 
         

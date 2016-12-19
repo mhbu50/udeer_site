@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="customer_management renter-show">
 
     <section id="temp1">
         
@@ -18,7 +18,7 @@
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
-                    <div id="propriety_unit_form" class="page-content">
+                    <div id="" class="page-content">
                          <div class="raw">
                                 <div class='col-md-12'>
                                     <h2>عنوان<h2>
@@ -123,6 +123,7 @@
                             <div class='raw'>
                                 <div class='col-md-12'><button class='btn btn-ud'>ارسال</button></div>
                             </div>
+                        </form>    
                        
                     </div>
 

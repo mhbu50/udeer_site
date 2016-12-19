@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="customer_management owner-show">
 
     <section id="temp1">
         
@@ -98,6 +98,7 @@
                             <div class='raw'>
                                 <div class='col-md-12'><button class='btn btn-ud'>ارسال</button></div>
                             </div>
+                        </form>
                        
                     </div>
 

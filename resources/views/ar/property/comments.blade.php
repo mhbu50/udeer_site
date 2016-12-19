@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="property_comments" class="property_management p-show">
 
     <section id="temp1">
         

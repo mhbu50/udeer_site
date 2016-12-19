@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="customer_management renter-show">
 
     <section id="temp1">
         
@@ -22,13 +22,34 @@
                     <a class="btn btn-default" href="{{action('RenterController@create')}}">اضافة</a>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-danger"value='ssaa'>مسح</button>
+                    <form action="{!!action('RenterController@delete_array')!!}" method="post">
+                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                        <input name="names" id="del-arr" hidden/>
+                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                    </form>
                 </div>
-            </div>
+            </div>  
             <div class="raw">
 
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
+                        @if(count($result))
+                        <form action="{!!action('RenterController@set_index')!!}" method="post">
+                            <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                            <div class="raw">
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>اسم </label>
+                                        <input type="text" name="name"/>
+                                    </div>  
+                                </div>
+                                <div class="form-group">
+                                        <input type="submit" class="btn btn-default" width="100%">
+                                    </div>
+                                
+                            </div>
+                        </form> 
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
@@ -45,12 +66,8 @@
                                         <th scope="row"><a href="{!!action('RenterController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
                                         <td>{{$result[$i]->customer_name}}</td>
                                         <td>{{$result[$i]->email}}</td> 
-                                        <td><form action="{!!action('RenterController@delete',['name'=>$result[$i]->name])!!}" method="post">
-                                                <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                                                <input type="submit" value="مسح" />
-                                           </form>   
-                                       </td>
-                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
+                                        
+                                       <td><input type='checkbox' class='del-check' id="{!!$result[$i]->name!!}" name=""></td>
                                     </tr>
 
                                         @endfor
@@ -59,6 +76,9 @@
                                     </tr> 
                                 </tbody> 
                             </table>
+                            @else
+                                <p>لا يوجد </p>
+                            @endif
                     </div>
 
                 </div>

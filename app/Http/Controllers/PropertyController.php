@@ -10,16 +10,32 @@ use App\Http\Controllers\Controller;
 use Validator;
 
 class PropertyController extends Controller
-{
+{   
+ 
     public function create()
     {
-        return view('ar.property.create');
+        $property_owners = frappe_get_data('property_owner','?fields=["name","full_name"]');
+        $property_owners = json_decode($property_owners)->data;
+       
+        return view('ar.property.create',compact('property_owners'));
+
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'property_name' => 'required',
+                'property_name' => 'required|Min:3|Max:80|AlphaNum',
+                'property_type' => 'Min:3|Max:80|AlphaNum',
+                'construction_date' => 'date|date_format:Y-m-d|before:today',
+                'evaluation' => 'Min:3|Max:80|AlphaNum',
+                'country' => 'Min:3|Max:80|AlphaNum',
+                'city' => 'Min:3|Max:80|AlphaNum',
+                'address' => 'Min:3|Max:300|AlphaNum',
+                'property_advantage' => 'Min:3|Max:300|AlphaNum',
+                'owner_name' => 'Min:3|Max:80|AlphaNum',
+                'property_number' => 'numeric|Min:1|Max:20',
+                'instrument_number' => 'numeric|Min:1|Max:20',
+                'instrument_date' => 'date|date_format:Y-m-d|before:today',
                 
             ]);
 
@@ -31,10 +47,27 @@ class PropertyController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('property',$data);
+        // $result = frappe_insert('property',$data);
        return redirect('property/index');
     }
 
+    public function store_ajax(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                'property_name' => 'required',
+                
+            ]);
+
+            if ($validator->fails()) {
+                return 'error';
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        $result = frappe_insert('property',$data);
+        $result = json_decode($result)->data;
+        return $result->name;
+    }
 
     public function edit($property_name)
     {
@@ -79,6 +112,27 @@ class PropertyController extends Controller
 
         $property = json_decode($resultObj)->data;
         return view('ar.property.show',compact('property','property_name'));
+
+    }
+
+    public function set_index(Request $request)
+    { 
+
+      $filters = array();
+
+
+      if($request->has('name')){
+        $filters['property_name'] = '["property","property_name","=","'.$request->get('name').'"]';
+      }
+      if($request->has('city')){
+        $filters['city'] = '["property","city","=","'.$request->get('city').'"]';
+      }
+
+      $f_ = refactor_filter($filters);
+
+      $resultObj = frappe_get_data('property','?fields=["name","owner","property_name"]&filters=['.$f_.']');
+      $result = json_decode($resultObj)->data;
+      return view('ar.property.index',compact('result'));
 
     }
 

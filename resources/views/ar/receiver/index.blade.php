@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body  >
+<body id="" class="customer_management receiver-show">
 
     <section id="temp1">
         
@@ -18,16 +18,22 @@
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-2">
+                    
                     <a class="btn btn-default" href="{{action('ReceiverController@create')}}">اضافة</a>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-danger"value='ssaa'>مسح</button>
+                    <form action="{!!action('ReceiverController@delete_array')!!}" method="post">
+                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                        <input name="names" id="del-arr" hidden/>
+                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                    </form>
                 </div>
             </div>
             <div class="raw">
                 
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
+                        @if(count($result))
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
@@ -47,10 +53,7 @@
                                         <td>{{$result[$i]->employee_name}}</td>
                                         <td>{{$result[$i]->date_of_joining}}</td>
                                         <td>{{$result[$i]->date_of_birth}}</td> 
-                                        <td><form action="{!!action('RenterController@delete',['name'=>$result[$i]->name])!!}" method="post">
-                                                <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                                                <input type="submit" value="مسح" />
-                                           </form>   
+                                        <td><input type='checkbox' class='del-check' id="{!!$result[$i]->name!!}" name=""></td>
                                        </td>
                                     </tr>
 
@@ -60,6 +63,9 @@
                                     </tr> 
                                 </tbody> 
                             </table>
+                             @else
+                                <p>لا يوجد </p>
+                            @endif
                     </div>
 
                 </div>

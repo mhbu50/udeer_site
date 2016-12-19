@@ -13,7 +13,13 @@ class Lease_rent_paymentController extends Controller
 {
     public function create()
     {
-        return view('ar.lease_rent_payment.create');
+        $leases = frappe_get_data('lease','?fields=["name"]');
+        $leases = json_decode($leases)->data;
+        $receivers = frappe_get_data('Employee','?fields=["name"]');
+        $receivers = json_decode($receivers)->data;
+        $renters = frappe_get_data('Customer','?fields=["name"]');
+        $renters = json_decode($renters)->data;
+        return view('ar.lease_rent_payment.create',compact('leases','receivers','renters'));
     }
 
     public function store(Request $request)
@@ -21,7 +27,15 @@ class Lease_rent_paymentController extends Controller
         $validator = Validator::make($request->all(), [
                 'amount' => 'required',
                 'lease' => 'required',
-                'renter' => 'required'
+                'renter' => 'required',
+                'date' => 'date|date_format:Y-m-d',
+                'payment_method' => 'in:cash,bank20%,cheque',
+                'due_date' => 'date|date_format:Y-m-d',
+                'to_date' => 'date|date_format:Y-m-d',
+                'renter' => 'Min:3|Max:80|AlphaNum',
+                'lease' => 'Min:3|Max:80|AlphaNum',
+                'employee' => 'Min:3|Max:80|AlphaNum',
+                'amount' => 'numeric|Min:1|Max:20',
                  
                 
             ]);
@@ -78,10 +92,20 @@ class Lease_rent_paymentController extends Controller
 
     }
 
+
+    public function delete_array(Request $request)
+    {
+        $pids = json_decode($request->get('names'));
+        foreach ($pids as $property_name) {
+            $resultObj = frappe_delete('Lease%20rent%20payment',$property_name);
+        }
+        return redirect('rent_payment/index');
+    }
+
     public function delete($name)
     {
 
         $resultObj = frappe_delete('Lease%20rent%20payment',$name);
-        return redirect('lease_rent_payment/index');
+        return redirect('rent_payment/index');
     }
 }
