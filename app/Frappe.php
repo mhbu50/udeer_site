@@ -29,6 +29,22 @@
 
         }
 
+        function frappe_logout(){
+            $ch = curl_init('http://localhost:8002/api/method/logout');
+            curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+
+            try {
+                        $result = curl_exec($ch);
+                        $resultq = json_decode($result);
+                        return $resultq;
+                } catch (Exception $e) {
+                        return 'eror';
+                }
+        }
+
+
         function frappe_get_data($doctype,$params){
                 $doctype = str_replace(' ', '%20', $doctype);
                 $params = str_replace(' ', '%20', $params);
@@ -143,15 +159,17 @@
               return $f_;
         }
 
-        function test_d(){
-            $arr = array("items" => array("3126643d3d","c9ae4fbc0d"), "doctype" => "complain");
-            $ch = curl_init('http://localhost:8002/api/method/frappe.desk.reportview.delete_items'); 
+        function frappe_uploadimage($data){
+            $ch = curl_init('http://localhost:8002/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($arr)));
-            $result = curl_exec($ch);
-            return $result;
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            try {
+                $result = curl_exec($ch);
+                return $result;
+            } catch (Exception $e) {
+                return 'error';
+            }
 
         }
 

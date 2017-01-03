@@ -14,14 +14,14 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
                     <div id="" class="page-content">
                          <div class="raw">
                                 <div class='col-md-12'>
-                                    <h2>عنوان<h2>
+                                    <h2>اضافة مستاجر<h2>
                                 </div>
                                 
                             </div>

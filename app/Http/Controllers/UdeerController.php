@@ -28,10 +28,25 @@ class UdeerController extends Controller
         return $result;
     }   
 
+    public function logout()
+    {
+        $result = frappe_logout();
+        var_dump($result);
+        // return $result;
+    }   
+
     public function test()
     {
-       
-        return test_d();
+       $result = test_d();
+        var_dump($result);
+        // return "ss";
+    } 
+
+     public function ptest(Request $request)
+    {
+        $im = $data["image"];
+        $data["image"] = base64_encode($im); 
+        
         // return "ss";
     } 
 

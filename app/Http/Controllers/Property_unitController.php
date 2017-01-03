@@ -13,6 +13,7 @@ class Property_unitController extends Controller
 {
    public function create()
     {
+        
         $properties = frappe_get_data('property','?fields=["name"]');
         $properties = json_decode($properties)->data;
         return view('ar.property_unit.create',compact('properties'));
@@ -48,10 +49,11 @@ class Property_unitController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $ounter =  is_null($request->get('number_of_copies')) ? 0 : $request->get('number_of_copies');
-        for( $i = 0; $i<$ounter; $i++ ) {
+        $counter =  is_null($request->get('number_of_copies')) ? 0 : $request->get('number_of_copies');
+        for( $i = 0; $i<$counter; $i++ ) {
            $result = frappe_insert('property%20unit',$data);
          }
+        
         return redirect('property_unit/index');
     }
 
@@ -107,7 +109,6 @@ class Property_unitController extends Controller
 
        $resultObj = frappe_get_data('property%20unit','?fields=["name","property","unit_number"]');
        $result = json_decode($resultObj)->data;
-       
        return view('ar.property_unit.index',compact('result'));
 
     }
@@ -176,7 +177,7 @@ class Property_unitController extends Controller
         foreach ($pids as $property_name) {
             $resultObj = frappe_delete('property%20unit',$property_name);
         }
-        return redirect('property_unit/index');
+        return redirect()->back();
     }
 
 

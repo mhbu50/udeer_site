@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body id="p_lease_index" class="property_management p-show">
+<body  >
 
     <section id="temp1">
         
@@ -14,47 +14,57 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container-fluid c-body-con">
+   <div class="container c-body-con">
         <div class="col-md-9">
             <div class="raw">
-                
-
+                <div class="col-md-2">
+                    
+                    <a class="btn btn-default" href="{{action('Unit_expensesController@create')}}">اضافة</a>
+                </div>
+                <div class="col-md-2">
+                    <form action="{!!action('@delete_array')!!}" method="post">
+                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                        <input name="names" id="del-arr" hidden/>
+                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                    </form>
+                </div>
+            </div>
+            <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
-                    @include('ar.tabs.property')
                     <div id="" class="page-content">
                         @if(count($result))
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>اسم العقار</th>  
+                                        <th>مقدار</th>  
+                                        <th>تاريخ</th> 
+                                        <th>رقم العقد</th> 
                                         <th>رقم الوحدة</th> 
-                                        <th></th> 
                                         <th></th> 
                                     </tr> 
                                 </thead> 
                                 <tbody> 
                                     <tr>
                                      @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('LeaseController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->property_unit}}</td> 
-                                        <td><form action="{!!action('LeaseController@delete',['name'=>$result[$i]->name])!!}" method="post">
+                                        <th scope="row"><a href="{!!action('Unit_expensesController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
+                                        <td>{{$result[$i]->amount}}</td>
+                                        <td>{{$result[$i]->date}}</td>
+                                        <td>{{$result[$i]->lease}}</td>
+                                        <td>{{$result[$i]->unit}}</td> 
+                                        <td><form action="{!!action('Unit_expensesController@delete',['name'=>$result[$i]->name])!!}" method="post">
                                                 <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                                                 <input type="submit" value="مسح" />
                                            </form>   
                                        </td>
-                                       <td><input type='checkbox' class='checky' id="{!!$result[$i]->name!!}"></td>
                                     </tr>
-                                    
+
                                         @endfor
                                                                
 
                                     </tr> 
                                 </tbody> 
                             </table>
-                            @else
-                                <p class="bg-warning">لا يوجد </p>
-                            @endif
                     </div>
 
                 </div>
@@ -72,8 +82,5 @@
     <footer id="footer">
        @include('ar.ar_footer')
     </footer>
-    <script type="text/javascript">
-        $(".nav-tabs #leases").addClass('active')
-    </script>
 </body>
 @endsection

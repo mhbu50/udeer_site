@@ -29,15 +29,15 @@
 
 
 
-                      <form method='post' action="{!!action('Property_unitController@store')!!}" enctype="multipart/form-data">
+                      <form method='post' action="{!!action('PropertyController@store_unit',$property_name)!!}" enctype="multipart/form-data">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                         
                         <div class="col-md-6">
                           <div class="">
                             <label for="property">العقار</label>
                               <div style="position: relative;">
-                                <input type="text" class="form-control" id="property" placeholder="" name='property'>
-                                <a class="c-pls" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                <input type="text" class="form-control" id="property" placeholder="" name='property' value="{{$property_name}}" readonly/>
+                                
                               </div>
                           </div>  
                         </div>

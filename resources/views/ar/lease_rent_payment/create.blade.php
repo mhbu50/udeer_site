@@ -14,14 +14,14 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
             <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     <div id="propriety_unit_form" class="page-content">
                          <div class="raw">
                                 <div class='col-md-12'>
-                                    <h2>عنوان<h2>
+                                    <h2>تحصيل ايجار<h2>
                                 </div>
                                 
                         </div>
@@ -72,15 +72,19 @@
                                 <div class='col-md-6'>
                                     <div class="form-group">
                                         <label for="renter">الموأجر</label>
-                                        <input type="text" class="form-control" id="renter" placeholder="" name="renter">
-                                        <a href="#" data-toggle="modal" data-target="#Renter_Modal"><i class="glyphicon glyphicon-plus"></i></a>
+                                        <div style="position: relative;">
+                                            <input type="text" class="form-control" id="renter" placeholder="" name="renter">
+                                            <a class="c-pls" href="#" data-toggle="modal" data-target="#Renter_Modal"><i class="glyphicon glyphicon-plus"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class='col-md-6'>
                                     <div class="form-group">
                                         <label for="duration">اسم العقد</label>
-                                        <input type="text" class="form-control" id="lease" placeholder="" name="lease">
-                                        <a href="#" data-toggle="modal" data-target="#Lease_Modal"><i class="glyphicon glyphicon-plus"></i></a>
+                                        <div style="position: relative;">
+                                            <input type="text" class="form-control" id="lease" placeholder="" name="lease">
+                                            <a class="c-pls" href="#" data-toggle="modal" data-target="#Lease_Modal"><i class="glyphicon glyphicon-plus"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div> 
@@ -88,8 +92,10 @@
                                 <div class='col-md-6'>
                                     <div class="form-group">
                                         <label for="employee">اسم المحصل</label>
-                                        <input type="text" class="form-control" id="receiver" placeholder="" name="employee">
-                                        <a href="#" data-toggle="modal" data-target="#Receiver_Modal"><i class="glyphicon glyphicon-plus"></i></a>
+                                        <div style="position: relative;">
+                                            <input type="text" class="form-control" id="receiver" placeholder="" name="employee">
+                                            <a class="c-pls" href="#" data-toggle="modal" data-target="#Receiver_Modal"><i class="glyphicon glyphicon-plus"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class='col-md-6'>

@@ -44,7 +44,7 @@ $(document).ready(function(){
             return index == self.indexOf(elem);
         })
         $('#del-arr').val('['+unique+']');
-        console.log(unique);
+
         if(unique.length){
             $("#del-btn").prop('disabled', false);
         }else{
@@ -89,6 +89,16 @@ $(document).ready(function(){
         }
       });
     };
+
+
+    openNav = function () {
+        document.getElementById("mySidenav").style.width = "100%";
+    };
+
+    /* Close/hide the sidenav */
+    closeNav = function () {
+        document.getElementById("mySidenav").style.width = "0";
+    }
 
    
 

@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body id="p_unit_index" class="property_management p-show">
+<body id="p_unit_expence_index" class="property_management p-show">
 
     <section id="temp1">
         
@@ -16,18 +16,18 @@
 
    <div class="container-fluid c-body-con">
         <div class="col-md-9">
-           
+         
             <div class="raw">
                 <div class="" >
                      @include('ar.tabs.property')
-                    <div id="" class="page-content" style='overflow: visible;'>
+                    <div id="" class="page-content" style="overflow:visible !important">
                         <div class="row">
                             <div class="col-md-2">
                                 
-                                <a class="btn btn-default c-btn-tp" href="{{action('PropertyController@create_unit',$property_name)}}">اضافة</a>
+                                <a class="btn btn-default c-btn-tp" href="{{action('Property_expenseController@create',$property_name)}}">اضافة</a>
                             </div>
                             <div class="col-md-2">
-                                <form action="{!!action('Property_unitController@delete_array')!!}" method="post">
+                                <form action="{!!action('PropertyController@delete_array')!!}" method="post">
                                     <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                                     <input name="names" id="del-arr" hidden/>
                                     <button class="btn btn-danger c-btn-tp"id="del-btn" disabled>مسح</button>
@@ -35,25 +35,35 @@
                                 
                             </div>
                         </div>
-                        @if(count($result))
+                         @if(count($result))
                          <table class="table table-strip"> 
                                 <thead> 
                                     <tr> 
                                         <th>#</th>
-                                        <th>رقم الوحدة</th>  
+                                        <th>تاريخ</th>  
+                                        <th>مقدار</th> 
+                                        <th>مزود الخدمة</th> 
+                                        <th>رقم الفاتورة</th> 
                                         <th></th>
+                                       
                                     </tr> 
                                 </thead> 
                                 <tbody> 
-                                    <tr>
-                                     @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('Property_unitController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->unit_number}}</td> 
-                                        
-                                       <td><input type='checkbox' class='del-check' id="{!!$result[$i]->name!!}" name=""></td>
-                                    </tr>
-
-                                        @endfor
+                                    
+                                    @foreach($result as $result)    
+                                            <tr>
+                                                <th scope="row">{{ $result->name  }}</th>
+                                                <td>{{$result->date}}</td> 
+                                                <td>{{$result->amount}}</td>
+                                                <td>{{$result->Supplier}}</td>
+                                                <td>{{$result->invoice_number}}</td>
+                                                <td><input type='checkbox' class='del-check' id="{!!$result->name!!}" name=""></td>
+                                            
+                                           
+                                            </tr>
+                                        @endforeach
+                                    
+                                    
                                                                
 
                                     </tr> 
@@ -81,7 +91,7 @@
        @include('ar.ar_footer')
     </footer>
     <script type="text/javascript">
-        $(".nav-tabs #units").addClass('active')
+        $(".nav-tabs #expenses").addClass('active')
     </script>
     
 

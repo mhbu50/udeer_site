@@ -18,116 +18,138 @@
                 @include('ar.ar_nav')
             </div>
 
-    <div class="container c-body-con">
+
+            <div class="container-fluid c-body-con">
         <div class="col-md-9">
-            <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
-                  @include('ar.tabs.property',['property_name' => $property->name])
-                    <div id="propriety_unit_form" class="page-content">
-                        <form method='post' action="{!!action('PropertyController@update',['name' => $property->name])!!}" enctype="multipart/form-data">
-                            <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                            <div style='overflow: auto'>
-                                <div class="raw">
-                                    <h2>بيانات العقار<h2>
-                                </div>
-                            <div class="form-column col-sm-6">
+          @include('ar.tabs.property',['property_name' => $property->name])
+          <div id="propriety_unit_form" class="page-content">
+              <form method='post' action="{!!action('PropertyController@update',['name' => $property->name])!!}" enctype="multipart/form-data">
+                  <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                  
+                      <div class="raw">
+                        <div class="col-md-12">
+                          <h2>بيانات العقار</h2>
+                        </div>
+                          
+                      </div>
+                  <div class="raw">
+                    <div class="form-column col-sm-6">
 
-                                
-                               
+                        
+                       
 
+                        <div class="form-group">
+                            <label for="">اسم العقار</label>
+                            <input type="text" class="form-control" id="" name="property_name" placeholder="" value='{{ isset($property->property_name) ? $property->property_name : ""}}'>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="Property_type">نوع العقار</label>
+                          <select id="Property_type" class="form-control" name='property_type'>
+                            <option value="house">بيت</option>
+                            <option value="schema">مخطط</option>
+                            <option value="residential building">عمارة سكنية</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">سنة البناء</label>
+                            <input type="date" class="form-control" id="construction_date" name='construction_date' placeholder="" value='{{ isset($property->construction_date) ? $property->construction_date : ""}}'>
+                        </div>
+
+
+                        
+                     
+                        <div class="form-group">
+                          <label for="comment">تقييم</label>
+                          <textarea class="form-control" rows="5" id="evaluation" name='evaluation'>{{ isset($property->evaluation) ? $property->evaluation : ""}}</textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="comment">مميزات العقار</label>
+                          <textarea class="form-control" rows="5" id="property_advantage" name="property_advantage">{{ isset($property->property_advantage) ? $property->property_advantage : ""}}</textarea>
+                        </div>
+
+                        
+                    </div>
+                  
+
+                    <div class="form-column col-sm-6">
+                        <div class="raw pd-0-p">
+                            <div class='col-md-6'>
                                 <div class="form-group">
-                                    <label for="">اسم العقار</label>
-                                    <input type="text" class="form-control" id="" name="property_name" placeholder="" value='{{ isset($property->property_name) ? $property->property_name : ""}}' >
+                                  <label for="country">العنوان</label>
+                                  <input type="text" class="form-control" id="country" name='country' placeholder="الدولة" value='{{ isset($property->country) ? $property->country : ""}}'>
                                 </div>
-
-                                <div class="form-group">
-                                  <label for="property_type">نوع العقار</label>
-                                  <select id="property_type" class="form-control" name='property_type' >
-                                    <option>house</option>
-                                    <option>schema</option>
-                                    <option>residential building</option>
-                                  </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">سنة البناء</label>
-                                    <input type="date" class="form-control" id="construction_date" name='construction_date' placeholder="" value='{{ isset($property->construction_date) ? $property->construction_date : ""}}'>
-                                </div>
-
-
-                                
-                                <!-- <div class="form-group">
-                                    <label for="exampleInputEmail1">عدد وحدات العقاريى</label>
-                                    <input type="text" class="form-control" id="number_of_property_units" name="number_of_property_units" placeholder="">
-                                </div> -->
-
-                                <div class="form-group">
-                                  <label for="comment">تقييم</label>
-                                  <textarea class="form-control" rows="5" id="evaluation" name='evaluation'>{{ isset($property->evaluation) ? $property->evaluation : ""}}</textarea>
-                                </div>
-
-                                
                             </div>
-                            <div class="form-column col-sm-6">
-                                <div class="raw">
-                                    <div class='col-md-6'>
-                                        <div class="form-group">
-                                          <label for="country">العنوان</label>
-                                          <input type="text" class="form-control" id="country" name='country' placeholder="الدولة" value='{{ isset($property->country) ? $property->country : ""}}'>
-                                        </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class="form-group">
-                                          <label for="city">&nbsp;</label>
-                                          <input type="text" class="form-control" id="city" name='city' placeholder="المدينة" value='{{ isset($property->city) ? $property->city : ""}}'>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class='col-md-6'>
                                 <div class="form-group">
-                                  <label for="address"></label>
-                                  <textarea class="form-control" rows="5" id="address" name='address' placeholder="العنوان" >{{ isset($property->address) ? $property->address : ""}}</textarea>
+                                  <label for="city">&nbsp;</label>
+                                  <input type="text" class="form-control" id="city" name='city' placeholder="المدينة" value='{{ isset($property->city) ? $property->city : ""}}'>
                                 </div>
-                                <div id="mapCanvas"></div>
-                                <div class="form-group">
-                                  <label for="comment">مميزات العقار</label>
-                                  <textarea class="form-control" rows="5" id="property_advantage" name="property_advantage">{{ isset($property->property_advantage) ? $property->property_advantage : ""}}</textarea>
-                                </div>
-                                
-                                
-
-                            </div>
-
-                            <div class="form-column col-sm-6">
-                                <div class="raw">
-                                    <h2>بياناتن المالك<h2>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">اسم المالك</label>
-                                    <input type="text" class="form-control" id="owner_name" placeholder="" name="owner_name" value='{{ isset($property->owner_name) ? $property->owner_name : ""}}'>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">رقم العقار</label>
-                                    <input type="text" class="form-control" id="property_number" name="property_number" placeholder="" value='{{ isset($property->property_number) ? $property->property_number : ""}}'>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">رقم الصك</label>
-                                    <input type="text" class="form-control" id="instrument_number" name="instrument_number" placeholder="" value='{{ isset($property->instrument_number) ? $property->instrument_number : ""}}'>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">تاريخ الصك</label>
-                                    <input type="date" class="form-control" id="instrument_date" name="instrument_date" placeholder="" value='{{ isset($property->instrument_date) ? $property->instrument_date : ""}}'>
-                                </div>
-
                             </div>
                         </div>
-                            <div class='col-md-2'>
-                                <input type="submit" class="btn btn-default" value='ارسال'/>
-                            </div>
-                       </form>
+                        <div class="form-group">
+                          <label for="address"></label>
+                          <textarea class="form-control" rows="5" id="address" name='address' placeholder="العنوان">{{ isset($property->address) ? $property->address : ""}}</textarea>
+                        </div>
+                        <div id="mapCanvas"></div>
                     </div>
-                </div>
-            </div>
+
+                  </div>
+
+                  <div class="raw">
+                    <div class='col-md-12'>
+                      <h2>بيانات المالك</h2>
+                    </div>
+                          
+                  </div>
+                  <div class="raw">
+                    <div class="form-column col-md-6">
+                        
+                        <div class="raw">
+
+                             
+                                <div class="form-group">
+                                <label for="exampleInputEmail1">اسم المالك</label>
+                                <div style="position: relative;">
+                                <input type="text" class="form-control" id="owner_name" placeholder="" name="owner_name" value='{{ isset($property->owner_name) ? $property->owner_name : ""}}'>
+                                <a class="c-pls" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                </div>
+                              </div>
+                            
+                              
+                               
+                                
+                              
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">رقم العقار</label>
+                            <input type="text" class="form-control" id="property_number" name="property_number" placeholder="" value='{{ isset($property->property_number) ? $property->property_number : ""}}'>
+                        </div>
+                        
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">رقم الصك</label>
+                            <input type="text" class="form-control" id="instrument_number" name="instrument_number" placeholder="" value='{{ isset($property->instrument_number) ? $property->instrument_number : ""}}'>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">تاريخ الصك</label>
+                            <input type="date" class="form-control" id="instrument_date" name="instrument_date" placeholder="" value='{{ isset($property->instrument_date) ? $property->instrument_date : ""}}'>
+                        </div>
+                    </div>
+                  </div>
+              
+                  <div class='col-md-12'>
+                      <input type="submit" class="btn btn-default" value='ارسال'/>
+                  </div>
+              </form>
+          </div>
         </div>
+
         <div class="col-md-3">
             <div id="side_menu" >
                 @include('ar.ar_side')

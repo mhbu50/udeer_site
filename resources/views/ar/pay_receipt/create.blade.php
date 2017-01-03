@@ -6,7 +6,7 @@
 
 @section('body')
 
-<body>
+<body class="financial_system pay_rec-show">
 
     <section id="temp1">
         
@@ -14,7 +14,7 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
             <div class="raw">
                 <div class="col-md-12 col-md-offset-0" >
@@ -36,8 +36,10 @@
 
                                 <div class="form-group">
                                     <label for="">العقار</label>
-                                    <input type="text" class="form-control" id="property" placeholder="" name="property" requierd>
-                                    <a href="#" data-toggle="modal" data-target="#PropertyModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                    <div style="position: relative;">
+                                        <input type="text" class="form-control" id="property" placeholder="" name="property" requierd>
+                                        <a class="c-pls" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">

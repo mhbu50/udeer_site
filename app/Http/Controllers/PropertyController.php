@@ -18,7 +18,6 @@ class PropertyController extends Controller
         $property_owners = json_decode($property_owners)->data;
        
         return view('ar.property.create',compact('property_owners'));
-
     }
 
     public function store(Request $request)
@@ -47,7 +46,7 @@ class PropertyController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        // $result = frappe_insert('property',$data);
+        $result = frappe_insert('property',$data);
        return redirect('property/index');
     }
 
@@ -144,6 +143,7 @@ class PropertyController extends Controller
        
        return view('ar.property.index',compact('result'));
 
+
     }
 
 
@@ -165,21 +165,15 @@ class PropertyController extends Controller
        
        return view('ar.property.unit_index',compact('result','property_name'));
        
-
     }
 
-    public function unit_expense_index($property_name)
+    public function expense_index($property_name)
     {
-       $units = frappe_get_data('property%20unit','?filters=[["property%20unit","property","=","'.$property_name.'"]]');
-       $units = json_decode($units)->data; 
-       $result= array();
-       foreach ($units as $unit) {
-           $unit_expense = frappe_get_data('unit%20expenses','?fields=["name","date","amount","customer","unit"]&filters=[["unit%20expenses","unit","=","'.$unit->name.'"]]');
-           $unit_expense = json_decode($unit_expense)->data; 
-           array_push($result,$unit_expense);
-       }
+       $result = frappe_get_data('property_expense','?fields=["name","date","amount","property_unit","Supplier","invoice_number"]&filters=[["property_expense","property","=","'.$property_name.'"]]');
+       $result = json_decode($result)->data; 
+      
        
-       return view('ar.property.unit_expense_index',compact('result','property_name'));
+       return view('ar.property.property_expense_index',compact('result','property_name'));
     }
 
 
@@ -200,11 +194,70 @@ class PropertyController extends Controller
        
 
     public function comments($property_name)
-    {
-        $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","reference_name","=","'.$property_name.'"]]');
+    { 
+
+        $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$property_name.'"]]');
         $result = json_decode($result)->data;
         return view('ar.property.comments',compact('result','property_name'));
+        
+    }
+
+
+    public function docs_index($property_name)
+    { 
+
+        $result = frappe_get_data('File','?fields=["file_name","file_url"]&filters=[["File","attached_to_name","=","'.$property_name.'"],["File","attached_to_doctype","=","property"]]');
+        $result = json_decode($result)->data;
+        return view('ar.property.docs',compact('result','property_name'));
+        
+        
     }   
+
+    public function create_unit($property_name){
+        $properties = frappe_get_data('property','?fields=["name"]');
+        $properties = json_decode($properties)->data;
+        return view('ar.property.create_unit',compact('properties','property_name'));
+    }
+
+
+    public function store_unit(Request $request,$property_name){
+      $validator = Validator::make($request->all(), [
+                'property' => 'required|Min:3|Max:80|AlphaNum',
+                'unit_number' => 'numeric|Min:1|Max:20',
+                'unit_type' => 'in:apartment,room,villa,house',
+                'annual_rent_amount' => 'numeric|Min:1|Max:20',
+                'rent_currency' => 'Min:2|Max:80|AlphaNum',
+                'insurance_amount' => 'numeric|Min:1|Max:20',
+                'commission_type' => 'in:percentage,cash',
+                'unit_space' => 'numeric|Min:1|Max:20',
+                'finishing_status' => 'Min:3|Max:80|AlphaNum',
+                'unit_description' => 'Min:3|Max:80|AlphaNum',
+                'room_slot' => 'numeric|Min:1|Max:20',
+                'number_of_bathrooms' => 'numeric|Min:1|Max:20',
+                'unit_activity' => 'in:commercial,residential',
+                'water_meter_number' => 'numeric|Min:1|Max:20',
+                'electricity_meter_number' => 'numeric|Min:1|Max:20',
+                'number_of_copies' => 'numeric|Min:1|Max:20',
+                
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        $counter =  is_null($request->get('number_of_copies')) ? 0 : $request->get('number_of_copies');
+        for( $i = 0; $i<$counter; $i++ ) {
+           $result = frappe_insert('property%20unit',$data);
+         }
+        return redirect('property/'.$request->get('property').'/units');
+    }
+
+
+
 
 
 

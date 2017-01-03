@@ -24,6 +24,8 @@ Route::get('/test', 'UdeerController@test');
 
 Route::post('/login', 'UdeerController@login');
 
+Route::get('/logout', 'UdeerController@logout');
+
 Route::post('/admin', 'UdeerController@admin');
 
 
@@ -40,7 +42,7 @@ Route::get('/property/{property_name?}/show','PropertyController@show');
 
 Route::get('/property/{property_name?}/leases','PropertyController@lease_index');
 
-Route::get('/property/{property_name?}/unit_expense','PropertyController@unit_expense_index');
+Route::get('/property/{property_name?}/expenses','PropertyController@expense_index');
 
 Route::get('/property/{property_name?}/units','PropertyController@unit_index');
 
@@ -55,7 +57,13 @@ Route::get('/property/index','PropertyController@index');
 
 Route::post('/property/index','PropertyController@set_index');
 
+
+Route::get('/property/{property_name?}/docs','PropertyController@docs_index');
+
 Route::post('/property/{property_name?}/delete','PropertyController@delete');
+
+Route::get('/property/{property_name?}/create/unit','PropertyController@create_unit');
+Route::post('/property/{property_name?}/create/unit','PropertyController@store_unit');
 
 Route::post('/property/delete_array', 'PropertyController@delete_array');
 
@@ -133,17 +141,17 @@ Route::post('/rent_payment/{name?}/delete','Lease_rent_paymentController@delete'
 Route::post('/rent_payment/delete_array', 'Lease_rent_paymentController@delete_array');
 
 // lease expence routes
-Route::get('/unit_expense/create', 'Unit_expensesController@create');
-Route::post('/unit_expense/create','Unit_expensesController@store');
+Route::get('/property/{property_name?}/expense/create', 'Property_expenseController@create');
+Route::post('/property/{property_name?}/expense/create','Property_expenseController@store');
 
-Route::get('/unit_expense/{name?}/edit','Unit_expensesController@edit');
-Route::post('/unit_expense/{name?}/edit','Unit_expensesController@update');
+Route::get('/property_expense/{name?}/edit','Property_expenseController@edit');
+Route::post('/property_expense/{name?}/edit','Property_expenseController@update');
 
-Route::get('/unit_expense/index','Unit_expensesController@index');
+Route::get('/property_expense/index','Property_expenseController@index');
 
-Route::post('/unit_expense/{name?}/delete','Unit_expensesController@delete');
+Route::post('/property_expense/{name?}/delete','Property_expenseController@delete');
 
-Route::post('/unit_expense/delete_array', 'Unit_expensesController@delete_array');
+Route::post('/property_expense/delete_array', 'Property_expenseController@delete_array');
 
 // complain routes
 Route::get('/complain/create', 'ComplainController@create');
@@ -312,6 +320,12 @@ Route::post('/debt/index','DebtController@set_index');
 Route::post('/debt/{name?}/delete','DebtController@delete');
 
 Route::post('/debt/delete_array', 'DebtController@delete_array');
+
+// dics routes
+
+Route::get('/{doctype?}/{docname?}/doc/create','DocsController@create');
+Route::post('/{doctype?}/{docname?}/doc/create','DocsController@store');
+
 
 
 

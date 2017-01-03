@@ -20,7 +20,7 @@
     <div class="container c-body-con">
         <div class="col-md-9">
             <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     <div id="propriety_unit_activity_form.html" class="page-content">
                         <form method='post' action="{!!action('Property_unit_activityController@store')!!}" enctype="multipart/form-data">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">

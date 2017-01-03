@@ -14,23 +14,23 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
-            <div class="raw">
+            <div class="row">
                 <div class="col-md-2">
                     
-                    <a class="btn btn-default" href="{{action('Property_unitController@create')}}">اضافة</a>
+                    <a class="btn btn-default c-btn-tp" href="{{action('Property_unitController@create')}}">اضافة</a>
                 </div>
                 <div class="col-md-2">
                     <form action="{!!action('Property_unitController@delete_array')!!}" method="post">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                         <input name="names" id="del-arr" hidden/>
-                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                        <button class="btn btn-danger c-btn-tp"id="del-btn" disabled>مسح</button>
                     </form>
                 </div>
             </div>
             <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     
                     <div id="" class="page-content">
                         @if(count($result))
@@ -38,26 +38,23 @@
                             <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                             <div class="raw">
                                 <form>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>اسم الوحدة</label>
-                                        <input type="text" name="name" class="form-control"/>
+                                        <input type="text" name="name" class="form-control" placeholder="اسم الوحدة"/>
                                     </div>  
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>رقم الوحدة</label>
-                                        <input type="text" name="unit_number" class="form-control"/>
+                                        <input type="text" name="unit_number" class="form-control" placeholder="رقم الوحدة"/>
                                     </div>  
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>العقار</label>
-                                        <input type="text" name="property" class="form-control"/>
+                                        <input type="text" name="property" class="form-control" placeholder="العقار"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                        <input type="submit" class="btn btn-default" width="100%">
+                                        <input type="submit" class="btn btn-ud" width="100%" value="بحث">
                                     </div>
                                 </form>
                             </div>
@@ -69,7 +66,6 @@
                                         <th>#</th>
                                         <th>رقم الوحدة</th>  
                                         <th>العقار</th> 
-                                        <th></th> 
                                         <th></th> 
                                     </tr> 
                                 </thead> 
@@ -89,7 +85,7 @@
                                 </tbody> 
                             </table>
                             @else
-                                <p>لا يوجد </p>
+                                <p class="bg-warning">لا يوجد </p>
                             @endif
                     </div>
 

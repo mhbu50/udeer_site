@@ -18,17 +18,17 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'supplier_name' => 'required|Min:3|Max:80|AlphaNum',
-                'national_id' => 'numeric|Min:1|Max:20',
-                'mobile_number' => 'numeric|Min:1|Max:20',
-                'email' => 'email|Min:3|Max:300|AlphaNum',
-                'bank' => 'Min:3|Max:80|AlphaNum',
-                'bank_account' => 'Min:3|Max:80|AlphaNum',
-                'telephone_number' => 'numeric|Min:1|Max:20',
-                'fax_number' => 'numeric|Min:1|Max:20',
-                'address' => 'Min:3|Max:80|AlphaNum',
-                'kafil' => 'Min:3|Max:80|AlphaNum',
-                'supplier_type' => 'Min:3|Max:80|AlphaNum',
+                // 'supplier_name' => 'required|Min:3|Max:80|AlphaNum',
+                // 'national_id' => 'numeric|Min:1|Max:20',
+                // 'mobile_number' => 'numeric|Min:1|Max:20',
+                // 'email' => 'email|Min:3|Max:300|AlphaNum',
+                // 'bank' => 'Min:3|Max:80|AlphaNum',
+                // 'bank_account' => 'Min:3|Max:80|AlphaNum',
+                // 'telephone_number' => 'numeric|Min:1|Max:20',
+                // 'fax_number' => 'numeric|Min:1|Max:20',
+                // 'address' => 'Min:3|Max:80|AlphaNum',
+                // 'kafil' => 'Min:3|Max:80|AlphaNum',
+                // 'supplier_type' => 'Min:3|Max:80|AlphaNum',
                 
             ]);
 

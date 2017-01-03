@@ -14,25 +14,23 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
 
         <div class="col-md-9">
             <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     @include('ar.tabs.property',['property_name' => $property_name])   
                     <div id="" class="page-content">
                         <h3>الملاجظات</h3>
                      @for ($i = 0; $i < count($result); $i++)
-                                        <label>{{$i+1}})</label>
-                                        <h4>{{$result[$i]->user}},{{$result[$i]->creation}}</h4>
-                                        <p>{{$result[$i]->content}}</p>
+                     <blockquote> 
+                        <p>{{$result[$i]->content}}</p> 
+                        <footer>{{$result[$i]->user}} <cite title="Source Title">{{$result[$i]->creation}}</cite></footer> </blockquote>
                       @endfor   
                        <form method='post' action="{!!action('CommentController@store',['doctype' => 'property','name' => $property_name])!!}" enctype="multipart/form-data">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                           <div class="form-group">
-                                <label for="exampleInputEmail1">اضافة ملاحضة</label>
-                                <input type="text" class="form-control" id="content" placeholder="" name="content">
-                                <input type="submit" class="btn btn-default" value='ارسال'/>
+                            <input class="form-control" id="content" placeholder="اضافة ملاحظة" name="content"/>
                            </div>  
                         </form>
                     </div>

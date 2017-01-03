@@ -1,4 +1,4 @@
- <ul id="accordion" role="tablist" aria-multiselectable="true">
+ <ul id="accordion" role="tablist" aria-multiselectable="true" class="big-s">
 
     <li class ="c-parent ">
         <p  data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-haspopup="true" aria-expanded="true" aria-controls="collapseOne">العقار و الوحدات </p>
@@ -56,3 +56,6 @@
     </li>
     
 </ul>
+
+
+

@@ -14,10 +14,10 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
             <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     <div id="propriety_unit_form" class="page-content">
                          <div class="raw">
                                 <div class='col-md-12'>
@@ -62,7 +62,7 @@
                                 <div class='col-md-6'>
                                     <div class="form-group">
                                         <label for="mobile_number">اسم البنك</label>
-                                        <input type="text" class="form-control" id="bank" placeholder="" name="bank">
+                                        <input type="text" class="form-control" id="bank_name" placeholder="" name="bank_name">
                                     </div>
                                 </div>
                                 <div class='col-md-6'>
@@ -98,8 +98,8 @@
                                 </div>
                                 <div class='col-md-6'>
                                     <div class="form-group">
-                                        <label for="kafil">اسم الكفيل</label>
-                                        <input type="text" class="form-control" id="kafil" placeholder="" name="kafil">
+                                        <label for="kafeel_name">اسم الكفيل</label>
+                                        <input type="text" class="form-control" id="kafeel_name" placeholder="" name="kafeel_name">
                                     </div>
                                 </div>
                             </div>
@@ -115,6 +115,7 @@
                             <div class='raw'>
                                 <div class='col-md-12'><button class='btn btn-ud'>ارسال</button></div>
                             </div>
+                        </form>
                     </div>
 
                 </div>

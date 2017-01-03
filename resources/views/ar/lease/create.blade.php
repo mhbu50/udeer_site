@@ -14,14 +14,14 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
             <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     <div id="propriety_unit_form" class="page-content">
                          <div class="raw">
                                 <div class='col-md-12'>
-                                    <h2>عنوان<h2>
+                                    <h2>اضافة عقد<h2>
                                 </div>
                                 
                             </div>
@@ -42,11 +42,7 @@
                                     <label for="lease_doc">نص العقد</label>
                                     <input type="file" class="form-control" id="lease_doc" name="lease_doc">
                                 </div>
-                               <!--  <div class="form-group">
-                                    <label for="duration">دورة</label>
-                                    <input type="text" class="form-control" id="duration" placeholder="" name="duration">
-                                </div>
- -->
+                               
                                 <div class="form-group">
                                     <label for="rent_writing_date">تاربخ امضاء العقد</label>
                                     <input type="date" class="form-control" id="lease_writing_date" placeholder="" name="rent_writing_date">
@@ -75,13 +71,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="property">اسم العقار</label>
-                                    <input type="text" class="form-control" id="property" placeholder="" name="property">
-                                    <a href="#" data-toggle="modal" data-target="#PropertyModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                    <div style="position: relative;">
+                                        <input type="text" class="form-control" id="property" placeholder="" name="property">
+                                        <a class="c-pls" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="property unit">وحدة العقار</label>
-                                    <input type="text" class="form-control" id="property_unit" placeholder="" name="property_unit">
-                                    <a href="#" data-toggle="modal" data-target="#Property_unitModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                    <div style="position: relative;">
+                                        <input type="text" class="form-control" id="property_unit" placeholder="" name="property_unit">
+                                        <a class="c-pls" href="#" data-toggle="modal" data-target="#Property_unitModal"><i class="glyphicon glyphicon-plus"></i></a>
+                                    </div>
                                 </div>
                                 
 <!--                                  <div class="form-group">

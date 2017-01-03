@@ -14,41 +14,42 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
-            <div class="raw">
+            <div class="row">
                 <div class="col-md-2">
                     
-                    <a class="btn btn-default" href="{{action('Property_ownerController@create')}}">اضافة</a>
+                    <a class="btn btn-default c-btn-tp" href="{{action('Property_ownerController@create')}}">اضافة</a>
                 </div>
                 <div class="col-md-2">
                     <form action="{!!action('Property_ownerController@delete_array')!!}" method="post">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                         <input name="names" id="del-arr" hidden/>
-                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                        <button class="btn btn-danger c-btn-tp"id="del-btn" disabled>مسح</button>
                     </form>
+                    
                 </div>
             </div>
             <div class="raw">
                
 
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     <div id="" class="page-content">
                         @if(count($result))
                         <form action="{!!action('Property_ownerController@set_index')!!}" method="post">
                             <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                             <div class="raw">
                                 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>اسم المالك</label>
-                                        <input type="text" name="owner_name"/>
+                                        <input type="text" name="owner_name"  class="form-control" placeholder="اسم المالك"/>
                                     </div>  
                                 </div>
-
-                                <div class="form-group">
-                                        <input type="submit" class="btn btn-default" width="100%">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="submit"  width="100%" class="btn btn-ud" width="100%" value="بحث" />
                                     </div>
+                                </div>    
                                 
                             </div>
                         </form> 
@@ -58,7 +59,7 @@
                                     <tr> 
                                         <th>#</th>
                                         <th>اسم المالك</th>  
-                                        <th>بيد الالكتروني</th> 
+                                        <th>بريد الالكتروني</th> 
                                         <th></th> 
                                     </tr> 
                                 </thead> 

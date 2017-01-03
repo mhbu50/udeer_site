@@ -14,22 +14,27 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
-            <div class="raw">
+      
+
+            <div class="row">
                 <div class="col-md-2">
-                    <a class="btn btn-default" href="{{action('ComplainController@create')}}">اضافة</a>
+                    
+                    <a class="btn btn-default c-btn-tp" href="{{action('ComplainController@create')}}">اضافة</a>
                 </div>
                 <div class="col-md-2">
                     <form action="{!!action('ComplainController@delete_array')!!}" method="post">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                         <input name="names" id="del-arr" hidden/>
-                        <button class="btn btn-danger"id="del-btn">مسح</button>
+                        <button class="btn btn-danger c-btn-tp"id="del-btn" disabled>مسح</button>
                     </form>
+                    
                 </div>
             </div>
+
             <div class="raw">
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     <div id="" class="page-content">
                          @if(count($result))
                          <table class="table table-strip"> 
@@ -60,7 +65,7 @@
                                 </tbody> 
                             </table>
                             @else
-                                    <p>لا يوجد </p>
+                                <p class="bg-warning">لا يوجد </p>
                             @endif 
                     </div>
 

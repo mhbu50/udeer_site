@@ -32,8 +32,10 @@ class UserController extends Controller
 
         $data = $request->all();
         unset($data["_token"]);
+        frappe_login('administrator','123456');
         $result = frappe_register($data);
-        var_dump($result);
+        frappe_logout();
+        return redirect('/');
 
     }
 

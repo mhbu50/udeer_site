@@ -14,55 +14,59 @@
                 @include('ar.ar_nav')
             </div>
 
-   <div class="container c-body-con">
+   <div class="container-fluid c-body-con">
         <div class="col-md-9">
-            <div class="raw">
-                <div class="raw">
-                    <div class="col-md-2">
-                        
-                        <a class="btn btn-default" href="{{action('LeaseController@create')}}">اضافة</a>
-                    </div>
-                    <div class="col-md-2">
-                        <form action="{!!action('LeaseController@delete_array')!!}" method="post">
-                            <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                            <input name="names" id="del-arr" hidden/>
-                            <button class="btn btn-danger"id="del-btn">مسح</button>
-                        </form>
-                    </div>
+            <div class="row">
+                <div class="col-md-2">
+                    
+                    <a class="btn btn-default c-btn-tp" href="{{action('LeaseController@create')}}">اضافة</a>
                 </div>
+                <div class="col-md-2">
+                    <form action="{!!action('PropertyController@delete_array')!!}" method="post">
+                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
+                        <input name="names" id="del-arr" hidden/>
+                        <button class="btn btn-danger c-btn-tp "id="del-btn" disabled>مسح</button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="raw">
+                
 
-                <div class="col-md-12 col-md-offset-0" >
+                <div class="" >
                     <div id="" class="page-content">
                         @if(count($result))
                         <form action="{!!action('LeaseController@set_index')!!}" method="post">
                             <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                             <div class="raw">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>رقم العقد</label>
-                                        <input type="text" name="lease_number" class="form-control"/>
+                                        <input type="text" name="lease_number" class="form-control" placeholder="رقم العقد"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>عقود الايجار</label>
-                                        <select name="validation" class="form-control">
-                                            <option value=""> ---- </option>
+                               
+                                        <select name="validation" class="form-control"  >
+                                            <option value="" disabled selected> عقود الايجار </option>
                                             <option value="expired">عقود المغلقة</option>
                                             <option value="valid">عقود الفعالة</option>
 
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>عقود التي تنتهي في غضون</label>
-                                        <input type="date" name="ex_date" class="form-control"/>
+                                        <input placeholder="تنتهي في تاريخ" name="ex_date" class="form-control" type="text" onfocus="(this.type='date')"  id="ex_date">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                        <input type="submit" class="btn btn-default" width="100%">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                         <label>&nbsp;<br></label>
+                                        <input type="submit" class="btn btn-ud" width="100%" value="بحث">
                                     </div>
+                                </div>
+                                
                                 
                             </div>
                         </form> 
@@ -74,7 +78,7 @@
                                         <th>رقم الوحدة</th> 
                                         <th>تاريخ انتهاء العقد</th> 
                                         <th></th> 
-                                        <th></th> 
+                                        
                                     </tr> 
                                 </thead> 
                                 <tbody> 
@@ -97,6 +101,7 @@
                             @else
                                 <p>لا يوجد </p>
                             @endif
+                            
                     </div>
 
                 </div>
