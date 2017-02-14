@@ -37,7 +37,11 @@ class DocsController extends Controller
      */
     public function store($doctype,$docname,Request $request)
     {
-        $data['doctype'] = $doctype;
+        $a_doctype = $doctype;
+        if($doctype=="property_unit"){
+            $a_doctype = str_replace('_', '%20', $doctype);
+        }
+        $data['doctype'] = $a_doctype;
         $data['docname'] = $docname;
         $data['filename'] = uniqid().'.'.$request->file('image')->getClientOriginalExtension();
         $file = file_get_contents($request->file('image'));
@@ -45,7 +49,9 @@ class DocsController extends Controller
         $urlencode = urlencode($base64);
         $data['filedata'] = $urlencode;
         $result = frappe_uploadimage($data);
-        var_dump($result);
+        // var_dump($result);
+        
+        return redirect($doctype.'/'.$docname.'/docs');   
 
     }
 
@@ -55,9 +61,13 @@ class DocsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
-        //
+        $doc = frappe_get_data('File',$name);
+        $doc = json_decode($doc)->data;
+        // var_dump($doc);
+        return view('ar.doc.show',compact('doc'));
+
     }
 
     /**

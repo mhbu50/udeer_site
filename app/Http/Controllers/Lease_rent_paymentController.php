@@ -35,7 +35,7 @@ class Lease_rent_paymentController extends Controller
                 'renter' => 'Min:3|Max:80|AlphaNum',
                 'lease' => 'Min:3|Max:80|AlphaNum',
                 'employee' => 'Min:3|Max:80|AlphaNum',
-                'amount' => 'numeric|Min:1|Max:20',
+                'amount' => 'numeric',
                  
                 
             ]);
@@ -49,8 +49,7 @@ class Lease_rent_paymentController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('Lease%20rent%20payment',$data);
-        var_dump($result);
-       return redirect('lease_rent_payment/index');
+        return redirect('lease_rent_payment/index');
     }
 
 

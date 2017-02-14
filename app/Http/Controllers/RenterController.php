@@ -46,6 +46,24 @@ class RenterController extends Controller
        return redirect('renter/index');
     }
 
+    public function store_ajax(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                'customer_name' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return 'error';
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        $data["customer_group"] = "Commercial";
+        $result = frappe_insert('Customer',$data);
+        $result = json_decode($result)->data;
+        return $result->name;
+    }
+
 
     public function edit($name)
     {

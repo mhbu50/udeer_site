@@ -13,7 +13,6 @@ class Property_unitController extends Controller
 {
    public function create()
     {
-        
         $properties = frappe_get_data('property','?fields=["name"]');
         $properties = json_decode($properties)->data;
         return view('ar.property_unit.create',compact('properties'));
@@ -22,22 +21,21 @@ class Property_unitController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'property' => 'required|Min:3|Max:80|AlphaNum',
-                'unit_number' => 'numeric|Min:1|Max:20',
+                'property' => 'required|AlphaNum',
+                'unit_number' => 'numeric',
                 'unit_type' => 'in:apartment,room,villa,house',
-                'annual_rent_amount' => 'numeric|Min:1|Max:20',
-                'rent_currency' => 'Min:2|Max:80|AlphaNum',
-                'insurance_amount' => 'numeric|Min:1|Max:20',
+                'annual_rent_amount' => 'numeric',
+                'rent_currency' => 'AlphaNum',
+                'insurance_amount' => 'numeric',
                 'commission_type' => 'in:percentage,cash',
-                'unit_space' => 'numeric|Min:1|Max:20',
-                'finishing_status' => 'Min:3|Max:80|AlphaNum',
-                'unit_description' => 'Min:3|Max:80|AlphaNum',
-                'room_slot' => 'numeric|Min:1|Max:20',
-                'number_of_bathrooms' => 'numeric|Min:1|Max:20',
+                'unit_space' => 'numeric',
+                'finishing_status' => 'AlphaNum',
+                'room_slot' => 'numeric',
+                'number_of_bathrooms' => 'numeric',
                 'unit_activity' => 'in:commercial,residential',
-                'water_meter_number' => 'numeric|Min:1|Max:20',
-                'electricity_meter_number' => 'numeric|Min:1|Max:20',
-                'number_of_copies' => 'numeric|Min:1|Max:20',
+                'water_meter_number' => 'numeric',
+                'electricity_meter_number' => 'numeric',
+                'number_of_copies' => 'numeric',
                 
             ]);
 
@@ -52,9 +50,12 @@ class Property_unitController extends Controller
         $counter =  is_null($request->get('number_of_copies')) ? 0 : $request->get('number_of_copies');
         for( $i = 0; $i<$counter; $i++ ) {
            $result = frappe_insert('property%20unit',$data);
+           $data["unit_number"]++;
          }
         
         return redirect('property_unit/index');
+      
+      //  
     }
 
     public function store_ajax(Request $request)
@@ -114,6 +115,7 @@ class Property_unitController extends Controller
     }
 
 
+
     public function set_index(Request $request)
     {
        $filters = array();
@@ -151,8 +153,9 @@ class Property_unitController extends Controller
     public function lease_index($unit_name)
     {
 
-       $result = frappe_get_data('lease','?fields=["name","date","active"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]');
+       $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]');
        $result = json_decode($result)->data;
+       // var_dump($result);
        return view('ar.property_unit.lease_index',compact('result','unit_name'));
        
 
@@ -187,4 +190,44 @@ class Property_unitController extends Controller
         $resultObj = frappe_delete('property%20unit',$unit_name);
         return redirect('property_unit/index');
     }
+
+
+    public function create_lease($unit_name)
+    {
+        $renters = frappe_get_data('Customer','?fields=["name"]');
+        $renters = json_decode($renters)->data; 
+        
+        $property_unit = frappe_get_data('property%20unit',$unit_name);
+        $property_unit = json_decode($property_unit)->data;
+        // var_dump($property_unit);
+        return view('ar.property_unit.create_lease',compact('property_unit','renters'));
+
+    }
+
+
+    public function store_lease(Request $request,$unit_name)
+    {
+        $data = $request->all();
+        unset($data["_token"]);
+        $result = frappe_insert('lease',$data);
+        // var_dump($result);
+        return redirect('property_unit/'.$unit_name.'/leases');
+    }
+
+    public function comments($unit_name)
+    { 
+        $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property%20unit"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$unit_name.'"]]');
+        $result = json_decode($result)->data;
+        return view('ar.property_unit.comments',compact('result','unit_name'));
+    }
+
+    public function docs_index($unit_name)
+    { 
+        $result = frappe_get_data('File','?fields=["name","file_name","file_url","creation"]&filters=[["File","attached_to_name","=","'.$unit_name.'"],["File","attached_to_doctype","=","property%20unit"]]');
+        $result = json_decode($result)->data;
+        return view('ar.property_unit.docs',compact('result','unit_name'));
+        
+        
+    }   
+
 }

@@ -37,7 +37,7 @@ class UdeerController extends Controller
 
     public function test()
     {
-       $result = test_d();
+       $result = test();
         var_dump($result);
         // return "ss";
     } 
@@ -56,6 +56,25 @@ class UdeerController extends Controller
         return view('admin');
         
     }   
+
+
+    public function delete_array(Request $request)
+    {
+        $doclist = json_decode($request->get('names'));
+        foreach ($doclist as $doc) {
+            $resultObj = frappe_delete($request->get('doctype'),$doc);
+        }
+        return ;
+    }
+
+    public function find($doctype,$key)
+    {
+        $result = frappe_get_data($doctype,'?fields=["name"]&filters=[["'.$doctype.'","name","like","%'.$key.'%"]]');
+        $result = json_decode($result)->data;
+        return $result;
+    }
+
+    
 
 
 

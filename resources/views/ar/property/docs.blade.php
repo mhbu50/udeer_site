@@ -1,58 +1,73 @@
+@section('module','property_management')
 @extends('template')
-@section('lang','ar')
-@section('head')
-    <link href="/css/bootstrap-rtl.css" rel="stylesheet">
+
+@section('css_page')
 @endsection
-
-@section('body')
-
-<body id="property_docs" class="property_management p-show">
-
-    <section id="temp1">
-        
-            <div id="c-nav">
-                @include('ar.ar_nav')
-            </div>
-
-   <div class="container-fluid c-body-con">
-
-        <div class="col-md-9">
-            <div class="raw">
-                <div class="" >
-                    @include('ar.tabs.property',['property_name' => $property_name])   
-                    <div id="" class="page-content">
-                        @if(count($result))
-                        @foreach($result as $res)
-                            <div class='col-md-3'>
-                                <img src="http://localhost:8002{{$res->file_url}}" width='100%'>
-                            </div>
-                        @endforeach   
-                        @else
-                            <p class="bg-warning">لا يوجد </p>
-                        @endif
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div id="side_menu" >
-                @include('ar.ar_side')
-            </div>
-        </div>
-    </div>
-
-
- 
-    <footer id="footer">
-       @include('ar.ar_footer')
-    </footer>
+@section('js_page')
     <script type="text/javascript">
-        $(document).ready(function(){
-            $(".nav-tabs #documents").addClass('active');
-            
-
-        });
+      
     </script>
-</body>
 @endsection
+
+@section('content')
+    <h1 class="page-title"> ادارة الاملاك العقارية</h1>
+    <div class="row">
+      <div class="col-md-12">
+        @include('ar.tabs.property',['property_name' => $property_name])
+        <div class="portlet light bordered">
+          <div class="portlet-title">
+            <div class="caption font-red-sunglo">
+                <h3>المستندات</h3>
+            </div>
+            <div class="actions">
+                <a class="btn blue btn-outline" href="{{action('DocsController@create',['doctype' => 'property','docname' => $property_name] )}}">
+                    اضافة
+                    <i class="fa fa-plus"></i>
+                </a>
+                <a class="btn red btn-outline c-btn-tp" href="javascript:;" id="del-btn" doctype="File">
+                    مسح
+                    <i class="icon-trash"></i>
+                    <input type='hidden' name='_token' class="token" value="{!! csrf_token() !!}" />
+                    <input name="names" id="del-arr" hidden/>
+                </a>
+                    
+                
+                <a class="btn btn-outline  buttons-html5 btn yellow btn-outline" tabindex="0" aria-controls="sample_1" href="#"><span>اكسل</span></a>
+            </div>
+            
+          </div>
+          <div class="portlet-body form">
+               @if(count($result))
+                    <table class="table table-strip"> 
+                        <thead> 
+                            <tr> 
+                                <th>#</th>  
+                                <th>تاريخ</th> 
+                                <th></th> 
+                            </tr> 
+                        </thead> 
+                        <tbody> 
+                            <tr>
+                             @for ($i = 0; $i < count($result); $i++)
+                                <td><a href="{!!action('DocsController@show',['name'=>$result[$i]->name])!!}">{{ $result[$i]->file_name }}</a></td>
+                                <td>{{$result[$i]->creation}}</td> 
+                                <td class="bs-checkbox">
+                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab"><input data-index="0" name="btSelectItem" type="checkbox" class='del-check hide' id="{!!$result[$i]->name!!}"><span></span></label>
+                                </td>
+                            
+                            @endfor                  
+
+                            </tr> 
+                        </tbody> 
+                    </table>  
+                @else
+                    <p class="bg-warning">لا يوجد </p>
+                @endif
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+@endsection
+

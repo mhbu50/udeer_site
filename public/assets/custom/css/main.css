@@ -1,0 +1,104 @@
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+body *{
+  font-family: 'Droid Arabic Kufi';
+}
+#mapCanvas{
+  width: 100%;
+  height: 300px;
+}
+
+
+@media all and (min-width: 768px) {
+    .small-s{
+        display: none;
+    }
+
+    .pd-0-p div:first-child{
+      padding-right: 0px !important;
+    }
+
+    .pd-0-p div:last-child{
+      padding-left: 0px !important;
+    }
+
+}
+
+.custom-nav .c-menue-item a{
+  
+  height: 100px;
+  padding: 19px 10px 10px 10px!important;
+  display: block;
+
+}
+.custom-nav .c-menue-item p{
+  padding: 10px 0 10px 0;
+  margin: 0px;
+  font-size: 10px;
+  font-weight: bold;
+
+}
+.custom-nav .c-menue-item img{
+  width: 30px;
+  height: auto;
+}
+
+
+.custom-nav.page-header.navbar{
+  height: 100px;
+}
+
+.custom-nav .c-menue-item {
+  text-align: center;
+}
+
+.custom-nav .page-header {
+  height: 300px;
+}
+.custom-nav{
+  background-color: #fff !important;
+  box-shadow: 0 4px 8px 0 rgba(137, 94, 166, 0.2) !important;
+}
+
+.custom-page-sidebar .page-sidebar-menu{
+  padding-top: 50px !important;
+}
+.custom-page-sidebar .sidebar-search input[type=text]{
+  background-color: white !important;
+}
+
+.property_management .page-container {
+  background-color: #895ea6 !important;
+}
+.property_management .custom-page-sidebar a{
+  color: white !important;
+}
+.property_management .page-sidebar .page-sidebar-menu>li.active>a{
+  background-color: #C79BBF;
+}
+
+.property_management .custom-page-sidebar .page-sidebar-menu{
+  background-color: #895ea6 !important;
+}
+.property_management .custom-page-sidebar .page-sidebar-menu a:hover{
+  background-color: #807ab8 !important;
+}
+
+.property_management .custom-page-sidebar .page-sidebar-menu .sub-menu a:hover{
+  background-color: #cec8e4 !important;
+}
+.property_management .page-sidebar .page-sidebar-menu>li>a{
+  border-top: #9F7C98 1px solid;
+}
+
+.property_management .custom-page-sidebar .sidebar-search .input-group{
+  border: 1px solid #895ea6;
+}
+.property_management .custom-page-sidebar i{
+  color: white !important;
+}
+
+
+.del-check-lab{
+  display: none;
+}
+

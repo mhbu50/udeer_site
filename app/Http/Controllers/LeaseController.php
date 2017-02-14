@@ -20,6 +20,15 @@ class LeaseController extends Controller
         return view('ar.lease.create',compact('properties','property_units'));
     }
 
+    public function test($name)
+    {
+
+        return frappe_late_payment($name);
+    }
+
+
+    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -27,11 +36,11 @@ class LeaseController extends Controller
                 'property_unit' => 'required|AlphaNum',
                 'date' => 'date|date_format:Y-m-d',
                 'renter' => 'required|AlphaNum',
-                'lease_doc' => 'required|AlphaNum',
+                'lease_doc' => 'AlphaNum',
                 'lease_writing_date' => 'date|date_format:Y-m-d',
                 'expiry_date' => 'date|date_format:Y-m-d|after:today',
                 'lease_duration' => 'numeric|Min:1|Max:20',
-                'rent_starting_date' => 'date|date_format:Y-m-d|after:today',
+                'rent_starting_date' => 'date|date_format:Y-m-d',
                  
                 
             ]);
@@ -47,6 +56,9 @@ class LeaseController extends Controller
         $result = frappe_insert('lease',$data);
        return redirect('lease/index');
     }
+
+
+    
 
 
     public function store_ajax(Request $request)
@@ -145,7 +157,7 @@ class LeaseController extends Controller
         foreach ($pids as $property_name) {
             $resultObj = frappe_delete('lease',$property_name);
         }
-        return redirect('lease/index');
+        return redirect()->back();
     }
 
     public function delete($name)

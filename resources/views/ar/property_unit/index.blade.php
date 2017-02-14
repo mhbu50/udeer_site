@@ -1,112 +1,110 @@
-@extends('template')
 @section('lang','ar')
-@section('head')
-    <link href="/css/bootstrap-rtl.css" rel="stylesheet">
+@section('module','property_management')
+@extends('template')
+
+@section('css_page')
+    <link href="/assets/global/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css" rel="stylesheet" type="text/css" />
+
+@endsection
+@section('js_page')
+    <script src="/assets/pages/scripts/table-bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
 @endsection
 
-@section('body')
-
-<body class="property_management p_u-show">
-
-    <section id="temp1">
-        
-            <div id="c-nav">
-                @include('ar.ar_nav')
+@section('content')
+    <h1 class="page-title"> ادارة الاملاك العقارية</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="portlet light bordered ">
+          <div class="portlet-title">
+            <div class="caption font-red-sunglo">
+                العقارات
             </div>
+            <div class="actions">
 
-   <div class="container-fluid c-body-con">
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-2">
-                    
-                    <a class="btn btn-default c-btn-tp" href="{{action('Property_unitController@create')}}">اضافة</a>
-                </div>
-                <div class="col-md-2">
-                    <form action="{!!action('Property_unitController@delete_array')!!}" method="post">
-                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                        <input name="names" id="del-arr" hidden/>
-                        <button class="btn btn-danger c-btn-tp"id="del-btn" disabled>مسح</button>
-                    </form>
-                </div>
+               
+                <a class="btn blue btn-outline" href="/property_unit/create">
+                    اضافة
+                    <i class="fa fa-plus"></i>
+                </a>
+                <a class="btn red btn-outline c-btn-tp" href="javascript:;" id="del-btn" doctype="property%20unit">
+                    مسح
+                    <i class="icon-trash"></i>
+                    <input type='hidden' name='_token' class="token" value="{!! csrf_token() !!}" />
+                    <input name="names" id="del-arr" hidden/>
+                </a>
+                <a class="btn btn-outline  buttons-html5 btn yellow btn-outline" tabindex="0" aria-controls="sample_1" href="#"><span>اكسل</span></a>
             </div>
-            <div class="raw">
-                <div class="" >
-                    
-                    <div id="" class="page-content">
-                        @if(count($result))
-                        <form action="{!!action('Property_unitController@set_index')!!}" method="post">
-                            <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                            <div class="raw">
-                                <form>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="اسم الوحدة"/>
-                                    </div>  
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" name="unit_number" class="form-control" placeholder="رقم الوحدة"/>
-                                    </div>  
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" name="property" class="form-control" placeholder="العقار"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                        <input type="submit" class="btn btn-ud" width="100%" value="بحث">
-                                    </div>
-                                </form>
-                            </div>
-                        </form> 
+            
+            
+          </div>
+          <div class="portlet-body form">
+            @if(count($result))
+            <table class="table table-hover table-striped"> 
+                <thead> 
+                    <tr> 
+                        <th><div class="th-inner ">#</div></th>
+                        <th><div class="th-inner ">رقم الوحدة</div></th>  
+                        <th><div class="th-inner ">العقار</div></th> 
+                        <th></th> 
+                    </tr> 
+                </thead> 
+                <tbody> 
+                    <tr>
+                     @for ($i = 0; $i < count($result); $i++)
+                        <th scope="row"><a href="{!!action('Property_unitController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
+                        <td>{{$result[$i]->unit_number}}</td> 
+                        <td>{{$result[$i]->property}}</td>
+                        <td class="bs-checkbox">
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab "><input data-index="0" name="btSelectItem" type="checkbox" class='del-check' id="{!!$result[$i]->name!!}"><span></span></label>
+                        </td> 
+                    </tr>
 
-                         <table class="table table-strip"> 
-                                <thead> 
-                                    <tr> 
-                                        <th>#</th>
-                                        <th>رقم الوحدة</th>  
-                                        <th>العقار</th> 
-                                        <th></th> 
-                                    </tr> 
-                                </thead> 
-                                <tbody> 
-                                    <tr>
-                                     @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('Property_unitController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->unit_number}}</td> 
-                                        <td>{{$result[$i]->property}}</td>
-                                       <td><input type='checkbox' class='del-check' id="{!!$result[$i]->name!!}" name=""></td>
-                                    </tr>
+                        @endfor
+                                               
 
-                                        @endfor
-                                                               
+                    </tr> 
+                </tbody> 
+            </table>
+            @else
+                <p class="bg-warning">لا يوجد </p>
+            @endif
+          </div>
 
-                                    </tr> 
-                                </tbody> 
-                            </table>
-                            @else
-                                <p class="bg-warning">لا يوجد </p>
-                            @endif
-                    </div>
-
-                </div>
-            </div>
         </div>
-        <div class="col-md-3">
-            <div id="side_menu" >
-                @include('ar.ar_side')
-            </div>
-        </div>
+      </div>
     </div>
-
-
-
- 
-    <footer id="footer">
-       @include('ar.ar_footer')
-    </footer>
+    @include('ar.modals.confirm_modal')
     
-
-</body>
-
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

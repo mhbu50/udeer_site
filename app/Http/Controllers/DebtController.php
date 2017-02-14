@@ -19,9 +19,8 @@ class DebtController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-               'debtor_name' => 'required|Min:3|Max:80|AlphaNum',
-               'amount' => 'required|numeric|Min:1|Max:20',
-               'description' => 'Min:3|Max:300|AlphaNum'
+               'debtor_name' => 'required|AlphaNum',
+               'amount' => 'required|numeric',
                 
             ]);
 

@@ -7,7 +7,7 @@
         function frappe_login($usr,$pwd){
                 // $ch = curl_init('http://52.8.230.142/api/method/login');
                 $ch = curl_init('http://localhost:8002/api/method/login');
-                curl_setopt( $ch, CURLOPT_POSTFIELDS,array(
+                curl_setopt($ch, CURLOPT_POSTFIELDS,array(
                 'usr'=>$usr,
                 'pwd'=>$pwd 
                 ));
@@ -31,14 +31,15 @@
 
         function frappe_logout(){
             $ch = curl_init('http://localhost:8002/api/method/logout');
+            // $ch = curl_init('http://52.8.230.142/api/method/logout');
             curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 
             try {
                         $result = curl_exec($ch);
-                        $resultq = json_decode($result);
-                        return $resultq;
+                        $result = json_decode($result);
+                        return $result;
                 } catch (Exception $e) {
                         return 'eror';
                 }
@@ -58,7 +59,7 @@
                 // curl_setopt($ch, CURLOPT_HEADER, true);
                 try {
                         $result = curl_exec($ch);
-                        json_encode($result);
+                        // json_encode($result);
                         return $result;
 
                         
@@ -160,6 +161,7 @@
         }
 
         function frappe_uploadimage($data){
+            // $ch = curl_init('http://52.8.230.142/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
             $ch = curl_init('http://localhost:8002/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -183,6 +185,44 @@
                 }
                 
         }
+
+
+        function frappe_update_password($key,$password){
+            $ch = curl_init('http://localhost:8002/api/method/frappe.core.doctype.user.user.update_password'); 
+            // $ch = curl_init('http://52.8.230.142/api/method/frappe.core.doctype.user.user.update_password'); 
+
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('new_password' => $password ,'key' => $key));
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            $result = curl_exec($ch);
+            return $result;
+
+        }
+
+        function frappe_late_payment($lease_id){
+                
+                // $ch = curl_init('http://52.8.230.142/api/method/frappe.www.login.custom_re');
+                $ch = curl_init('http://localhost:8002/api/method/frappe.www.login.late_payment'); 
+                curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+                curl_setopt($ch, CURLOPT_POSTFIELDS, array('lease_id' => $lease_id));
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                $result = curl_exec($ch);
+                return $result;
+        }
+
+        function frappe_late_payment_p($property_name){
+                
+                // $ch = curl_init('http://52.8.230.142/api/method/frappe.www.login.custom_re');
+                $ch = curl_init('http://localhost:8002/api/method/frappe.www.login.late_payment_p'); 
+                curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+                curl_setopt($ch, CURLOPT_POSTFIELDS, array('p_id' => $property_name));
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                $result = curl_exec($ch);
+                return $result;
+        }
+
 
 
         

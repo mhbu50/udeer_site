@@ -19,14 +19,16 @@ class Property_ownerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-               'full_name' => 'required|Min:3|Max:80|AlphaNum',
-               'id_number' => 'numeric|Min:9|Max:11',
-               'mobile_number' => 'numeric|Min:9|Max:11',
-               'email' => 'email|Min:3|Max:80|AlphaNum',
-               'bank' => 'Min:3|Max:80|AlphaNum',
-               'bank_acount' => 'Min:3|Max:80|AlphaNum',
-               'telephone_number' => 'numeric|Min:9|Max:11',
-               'fax' => 'Min:3|Max:80|AlphaNum',
+               'first_name' => 'required|AlphaNum',
+               'second_name' => 'required|AlphaNum',
+               'third_name' => 'required|AlphaNum',
+               'last_name' => 'required|AlphaNum',
+               'id_number' => 'numeric',
+               'mobile_number' => 'numeric',
+               'email' => 'email',
+               'bank_acount' => 'AlphaNum',
+               'telephone_number' => 'numeric',
+               'fax' => 'AlphaNum',
                 
             ]);
 

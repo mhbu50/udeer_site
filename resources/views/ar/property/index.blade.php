@@ -1,113 +1,96 @@
+@section('module','property_management')
 @extends('template')
-@section('lang','ar')
-@section('head')
-    <link href="/css/bootstrap-rtl.css" rel="stylesheet">
+
+@section('css_page')
+    <link href="/assets/global/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css" rel="stylesheet" type="text/css" />
+
+@endsection
+@section('js_page')
+    <script src="/assets/pages/scripts/table-bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
 @endsection
 
-@section('body')
-
-<body id="property_index" class="property_management p-show">
-
-    <section id="temp1">
-        
-            <div id="c-nav">
-                @include('ar.ar_nav')
+@section('content')
+    <h1 class="page-title"> ادارة الاملاك العقارية</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="portlet light bordered ">
+          <div class="portlet-title">
+            <div class="caption font-red-sunglo">
+                العقارات
             </div>
+            <div class="actions">
 
-   <div class="container-fluid c-body-con">
-
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-2">
+               
+                <a class="btn blue btn-outline" href="/property/create">
+                    اضافة
+                    <i class="fa fa-plus"></i>
+                </a>
+                <a class="btn red btn-outline c-btn-tp" href="javascript:;" id="del-btn" doctype="property">
+                    مسح
+                    <i class="icon-trash"></i>
+                    <input type='hidden' name='_token' class="token" value="{!! csrf_token() !!}" />
+                    <input name="names" id="del-arr" hidden/>
+                </a>
                     
-                    <a class="btn btn-default c-btn-tp" href="{{action('PropertyController@create')}}">اضافة</a>
-                </div>
-                <div class="col-md-2">
-                    <form action="{!!action('PropertyController@delete_array')!!}" method="post">
-                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                        <input name="names" id="del-arr" hidden/>
-                        <button class="btn btn-danger c-btn-tp"id="del-btn" disabled>مسح</button>
-                    </form>
-                    
-                </div>
+                
+                <a class="btn btn-outline  buttons-html5 btn yellow btn-outline" tabindex="0" aria-controls="sample_1" href="#"><span>اكسل</span></a>
             </div>
-            <div class="raw">
-                <div class="" >
-
-                    <div id="" class="page-content">
-                        @if(count($result))
-                        <form action="{!!action('PropertyController@set_index')!!}" method="post">
-                            <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                            <div class="raw">
-                                
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="اسم العقار"/>
-                                    </div>  
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="text" name="city" class="form-control" placeholder="المدينة"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                        <input type="submit" class="btn btn-ud" width="100%" value="بحث">
-                                </div>
-                                
-                            </div>
-                        </form> 
+            
+            
+          </div>
+          <div class="portlet-body form">
+            <table class="table table-hover table-striped" id="sample_1"> 
+                <thead> 
+                    <tr> 
+                        <th><div class="th-inner ">اسم العقار</div></th>  
+                        <th><div class="th-inner ">صاحب العقار</div></th> 
+                        <th></th> 
+                    </tr> 
+                </thead> 
+                <tbody> 
+                    <tr>
+                     @for ($i = 0; $i < count($result); $i++)
+                        <td><a href="{!!action('PropertyController@edit',['name'=>$result[$i]->name])!!}"><span class="caption-subject font-dark bold ">{{ $result[$i]->property_name  }}</span></a></td>
+                        <td>{{$result[$i]->owner}}</td> 
                         
-                         <table class="table table-strip"> 
-                                <thead> 
-                                    <tr> 
-                                        <th>#</th>
-                                        <th>اسم العقار</th>  
-                                        <th>صاحب العقار</th> 
-                                        <th></th> 
-                                    </tr> 
-                                </thead> 
-                                <tbody> 
-                                    <tr>
-                                     @for ($i = 0; $i < count($result); $i++)
-                                        <th scope="row"><a href="{!!action('PropertyController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                                        <td>{{$result[$i]->property_name}}</td>
-                                        <td>{{$result[$i]->owner}}</td> 
-                                        
-                                       <td><input type='checkbox' class='del-check' id="{!!$result[$i]->name!!}" name=""></td>
-                                    </tr>
-                                        @endfor                  
+                       <td class="bs-checkbox">
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab"><input data-index="0" name="btSelectItem" type="checkbox" class='del-check hide' id="{!!$result[$i]->name!!}"><span></span></label>
+                        </td>
+                    </tr>
+                        @endfor                  
 
-                                    </tr> 
-                                </tbody> 
-                            </table>
-                            <span></span>
-                            @else
-                                <p class="bg-warning">لا يوجد </p>
-                            @endif
+                    </tr> 
+                </tbody> 
+            </table>
+          </div>
 
-                    </div>
-
-                </div>
-            </div>
         </div>
-        <div class="col-md-3">
-            <div id="side_menu" >
-                @include('ar.ar_side')
-            </div>
-        </div>
+      </div>
     </div>
-
-
- 
-    <footer id="footer">
-       @include('ar.ar_footer')
-    </footer>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            
-            
-
-        });
-    </script>
-</body>
+    @include('ar.modals.confirm_modal')
+    
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -39,5 +39,21 @@ class UserController extends Controller
 
     }
 
+    public function create_update_password($key){
+        return view('ar.user.reset_password',compact('key'));
+    }
+
+    public function store_update_password(Request $request,$key){
+        $password = $request->get('password');
+        $result = frappe_update_password($key,$password);
+        $result = json_decode($result);
+        if($result->message =="/"){
+            return redirect('/dashboard');
+           
+        }
+        
+
+    }
+
 
 }

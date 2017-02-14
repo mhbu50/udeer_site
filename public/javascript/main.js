@@ -1,5 +1,9 @@
 
 $(document).ready(function(){
+
+    $("body.property_management .c-menue-item.pm_a").addClass("na_active");
+    $("body.complain_management .c-menue-item.com_a").addClass("na_active");
+
   	$("body.property_management.p-show #side_property_show").addClass("side-active");
   	$("body.property_management.p-create #side_property_create").addClass("side-active");
   	$("body.property_management.p_u-show #side_property_unit_show").addClass("side-active");
@@ -44,12 +48,9 @@ $(document).ready(function(){
             return index == self.indexOf(elem);
         })
         $('#del-arr').val('['+unique+']');
+        console.log($('#del-arr').val());
 
-        if(unique.length){
-            $("#del-btn").prop('disabled', false);
-        }else{
-            $("#del-btn").prop('disabled', true);
-        }
+        
     });
 
     $('.btn-primary').on('click',function(){$('.collapse').collapse('hide');})
@@ -72,7 +73,6 @@ $(document).ready(function(){
       
       form = $(e).parent('form');
       console.log(form.attr("class"));
-      
       $.ajax({
         url: form.attr("c-url"),
         data: form.serialize(),
@@ -99,6 +99,90 @@ $(document).ready(function(){
     closeNav = function () {
         document.getElementById("mySidenav").style.width = "0";
     }
+
+
+    // delete btn
+
+    $("#del-btn").click(function(){
+        form = $(this).parent('form');
+        del_arr = form.find("input#del-arr").val()
+        if(del_arr.length > 2){
+          $("#Confirm_Modal").modal();
+        }else{
+          $(".del-check").toggle()
+        }
+      });
+
+      $("#confirm").click(function(){
+        form = $("form.del_arr");
+        del_arr = form.find("input#del-arr").val()
+        $.ajax({
+          url: form.attr("c-url"),
+          data: form.serialize(),
+          type: "POST",
+          beforeSend: function(request){request.setRequestHeader('X-CSRF-TOKEN', form.find(".token").val() )},
+          success: function(msg) {
+              if(msg == 'error'){
+                console.log('error');
+              }else{
+                location.reload();
+              }
+          }
+        });
+      });
+
+
+      // set values on edit page function
+
+      set_value = function(data){
+        for (var key in data) {
+            $("[name='"+key+"']").val(data[key])
+        }
+      }
+
+
+
+      // set map 
+
+      set_map = function(longitude,latitude){
+
+        initialize_map(longitude,latitude)
+      }
+
+      function initialize_map(longitude,latitude) {
+          var latLng = new google.maps.LatLng(latitude,longitude);
+          var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+            zoom: 8,
+            center: latLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+          var marker = new google.maps.Marker({
+            position: latLng,
+            title: 'Point A',
+            map: map,
+            draggable: true
+          }); 
+
+          google.maps.event.addListener(marker, 'dragend', function() {
+              $("#longitude").val(marker.getPosition().lng());
+              $("#latitude").val(marker.getPosition().lat());
+          });
+      }
+
+      $("#PropertyModal").on("shown.bs.modal", function () {
+          set_map(50.0301574,26.3320884)
+      });      
+
+      // Prevent users from submitting a form by hitting Enter
+      $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
+        
+      
+
 
    
 
