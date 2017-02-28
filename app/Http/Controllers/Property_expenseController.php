@@ -14,7 +14,7 @@ class Property_expenseController extends Controller
     public function create($property_name)
     {
         $units = frappe_get_data('property%20unit','?fields=["name"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
-        $units = json_decode($units)->data;
+        
 
         return view('ar.property_expenses.create',compact('property_name','units'));
     }
@@ -43,8 +43,8 @@ class Property_expenseController extends Controller
     public function edit($name)
     {
        
-        $resultObj = frappe_get_data('property_expense',$name);
-        $property_expense = json_decode($resultObj)->data;
+        $property_expense = frappe_get_data('property_expense',$name);
+        
         return view('ar.property_expenses.edit',compact('property_expense'));
 
     }
@@ -69,8 +69,8 @@ class Property_expenseController extends Controller
 
     public function index()
     {
-       $resultObj = frappe_get_data('property_expense','?fields=["name","property","amount","date"]');  
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('property_expense','?fields=["name","property","amount","date"]');  
+       
        return view('ar.property_expenses.index',compact('result'));
     }
 

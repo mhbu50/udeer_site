@@ -14,7 +14,7 @@ class ReceiptController extends Controller
    public function create()
     {
         $properties = frappe_get_data('property','?fields=["name"]');
-        $properties = json_decode($properties)->data;
+        $properties = $properties;
         return view('ar.receipt.create',compact('properties'));
     }
 
@@ -35,7 +35,17 @@ class ReceiptController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('receipt',$data);
-        return redirect('/receipt/index'); 
+        
+        $company_name = frappe_get_data('User',$_COOKIE['user_id'])->company;
+        $amount = 0;
+        if ($request->get('type') == 'catch'){
+          $amount = (int)$request->get('amount');
+        }elseif($request->get('type') == 'pay'){
+          $amount = -(int)$request->get('amount');
+        }
+        $result = frappe_add_company_balance($company_name,$amount);
+        var_dump($result);
+        // return redirect('/receipt/index'); 
         
     }
 
@@ -43,8 +53,8 @@ class ReceiptController extends Controller
     public function edit($name)
     {
        
-        $resultObj = frappe_get_data('receipt',$name);
-        $receipt = json_decode($resultObj)->data;
+        $receipt = frappe_get_data('receipt',$name);
+        
         return view('ar.receipt.edit',compact('receipt'));
 
     }
@@ -70,23 +80,23 @@ class ReceiptController extends Controller
 
     public function index()
     {
-       $resultObj = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]');
+       
        // var_dump($result);
        return view('ar.receipt.index',['result' => $result,'type' => 'all']);
     }
 
     public function catch_index()
     {
-       $resultObj = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","catch"]]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","catch"]]');
+       
        // var_dump($result);
        return view('ar.receipt.index',['result' => $result,'type' => 'catch']);
     }
     public function pay_index()
     {
-       $resultObj = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","pay"]]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","pay"]]');
+      
        return view('ar.receipt.index',['result' => $result,'type' => 'pay']);
     }
 
@@ -103,8 +113,8 @@ class ReceiptController extends Controller
       }
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('receipt','?fields=["name","amount","property","date"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('receipt','?fields=["name","amount","property","date"]&filters=['.$f_.']');
+     
       return view('ar.receipt.index',compact('result'));
     }
 

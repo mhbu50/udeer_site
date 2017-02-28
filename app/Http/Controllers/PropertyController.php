@@ -20,9 +20,8 @@ class PropertyController extends Controller
  
     public function create()
     {
-        // $property_owners = frappe_get_data('property_owner','?fields=["name","first_name","second_name","third_name","last_name"]');
-        // $property_owners = json_decode($property_owners)->data;
-       
+        $property_owners = frappe_get_data('property_owner','?fields=["name","first_name","second_name","third_name","last_name"]');
+  
         return view('ar.property.create',compact('property_owners'));
     }
 
@@ -70,7 +69,7 @@ class PropertyController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property',$data);
-        $result = json_decode($result)->data;
+       
         return $result->name;
     }
 
@@ -78,12 +77,10 @@ class PropertyController extends Controller
     {
        
         $property = frappe_get_data('property',$property_name);
-        $property = json_decode($property)->data;
-
+        
 
         $owners = frappe_get_data('property_owner','?fields=["name"]');
-        $owners = json_decode($owners)->data;
-
+        
         return view('ar.property.edit',compact('property','property_name','owners'));
 
     }
@@ -135,8 +132,8 @@ class PropertyController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('property','?fields=["name","owner","property_name"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('property','?fields=["name","owner","property_name"]&filters=['.$f_.']');
+      
       return view('ar.property.index',compact('result'));
 
     }
@@ -144,8 +141,8 @@ class PropertyController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('property','?fields=["name","owner","property_name"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('property','?fields=["name","owner","property_name"]');
+       
        
        return view('ar.property.index',compact('result'));
 
@@ -157,7 +154,7 @@ class PropertyController extends Controller
     {
 
        $result = frappe_get_data('lease','?fields=["name","date","property_unit"]&filters=[["lease","property","=","'.$property_name.'"]]');
-       $result = json_decode($result)->data;
+      
        return view('ar.property.lease_index',compact('result','property_name'));
        
 
@@ -167,7 +164,7 @@ class PropertyController extends Controller
     {
 
        $result = frappe_get_data('property%20unit','?fields=["name","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
-       $result = json_decode($result)->data;
+       
        
        return view('ar.property.unit_index',compact('result','property_name'));
        
@@ -176,8 +173,7 @@ class PropertyController extends Controller
     public function expense_index($property_name)
     {
        $result = frappe_get_data('property_expense','?fields=["name","date","amount","property_unit","Supplier","invoice_number"]&filters=[["property_expense","property","=","'.$property_name.'"]]');
-       $result = json_decode($result)->data; 
-      
+       
        
        return view('ar.property.property_expense_index',compact('result','property_name'));
     }
@@ -188,10 +184,10 @@ class PropertyController extends Controller
     {
         $result = array();
         $leases = frappe_get_data('lease','?filters=[["lease","property","=","'.$property_name.'"]]');
-        $leases = json_decode($leases)->data; 
+        
         foreach ($leases as $lease) {
            $lease_rent_payments = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease->name.'"]]');
-           $lease_rent_payments = json_decode($lease_rent_payments)->data; 
+           
            array_push($result,$lease_rent_payments);
           
         }
@@ -202,7 +198,7 @@ class PropertyController extends Controller
     public function comments($property_name)
     { 
         $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$property_name.'"]]');
-        $result = json_decode($result)->data;
+        
         // var_dump($result);
         return view('ar.property.comments',compact('result','property_name'));
     }
@@ -212,7 +208,7 @@ class PropertyController extends Controller
     { 
 
         $result = frappe_get_data('File','?fields=["name","file_name","file_url","creation"]&filters=[["File","attached_to_name","=","'.$property_name.'"],["File","attached_to_doctype","=","property"]]');
-        $result = json_decode($result)->data;
+        
         return view('ar.property.docs',compact('result','property_name'));
         
         
@@ -266,10 +262,10 @@ class PropertyController extends Controller
     public function create_lease($property_name)
     {
         $renters = frappe_get_data('Customer','?fields=["name"]');
-        $renters = json_decode($renters)->data; 
+        
         
         $property_units = frappe_get_data('property%20unit','?fields=["name","property"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
-        $property_units = json_decode($property_units)->data;
+       
         
         return view('ar.property.create_lease',compact('properties','property_units','property_name','renters'));
 

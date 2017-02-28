@@ -20,16 +20,7 @@ class RenterController extends Controller
     {
         $validator = Validator::make($request->all(), [
 
-               'customer_name' => 'required|Min:3|Max:80|AlphaNum',
-               'id_number' => 'numeric|Min:1|Max:20',
-               'mobile_number'=> 'numeric|Min:1|Max:20',
-               'email'=> 'email|Min:3|Max:80|AlphaNum',
-               'bank' => 'Min:3|Max:80|AlphaNum',
-               'bank_account_number' => 'Min:3|Max:80|AlphaNum',
-               'telephone_number' => 'numeric|Min:1|Max:20',
-               'territory' => 'Min:3|Max:80|AlphaNum',
-               'customer_type' => 'in:Individual,Company',
-               'address' => 'Min:3|Max:300|AlphaNum',
+               
                 
             ]);
 
@@ -42,8 +33,10 @@ class RenterController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $data["customer_group"] = "Commercial";
+        $data["customer_name"] = $request->get('first_name');
         $result = frappe_insert('Customer',$data);
-       return redirect('renter/index');
+        
+        return redirect('renter/index');
     }
 
     public function store_ajax(Request $request)
@@ -60,7 +53,7 @@ class RenterController extends Controller
         unset($data["_token"]);
         $data["customer_group"] = "Commercial";
         $result = frappe_insert('Customer',$data);
-        $result = json_decode($result)->data;
+        
         return $result->name;
     }
 
@@ -68,8 +61,8 @@ class RenterController extends Controller
     public function edit($name)
     {
        
-        $resultObj = frappe_get_data('Customer',$name);
-        $renter = json_decode($resultObj)->data;
+        $renter = frappe_get_data('Customer',$name);
+        
         return view('ar.renter.edit',compact('renter'));
 
     }
@@ -96,8 +89,8 @@ class RenterController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('Customer','?fields=["name","customer_name","email"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('Customer','?fields=["name","customer_name","email"]');
+      
        
        return view('ar.renter.index',compact('result'));
 
@@ -116,8 +109,8 @@ class RenterController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('Customer','?fields=["name","customer_name","email"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('Customer','?fields=["name","customer_name","email"]&filters=['.$f_.']');
+      
       return view('ar.renter.index',compact('result'));
 
     }

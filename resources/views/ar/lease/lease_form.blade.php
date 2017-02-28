@@ -89,6 +89,26 @@
             </div>
         </div>
     </div>
+    @if(!empty($terms))
+    <div class="col-md-6">
+          <div class="form-group form-md-line-input form-md-floating-label">
+              <select id="terms_group" class="form-control">
+                <option value=""></option>
+                @foreach ($terms as $key => $value)
+                <option >{{$key}}</option>
+                @endforeach
+              </select>
+              <label for="Property_type">نوع مجموعة شروط</label>
+          </div>
+    </div>
+    @endif  
+    <div class="col-md-12">
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <textarea name="terms" id="terms">  </textarea>
+            
+            
+        </div>
+    </div>    
     <div class="form-actions noborder">
       <div class="col-md-12">
         <input type="submit" class="btn blue" value="حفظ"></button>

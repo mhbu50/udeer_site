@@ -54,7 +54,7 @@ class ReceiverController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('Employee',$data);
-        $result = json_decode($result)->data;
+        
         return $result->name;
     }
 
@@ -63,8 +63,8 @@ class ReceiverController extends Controller
     public function edit($name)
     {
         $name = str_replace('*', '%2F', $name);
-        $resultObj = frappe_get_data('Employee',$name);
-        $reciever = json_decode($resultObj)->data;
+        $reciever = frappe_get_data('Employee',$name);
+       
         return view('ar.receiver.edit',compact('reciever'));
 
     }
@@ -92,8 +92,8 @@ class ReceiverController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('Employee','?fields=["name","employee_name","company","date_of_joining","date_of_birth"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('Employee','?fields=["name","employee_name","company","date_of_joining","date_of_birth"]');
+       
        
        return view('ar.receiver.index',compact('result'));
 

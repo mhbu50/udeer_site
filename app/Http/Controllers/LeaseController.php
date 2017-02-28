@@ -9,15 +9,22 @@ use App\Http\Controllers\Controller;
 
 use Validator;
 
+use Cookie;
+
 class LeaseController extends Controller
 {
     public function create()
     {
         $properties = frappe_get_data('property','?fields=["name"]');
-        $properties = json_decode($properties)->data;
+     
         $property_units = frappe_get_data('property%20unit','?fields=["name"]');
-        $property_units = json_decode($property_units)->data;
-        return view('ar.lease.create',compact('properties','property_units'));
+       
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
+   
+        foreach ($terms_d as $term) {
+            $terms[$term->title] = $term->terms;
+        }
+        return view('ar.lease.create',compact('properties','property_units','terms'));
     }
 
     public function test($name)
@@ -74,17 +81,23 @@ class LeaseController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('lease',$data);
-        $result = json_decode($result)->data;
+        
         return $result->name;
     }
 
 
-    public function edit($name)
+    public function edit($name,Request $request)
     {
        
-        $resultObj = frappe_get_data('lease',$name);
-        $lease = json_decode($resultObj)->data;
-        return view('ar.lease.edit',compact('lease'));
+        $lease = frappe_get_data('lease',$name);
+        // $data['user'] = frappe_get_data('User',$_COOKIE['user_id']);
+        $data['user'] = frappe_get_data('User','Administrator');
+        $data['company'] = frappe_get_company();
+        $data['renter'] = frappe_get_data('Customer',$lease->renter);
+        $data['property'] = frappe_get_data('property',$lease->property);
+        $data['property_unit'] = frappe_get_data('property%20unit',$lease->property_unit);
+        $data['owner'] = frappe_get_data('property_owner',$data['property']->owner_name);
+        return view('ar.lease.edit',compact('lease','data'));
 
     }
 
@@ -110,8 +123,8 @@ class LeaseController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]');
+
        
        return view('ar.lease.index',compact('result'));
 
@@ -145,17 +158,17 @@ class LeaseController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]&filters=['.$f_.']');
+
       return view('ar.lease.index',compact('result'));
 
     }
 
     public function delete_array(Request $request)
     {
-        $pids = json_decode($request->get('names'));
+        
         foreach ($pids as $property_name) {
-            $resultObj = frappe_delete('lease',$property_name);
+            $result = frappe_delete('lease',$property_name);
         }
         return redirect()->back();
     }
@@ -163,7 +176,7 @@ class LeaseController extends Controller
     public function delete($name)
     {
 
-        $resultObj = frappe_delete('lease',$name);
+        $result = frappe_delete('lease',$name);
         return redirect('lease/index');
     }
 }

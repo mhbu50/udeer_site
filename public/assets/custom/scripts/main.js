@@ -180,6 +180,30 @@ $(document).ready(function(){
           return false;
         }
       });
+
+
+      printDiv = function (divName) {
+
+
+            var headstr = '<html><head><title></title><link href="/assets/global/plugins/bootstrap/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" /><link href="/assets/global/plugins/bootstrap-print.min.css" rel="stylesheet" type="text/css" /><link href="/assets/custom/css/main.css" rel="stylesheet" type="text/css" /></head><body dir="rtl">';
+            var footstr = "</body>";
+            var newstr = document.all.item(divName).innerHTML;
+           
+            var printContents = headstr+newstr+footstr;
+            w = window.open();
+            w.document.write(printContents);
+
+            setTimeout(function(){
+              w.print();
+              w.close();  
+            }, 10);
+            
+            
+            
+            return ;
+           
+
+      }
         
       
 

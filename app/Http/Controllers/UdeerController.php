@@ -37,9 +37,8 @@ class UdeerController extends Controller
 
     public function test()
     {
-       $result = test();
-        var_dump($result);
-        // return "ss";
+       
+        return view('test');
     } 
 
      public function ptest(Request $request)
@@ -70,7 +69,7 @@ class UdeerController extends Controller
     public function find($doctype,$key)
     {
         $result = frappe_get_data($doctype,'?fields=["name"]&filters=[["'.$doctype.'","name","like","%'.$key.'%"]]');
-        $result = json_decode($result)->data;
+        
         return $result;
     }
 

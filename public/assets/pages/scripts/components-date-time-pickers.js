@@ -4,6 +4,7 @@ var ComponentsDateTimePickers = function () {
 
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
+                
                 rtl: App.isRTL(),
                 orientation: "left",
                 autoclose: true

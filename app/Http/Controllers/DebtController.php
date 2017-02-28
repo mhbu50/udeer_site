@@ -40,8 +40,8 @@ class DebtController extends Controller
     public function edit($name)
     {
         
-        $resultObj = frappe_get_data('debt',$name);
-        $debt = json_decode($resultObj)->data;
+        $debt = frappe_get_data('debt',$name);
+        
         return view('ar.debt.edit',compact('debt'));
 
     }
@@ -68,8 +68,8 @@ class DebtController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('debt','?fields=["name","debtor_name","amount"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('debt','?fields=["name","debtor_name","amount"]');
+       
        
        return view('ar.debt.index',compact('result'));
 
@@ -87,8 +87,8 @@ class DebtController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('debt','?fields=["name","debtor_name","amount"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('debt','?fields=["name","debtor_name","amount"]&filters=['.$f_.']');
+      
       return view('ar.debt.index',compact('result'));
 
     }

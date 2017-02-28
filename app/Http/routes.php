@@ -22,6 +22,10 @@ Route::get('/user/register', function () {
 
 Route::get('/test', 'UdeerController@test');
 
+Route::get('/test2', function(){
+	return view('test2');
+});
+
 Route::get('/find/{doctype?}/{key?}', 'UdeerController@find');
 
 
@@ -285,6 +289,61 @@ Route::post('/property_owner/{name?}/delete','Property_ownerController@delete');
 Route::post('/property_owner/delete_array', 'Property_ownerController@delete_array');
 
 
+// external_lease  routes
+Route::get('/external_lease/create', 'External_leaseController@create');
+Route::post('/external_lease/create','External_leaseController@store');
+
+Route::post('/external_lease/create_ajax','External_leaseController@store_ajax');
+
+
+Route::get('/external_lease/{name?}/edit','External_leaseController@edit');
+Route::post('/external_lease/{name?}/edit','External_leaseController@update');
+
+Route::get('/external_lease/index','External_leaseController@index');
+
+Route::post('/external_lease/index','External_leaseController@set_index');
+
+Route::post('/external_lease/{name?}/delete','External_leaseController@delete');
+
+Route::post('/external_lease/delete_array', 'External_leaseController@delete_array');
+
+// sell_agreement  routes
+Route::get('/sell_agreement/create', 'Sell_agreementController@create');
+Route::post('/sell_agreement/create','Sell_agreementController@store');
+
+Route::post('/sell_agreement/create_ajax','Sell_agreementController@store_ajax');
+
+
+Route::get('/sell_agreement/{name?}/edit','Sell_agreementController@edit');
+Route::post('/sell_agreement/{name?}/edit','Sell_agreementController@update');
+
+Route::get('/sell_agreement/index','Sell_agreementController@index');
+
+Route::post('/sell_agreement/index','Sell_agreementController@set_index');
+
+Route::post('/sell_agreement/{name?}/delete','Sell_agreementController@delete');
+
+Route::post('/sell_agreement/delete_array', 'Sell_agreementController@delete_array');
+
+// property_management_contract  routes
+Route::get('/property_management_contract/create', 'Property_management_contractController@create');
+Route::post('/property_management_contract/create','Property_management_contractController@store');
+
+Route::post('/property_management_contract/create_ajax','Property_management_contractController@store_ajax');
+
+
+Route::get('/property_management_contract/{name?}/edit','Property_management_contractController@edit');
+Route::post('/property_management_contract/{name?}/edit','Property_management_contractController@update');
+
+Route::get('/property_management_contract/index','Property_management_contractController@index');
+
+Route::post('/property_management_contract/index','Property_management_contractController@set_index');
+
+Route::post('/property_management_contract/{name?}/delete','Property_management_contractController@delete');
+
+Route::post('/property_management_contract/delete_array', 'Property_management_contractController@delete_array');
+
+
 // lease_script  routes
 Route::get('/lease_script/create', 'Lease_scriptController@create');
 Route::post('/lease_script/create','Lease_scriptController@store');
@@ -353,6 +412,7 @@ Route::post('/debt/index','DebtController@set_index');
 Route::post('/debt/{name?}/delete','DebtController@delete');
 
 Route::post('/debt/delete_array', 'DebtController@delete_array');
+
 
 // dics routes
 

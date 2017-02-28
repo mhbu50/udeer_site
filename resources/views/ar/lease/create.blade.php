@@ -2,11 +2,27 @@
 @extends('template')
   
 @section('css_page')
-
+   
+    <link href="/assets/global/plugins/bootstrap-summernote/summernote.css" rel="stylesheet" type="text/css" />
 @endsection
 @section('js_page')
     <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>  
     <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+
+    <script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      terms = {!!json_encode($terms)!!}
+      $('#terms').hide();
+        $("#terms_group").change(function() {
+          // $('#terms').summernote({height: 300});
+          $("#terms").summernote("code", terms[this.value]);
+          
+          
+        })
+      })
+      
+    </script>
 @endsection
 
 @section('content')

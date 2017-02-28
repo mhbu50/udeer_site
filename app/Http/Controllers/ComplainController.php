@@ -40,8 +40,8 @@ class ComplainController extends Controller
     public function edit($name)
     {
        
-        $resultObj = frappe_get_data('complain',$name);
-        $complain = json_decode($resultObj)->data;
+        $complain = frappe_get_data('complain',$name);
+        
         return view('ar.complain.edit',compact('complain'));
 
     }
@@ -68,8 +68,8 @@ class ComplainController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('complain','?fields=["name","about","title","status"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('complain','?fields=["name","about","title","status"]');
+       
        
        return view('ar.complain.index',compact('result'));
 

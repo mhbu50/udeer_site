@@ -57,7 +57,7 @@ class Property_ownerController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property_owner',$data);
-        $result = json_decode($result)->data;
+        
         return $result->name;
     }
 
@@ -65,8 +65,8 @@ class Property_ownerController extends Controller
     public function edit($name)
     {
         
-        $resultObj = frappe_get_data('property_owner',$name);
-        $property_owner = json_decode($resultObj)->data;
+        $property_owner = frappe_get_data('property_owner',$name);
+        
         return view('ar.property_owner.edit',compact('property_owner'));
 
     }
@@ -93,8 +93,8 @@ class Property_ownerController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('property_owner','?fields=["name","full_name","email"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('property_owner','?fields=["name","full_name","email"]');
+       
        
        return view('ar.property_owner.index',compact('result'));
 
@@ -112,8 +112,8 @@ class Property_ownerController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('property_owner','?fields=["name","full_name","email"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('property_owner','?fields=["name","full_name","email"]&filters=['.$f_.']');
+      
       return view('ar.property_owner.index',compact('result'));
 
     }

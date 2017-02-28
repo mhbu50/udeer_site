@@ -3,16 +3,13 @@
 
 @section('css_page')
 
-    <link href="/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+   
     <link href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
 
     
 
 @endsection
-@section('js_page')
-    <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>  
+@section('js_page') 
     <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){

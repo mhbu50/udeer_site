@@ -64,7 +64,7 @@ class DocsController extends Controller
     public function show($name)
     {
         $doc = frappe_get_data('File',$name);
-        $doc = json_decode($doc)->data;
+        
         // var_dump($doc);
         return view('ar.doc.show',compact('doc'));
 

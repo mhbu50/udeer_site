@@ -14,7 +14,8 @@ class Property_unitController extends Controller
    public function create()
     {
         $properties = frappe_get_data('property','?fields=["name"]');
-        $properties = json_decode($properties)->data;
+        
+        // var_dump($properties);
         return view('ar.property_unit.create',compact('properties'));
     }
 
@@ -71,7 +72,7 @@ class Property_unitController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property',$data);
-        $result = json_decode($result)->data;
+        
         return $result->name;
     }
 
@@ -79,10 +80,10 @@ class Property_unitController extends Controller
     public function edit($unit_name)
     {
         $properties = frappe_get_data('property','');
-        $properties = json_decode($properties)->data;
+        
 
         $resultObj = frappe_get_data('property%20unit',$unit_name);
-        $property_unit = json_decode($resultObj)->data;
+        
         return view('ar.property_unit.edit',compact('property_unit','properties','unit_name'));
 
     }
@@ -108,8 +109,8 @@ class Property_unitController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('property%20unit','?fields=["name","property","unit_number"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('property%20unit','?fields=["name","property","unit_number"]');
+       
        return view('ar.property_unit.index',compact('result'));
 
     }
@@ -133,16 +134,16 @@ class Property_unitController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('property%20unit','?fields=["name","property","unit_number"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('property%20unit','?fields=["name","property","unit_number"]&filters=['.$f_.']');
+      
       return view('ar.property_unit.index',compact('result'));
 
     }
      public function show($unit_name)
     {
 
-       $resultObj = frappe_get_data('property%20unit',$unit_name);
-       $property_unit = json_decode($resultObj)->data;
+       $property_unit = frappe_get_data('property%20unit',$unit_name);
+      
        
        return view('ar.property_unit.show',compact('property_unit'));
 
@@ -154,7 +155,7 @@ class Property_unitController extends Controller
     {
 
        $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]');
-       $result = json_decode($result)->data;
+     
        // var_dump($result);
        return view('ar.property_unit.lease_index',compact('result','unit_name'));
        
@@ -163,11 +164,11 @@ class Property_unitController extends Controller
     public function rent_index($unit_name)
     {
        $lease = frappe_get_data('lease','?filters=[["lease","active","=",1],["lease","property_unit","=","'.$unit_name.'"]]');
-       $lease = json_decode($lease)->data;
+       
        $result= array();
        if($lease){
             $result = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease[0]->name.'"]]');
-            $result = json_decode($result)->data;
+            
        }
        
     return view('ar.property_unit.rent_index',compact('result','unit_name'));
@@ -195,10 +196,9 @@ class Property_unitController extends Controller
     public function create_lease($unit_name)
     {
         $renters = frappe_get_data('Customer','?fields=["name"]');
-        $renters = json_decode($renters)->data; 
         
         $property_unit = frappe_get_data('property%20unit',$unit_name);
-        $property_unit = json_decode($property_unit)->data;
+        
         // var_dump($property_unit);
         return view('ar.property_unit.create_lease',compact('property_unit','renters'));
 
@@ -217,14 +217,14 @@ class Property_unitController extends Controller
     public function comments($unit_name)
     { 
         $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property%20unit"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$unit_name.'"]]');
-        $result = json_decode($result)->data;
+        
         return view('ar.property_unit.comments',compact('result','unit_name'));
     }
 
     public function docs_index($unit_name)
     { 
         $result = frappe_get_data('File','?fields=["name","file_name","file_url","creation"]&filters=[["File","attached_to_name","=","'.$unit_name.'"],["File","attached_to_doctype","=","property%20unit"]]');
-        $result = json_decode($result)->data;
+        
         return view('ar.property_unit.docs',compact('result','unit_name'));
         
         

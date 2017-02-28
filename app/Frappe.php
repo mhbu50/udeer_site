@@ -6,7 +6,7 @@
         define("COOKIE_FILE", "cookie2.txt");
         function frappe_login($usr,$pwd){
                 // $ch = curl_init('http://52.8.230.142/api/method/login');
-                $ch = curl_init('http://localhost:8002/api/method/login');
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/login');
                 curl_setopt($ch, CURLOPT_POSTFIELDS,array(
                 'usr'=>$usr,
                 'pwd'=>$pwd 
@@ -46,11 +46,12 @@
         }
 
 
+
         function frappe_get_data($doctype,$params){
                 $doctype = str_replace(' ', '%20', $doctype);
                 $params = str_replace(' ', '%20', $params);
                 // $url = 'http://52.8.230.142/api/resource/'.$doctype.'/'.$params ;
-                $url = 'http://localhost:8002/api/resource/'.$doctype.'/'.$params ;
+                $url = 'http://'.env('SERVER_ADD', '52.8.230.142').'/api/resource/'.$doctype.'/'.$params ;
                 $ch = curl_init($url);
 
                 curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
@@ -59,8 +60,7 @@
                 // curl_setopt($ch, CURLOPT_HEADER, true);
                 try {
                         $result = curl_exec($ch);
-                        // json_encode($result);
-                        return $result;
+                        return json_decode($result)->data;
 
                         
                 } catch (Exception $e) {
@@ -70,9 +70,10 @@
         }
 
 
+
         function frappe_insert($doctype,$params){
                 // $ch = curl_init('http://52.8.230.142/api/resource/'.$doctype);
-                $ch = curl_init('http://localhost:8002/api/resource/'.$doctype);
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/resource/'.$doctype);
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 $arr = $params;
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($arr)));
@@ -93,7 +94,7 @@
                 $doctype = str_replace(' ', '%20', $doctype);
                 $doctype_name = str_replace(' ', '%20', $doctype_name);
                 // $ch = curl_init('http://52.8.230.142/api/resource/'.$doctype.'/'.$doctype_name); 
-                $ch = curl_init('http://localhost:8002/api/resource/'.$doctype.'/'.$doctype_name); 
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/resource/'.$doctype.'/'.$doctype_name); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 $arr = $params;
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($arr)));
@@ -108,7 +109,7 @@
                 $doctype = str_replace(' ', '%20', $doctype);
                 $doctype_name = str_replace(' ', '%20', $doctype_name);
                 // $ch = curl_init('http://52.8.230.142/api/resource/'.$doctype.'/'.$doctype_name); 
-                $ch = curl_init('http://localhost:8002/api/resource/'.$doctype.'/'.$doctype_name); 
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/resource/'.$doctype.'/'.$doctype_name); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -119,7 +120,7 @@
         function frappe_register($data){
                 
                 // $ch = curl_init('http://52.8.230.142/api/method/frappe.www.login.custom_re');
-                $ch = curl_init('http://localhost:8002/api/method/frappe.www.login.custom_re'); 
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.www.login.custom_re'); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($data)));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -128,7 +129,7 @@
                 return $result;
         }
         function frappe_search_link($doctype,$txt){
-              $ch = curl_init('http://localhost:8002/api/method/frappe.desk.search.search_link?txt='.$txt.'&doctype='.$doctype);
+              $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.desk.search.search_link?txt='.$txt.'&doctype='.$doctype);
               curl_setopt( $ch, CURLOPT_POSTFIELDS,null);
               curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
               curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
@@ -162,7 +163,7 @@
 
         function frappe_uploadimage($data){
             // $ch = curl_init('http://52.8.230.142/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
-            $ch = curl_init('http://localhost:8002/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -188,7 +189,7 @@
 
 
         function frappe_update_password($key,$password){
-            $ch = curl_init('http://localhost:8002/api/method/frappe.core.doctype.user.user.update_password'); 
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.core.doctype.user.user.update_password'); 
             // $ch = curl_init('http://52.8.230.142/api/method/frappe.core.doctype.user.user.update_password'); 
 
             curl_setopt($ch, CURLOPT_POSTFIELDS, array('new_password' => $password ,'key' => $key));
@@ -202,7 +203,7 @@
         function frappe_late_payment($lease_id){
                 
                 // $ch = curl_init('http://52.8.230.142/api/method/frappe.www.login.custom_re');
-                $ch = curl_init('http://localhost:8002/api/method/frappe.www.login.late_payment'); 
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.www.login.late_payment'); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('lease_id' => $lease_id));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -214,13 +215,32 @@
         function frappe_late_payment_p($property_name){
                 
                 // $ch = curl_init('http://52.8.230.142/api/method/frappe.www.login.custom_re');
-                $ch = curl_init('http://localhost:8002/api/method/frappe.www.login.late_payment_p'); 
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.www.login.late_payment_p'); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('p_id' => $property_name));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
                 $result = curl_exec($ch);
                 return $result;
+        }
+
+        function frappe_add_company_balance($docname,$amount){
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.www.login.add_cumpany_balance'); 
+                curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+                curl_setopt($ch, CURLOPT_POSTFIELDS, array('docname' => $docname, 'amount' => $amount));
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                $result = curl_exec($ch);
+                return $result;
+        }
+
+        function frappe_get_company(){
+
+                // $company_name = frappe_get_data('User',$_COOKIE['user_id'])->company;
+                $company_name = frappe_get_data('User','Administrator')->company;
+                $company = frappe_get_data('Company',$company_name);
+                return $company;
+                
         }
 
 

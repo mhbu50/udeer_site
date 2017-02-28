@@ -74,14 +74,25 @@
             <ul class="sub-menu">
                 <li class="nav-item">
                     <a href="/lease/index"  class="nav-link">
-                        <i class="icon-user"></i> عرض كافة العقود
+                        <i class="icon-user"></i> عرض عقود الداخلية
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/lease/create"  class="nav-link">
-                        <i class="icon-user"></i> اضافة عقود ايجار  
+                    <a href="/external_lease/index"  class="nav-link">
+                        <i class="icon-user"></i> عرض عقود الخارجية
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/lease/index"  class="nav-link">
+                        <i class="icon-user"></i> عرض عقود بيع و شراء
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/sell_agreement/index"  class="nav-link">
+                        <i class="icon-user"></i> عرض عقود ادارة الالملاك
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="/lease_rent_payment/index;" target="_blank" class="nav-link">
                         <i class="icon-user"></i> تقارير العقود 

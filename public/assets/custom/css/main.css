@@ -101,4 +101,24 @@ body *{
 .del-check-lab{
   display: none;
 }
+hr{
+  margin-top:20px;
+  margin-bottom:20px;
+  border-top:1px solid #eee;
+  
+}
 
+#bod-pr .header{
+    border-bottom: 1px solid black;
+}
+
+@media print{
+  #bod-pr .header{
+    border-bottom: 1px solid black;
+  }
+
+}
+
+.page-sidebar .page-sidebar-menu>li.open>a{
+  background-color: #807ab8 !important;
+}
