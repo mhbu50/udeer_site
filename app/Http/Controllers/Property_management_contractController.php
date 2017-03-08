@@ -38,7 +38,12 @@ class Property_management_contractController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property_management_contract',$data);
-        return redirect('property_management_contract/index');
+        if($result != 'error'){
+            return redirect('property_management_contract/index')->with('status','لقد تم حفظ العقد');  
+        }else{
+            return redirect('property_management_contract/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
     public function store_ajax(Request $request)
@@ -88,8 +93,12 @@ class Property_management_contractController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('property_management_contract',$name,$data);
-        
-        return redirect()->back();
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث العقد');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
+        }
+       
     }
 
     public function index()

@@ -41,7 +41,12 @@ class Property_ownerController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property_owner',$data);
-        return redirect('property_owner/index');
+        if($result != 'error'){
+            return redirect('property_owner/index')->with('status','لقد تم حفظ المالك');  
+        }else{
+            return redirect('property_owner/index')->with('status','لم يتم حفظ المالك الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
     public function store_ajax(Request $request)
@@ -86,8 +91,12 @@ class Property_ownerController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('property_owner',$name,$data);
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث المالك');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث المالك الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()

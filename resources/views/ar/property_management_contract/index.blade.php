@@ -1,5 +1,6 @@
 @section('lang','ar')
 @section('module','property_management')
+@section('page_title','management_contract')
 @extends('template')
 
 @section('css_page')
@@ -21,7 +22,7 @@
         <div class="portlet light bordered ">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                العقود ادارة املاك
+                عقود ادارة املاك
             </div>
             <div class="actions">
 
@@ -77,5 +78,5 @@
         </div>
       </div>
     </div>
-    
+     @include('ar.modals.confirm_modal')
 @endsection

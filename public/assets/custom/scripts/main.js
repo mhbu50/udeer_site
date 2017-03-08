@@ -1,39 +1,100 @@
 
 $(document).ready(function(){
 
-    $("body.property_management .c-menue-item.pm_a").addClass("na_active");
-    $("body.complain_management .c-menue-item.com_a").addClass("na_active");
 
-  	$("body.property_management.p-show #side_property_show").addClass("side-active");
-  	$("body.property_management.p-create #side_property_create").addClass("side-active");
-  	$("body.property_management.p_u-show #side_property_unit_show").addClass("side-active");
-  	$("body.property_management.p_u-create #side_property_unit_create").addClass("side-active");
+    
+    switch($('body').attr('page-id')) {
+      // begin of property 
+      case 'property_create':
+            $('#side_property_m,#side_ad-pro_it').addClass('active');
+            break;
+      case 'property_index':
+            $('#side_property_m,#side_sh-pro_it').addClass('active');
+            break;
+        case 'property_edit':
+            $('#side_property_m,#side_sh-pro_it,.nav-tabs #show').addClass('active');
+            break;
+        case 'property_comment':
+            $('#side_property_m,#side_sh-pro_it,.nav-tabs #notes').addClass('active');
+            break;
+        case 'property_docs':
+             $('#side_property_m,#side_sh-pro_it,.nav-tabs #documents').addClass('active');
+            break;
+        case 'property_finance':
+             $('#side_property_m,#side_sh-pro_it,.nav-tabs #financial_movements').addClass('active');
+            break;
+        case 'property_lease':
+             $('#side_property_m,#side_sh-pro_it,.nav-tabs #leases').addClass('active');
+            break;
+        case 'property_expense':
+             $('#side_property_m,#side_sh-pro_it,.nav-tabs #expenses').addClass('active');
+            break;
+        case 'property_units':
+             $('#side_property_m,#side_sh-pro_it,.nav-tabs #units').addClass('active');
+            break; 
+        // begin of property_unit
+        case 'unit_create':
+             $('#side_property_m,#side_ad-pro-un_it').addClass('active');
+            break;   
+        case 'unit_index':
+             $('#side_property_m,#side_sh-pro-un_it').addClass('active');
+            break; 
+        case 'unit_comments':
+             $('#side_property_m,#side_sh-pro-un_it,.nav-tabs #notes').addClass('active');
+            break;
+        case 'unit_leases':
+             $('#side_property_m,#side_sh-pro-un_it,.nav-tabs #leases').addClass('active');
+            break;
+        case 'unit_docs':
+             $('#side_property_m,#side_sh-pro-un_it,.nav-tabs #documents').addClass('active');
+            break;
+        case 'unit_show':
+             $('#side_property_m,#side_sh-pro-un_it,.nav-tabs #show').addClass('active');
+            break;
+        case 'unit_leases':
+             $('#side_property_m,#side_sh-pro-un_it,.nav-tabs #leases').addClass('active');
+            break;
+        case 'unit_rents':
+             $('#side_property_m,#side_sh-pro-un_it,.nav-tabs #rents').addClass('active');
+            break;
+        // lease
+        case 'lease':
+             $('#side_lease_m,#side_in-lea_it').addClass('active');
+            break;
+        case 'management_contract':
+             $('#side_lease_m,#side_pro-man_it').addClass('active');
+            break;
+        case 'external_lease':
+             $('#side_lease_m,#side_ex-lea_it').addClass('active');
+            break;
+        case 'sell_agreement':
+             $('#side_lease_m,#side_sel-agr_it').addClass('active');
+            break;
+        case 'owner':
+             $('#side_human-re_m,#side_pro-own_it').addClass('active');
+            break; 
+        case 'renter':
+             $('#side_human-re_m,#side_renter_it').addClass('active');
+            break; 
+        case 'supplier':
+             $('#side_human-re_m,#side_supplier_it').addClass('active');
+            break; 
+          
+        // finannce   
+        case 'debt':
+             $('#side_finance_m,#side_fin-dbt_it').addClass('active');
+            break; 
+        case 'receipt':
+             $('#side_finance_m,#side_fin-rec_it').addClass('active');
+            break;   
 
-  	$("body.lease_management.l-show #side_lease_show").addClass("side-active");
-  	$("body.lease_management.l-create #side_lease_create").addClass("side-active");
+        
 
-  	$("body.financial_system.re_pa-show #side_rent_payment_show").addClass("side-active");
-  	$("body.financial_system.pa_re-show #side_rent_payment_show").addClass("side-active");
+    }
 
-  	$("body.financial_system.ca_re-show #side_catch_rec_show").addClass("side-active");
 
-  	$("body.financial_system.pay_rec-show #side_pay_rec_show").addClass("side-active");
 
-    $("body.financial_system.debt-show #side_debt_show").addClass("side-active")
-
-  	$("body.customer_management.owner-show #side_owner_show").addClass("side-active");
-  	$("body.customer_management.receiver-show #side_receiver_show").addClass("side-active");
-  	$("body.customer_management.supplier-show #side_supplier_show").addClass("side-active");
-  	$("body.customer_management.renter-show #side_renter_show").addClass("side-active");
-
-     
-
-  	$("body.property_management #collapseOne").addClass("in");
-  	$("body.lease_management #collapseTow").addClass("in");
-  	$("body.financial_system #collapseThree").addClass("in");
-  	$("body.customer_management #collapseFour").addClass("in");
-
-     $('#accordion .collapse').on('show.bs.collapse', function () {
+    $('#accordion .collapse').on('show.bs.collapse', function () {
         $('.collapse.in').each(function(){
             $(this).collapse('hide');
         });
@@ -87,6 +148,7 @@ $(document).ready(function(){
             }
         }
       });
+
     };
 
 
@@ -124,7 +186,6 @@ $(document).ready(function(){
                 console.log('error');
               }else{
                 location.reload();
-                // console.log(msg);
               }
           }
         });
@@ -204,6 +265,185 @@ $(document).ready(function(){
            
 
       }
+
+
+      // hadeling date input add class edited 
+      $('.date-picker').on('changeDate', function(){
+          $(this).addClass( "edited" );;
+      });
+
+
+      // auto complite
+
+      $('.typeahead').attr("dir", "rtl");  
+
+      var property_owners = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/find/property_owner/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+
+      var properties = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/find/property/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+
+      var property_units = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/find/property%20unit/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+
+      var leases = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/find/lease/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+
+      var renters = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/find/Customer/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+      var suppliers = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/find/Supplier/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+      var receivers = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/find/receiver/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+
+      $('#owner_name').typeahead(null, {
+        name: 'property_owner',
+        display: 'name',
+        hint:1,
+        source: property_owners,
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p ">({{name}})</p>'
+          ].join(''))
+        }
+      });
+
+      $('#property').typeahead(null, {
+        name: 'property',
+        display: 'name',
+        hint:1,
+        source: properties,
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p ">({{name}})</p>'
+          ].join(''))
+        }
+      });
+
+      $('#property_unit').typeahead(null, {
+        name: 'property_unit',
+        display: 'name',
+        hint:1,
+        source: property_units,
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p ">({{name}})</p>'
+          ].join(''))
+        }
+      });
+      $('#lease').typeahead(null, {
+        name: 'property',
+        display: 'name',
+        hint:1,
+        source: leases,
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p >({{name}})</p>'
+          ].join(''))
+        }
+      });
+
+      $('#renter').typeahead(null, {
+        name: 'customer',
+        display: 'name',
+        hint:1,
+        source: renters,
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p >({{name}})</p>'
+          ].join(''))
+        }
+      });
+
+      $('#supplier').typeahead(null, {
+        name: 'supplier',
+        display: 'name',
+        hint:1,
+        source: suppliers,
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p >({{name}})</p>'
+          ].join(''))
+        }
+      });
+
+      $('#receiver').typeahead(null, {
+        name: 'receiver',
+        display: 'name',
+        hint:1,
+        source: receivers,
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p >({{name}})</p>'
+          ].join(''))
+        }
+      });
+
+      
+      // property page
+      $('#management_type').change(function(){
+        switch(this.value) {
+            case 'percentage':
+                $("#percentage").show()
+                $("#not_percentage").hide();
+                $("#not_percentage input").val('');
+                break;
+            case 'not_percentage':
+                $("#percentage").hide()
+                $("#percentage select").val('');
+                $("#not_percentage").show();
+                break;
+        }
+      });
+
+      $('.date-picker').datepicker({
+          rtl: App.isRTL(),
+          orientation: "left",
+          autoclose: true,
+          format: 'yyyy-mm-dd',
+      });
         
       
 

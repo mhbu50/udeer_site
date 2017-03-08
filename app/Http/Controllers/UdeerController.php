@@ -35,7 +35,7 @@ class UdeerController extends Controller
         // return $result;
     }   
 
-    public function test()
+    public function test(Request $request)
     {
        
         return view('test');
@@ -61,9 +61,10 @@ class UdeerController extends Controller
     {
         $doclist = json_decode($request->get('names'));
         foreach ($doclist as $doc) {
-            $resultObj = frappe_delete($request->get('doctype'),$doc);
+            $result = frappe_delete($request->get('doctype'),$doc);
         }
-        return ;
+
+        return redirect()->back();
     }
 
     public function find($doctype,$key)
@@ -72,19 +73,4 @@ class UdeerController extends Controller
         
         return $result;
     }
-
-    
-
-
-
-    
-
-
-
-
-
-        
-       
-     
-    
 }

@@ -14,11 +14,11 @@ class Lease_rent_paymentController extends Controller
     public function create()
     {
         $leases = frappe_get_data('lease','?fields=["name"]');
-        $leases = json_decode($leases)->data;
+        
         $receivers = frappe_get_data('Employee','?fields=["name"]');
-        $receivers = json_decode($receivers)->data;
+        
         $renters = frappe_get_data('Customer','?fields=["name"]');
-        $renters = json_decode($renters)->data;
+
         return view('ar.lease_rent_payment.create',compact('leases','receivers','renters'));
     }
 
@@ -84,8 +84,8 @@ class Lease_rent_paymentController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","lease","renter"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","lease","renter"]');
+       
        
        return view('ar.lease_rent_payment.index',compact('result'));
 

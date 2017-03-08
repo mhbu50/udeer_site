@@ -35,8 +35,11 @@ class RenterController extends Controller
         $data["customer_group"] = "Commercial";
         $data["customer_name"] = $request->get('first_name');
         $result = frappe_insert('Customer',$data);
-        
-        return redirect('renter/index');
+        if($result != 'error'){
+            return redirect('/renter/index')->with('status','لقد تم حفظ المستاجر');  
+        }else{
+            return redirect('/renter/index')->with('status','لم يتم حفظ المستاجر الرجاء المحاولة مرة اخرى');  
+        }
     }
 
     public function store_ajax(Request $request)
@@ -82,8 +85,12 @@ class RenterController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('Customer',$name,$data);
+         if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث المستاجر');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث المستاجر الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()

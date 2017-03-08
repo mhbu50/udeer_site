@@ -54,7 +54,12 @@ class Property_unitController extends Controller
            $data["unit_number"]++;
          }
         
-        return redirect('property_unit/index');
+        
+        if($result != 'error'){
+            return redirect('property_unit/index')->with('status','لقد تم حفظ الوحدة');  
+        }else{
+            return redirect('property_unit/index')->with('status','لم يتم حفظ الوحدة الرجاء المحاولة مرة اخرى');  
+        }
       
       //  
     }
@@ -82,7 +87,7 @@ class Property_unitController extends Controller
         $properties = frappe_get_data('property','');
         
 
-        $resultObj = frappe_get_data('property%20unit',$unit_name);
+        $property_unit = frappe_get_data('property%20unit',$unit_name);
         
         return view('ar.property_unit.edit',compact('property_unit','properties','unit_name'));
 
@@ -103,7 +108,12 @@ class Property_unitController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('property%20unit',$unit_name,$data);
-        return redirect()->back();
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث الوحدة');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث الوحدة الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
     public function index()

@@ -6,11 +6,11 @@
             <div class="input-group">
                 <div class="input-group-control">
                     
-                    <input type="text" class="form-control typeahead" id="property" placeholder="" name="property">
-                    <label for="property">اسم العقار</label>
+                    <input type="text" class="form-control typeahead" id="property" placeholder="اسم العقار" name="property">
+                    
                 </div>
                 <span class="input-group-btn btn-left">
-                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>
+                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="fa fa-plus"></i></a>
                 </span>
             </div>
         </div>
@@ -32,8 +32,8 @@
         <div class="form-group form-md-line-input form-md-floating-label">
             <div class="input-group">
                 <div class="input-group-control">
-                    <input type="text" class="form-control" id="property" placeholder="" name="property">
-                    <label for="">مزود الخدمة</label>
+                    <input type="text" class="form-control typeahead" id="supplier" placeholder="مزود الخدمة" name="supplier">
+                    
                 </div>
                 <span class="input-group-btn btn-left">
                     <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>

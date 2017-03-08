@@ -22,7 +22,7 @@
           </div>
           <div class="portlet-body text-center">
                
-                    <img src="http://52.8.230.142{{$doc->file_url}}" max-width="100%">
+                    <img src="http://{{env('SERVER_ADD', '52.8.230.142').$doc->file_url}}" max-width="100%">
                 
           </div>
 

@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','unit_docs')
 @extends('template')
 
 @section('css_page')
@@ -20,7 +21,7 @@
                 <h3>المستندات</h3>
             </div>
             <div class="actions">
-                <a class="btn blue btn-outline" href="{!!action('DocsController@store',['doctype'=>$doctype,'docname'=>$docname ])!!}">
+                <a class="btn blue btn-outline" href="{!!action('DocsController@store',['doctype'=>'property_unit','docname'=>$unit_name ])!!}">
                     اضافة
                     <i class="fa fa-plus"></i>
                 </a>
@@ -47,17 +48,18 @@
                             </tr> 
                         </thead> 
                         <tbody> 
-                            <tr>
+                            
                              @for ($i = 0; $i < count($result); $i++)
+                             <tr>
                                 <td><a href="{!!action('DocsController@show',['name'=>$result[$i]->name])!!}">{{ $result[$i]->file_name }}</a></td>
                                 <td>{{$result[$i]->creation}}</td> 
                                 <td class="bs-checkbox">
                                 <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab"><input data-index="0" name="btSelectItem" type="checkbox" class='del-check hide' id="{!!$result[$i]->name!!}"><span></span></label>
                                 </td>
-                            
+                            </tr>
                             @endfor                  
 
-                            </tr> 
+                             
                         </tbody> 
                     </table>  
                 @else

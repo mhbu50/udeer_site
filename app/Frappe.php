@@ -24,7 +24,7 @@
                                 return 'fail';
                         }
                 } catch (Exception $e) {
-                        return 'eror';
+                        return 'error';
                 }
 
         }
@@ -78,8 +78,6 @@
                 $arr = $params;
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($arr)));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-
-                
                 try {
                         $result = curl_exec($ch);
                         return $result;
@@ -113,8 +111,14 @@
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-                $result = curl_exec($ch);
-                return $result;
+                
+                try {
+                        $result = curl_exec($ch);
+                        return $result;
+                } catch (Exception $e) {
+                        return 'error';
+                }
+                
         }
 
         function frappe_register($data){
@@ -225,7 +229,7 @@
         }
 
         function frappe_add_company_balance($docname,$amount){
-                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.www.login.add_cumpany_balance'); 
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.add_cumpany_balance'); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('docname' => $docname, 'amount' => $amount));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );

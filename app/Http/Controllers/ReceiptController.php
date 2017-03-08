@@ -36,7 +36,7 @@ class ReceiptController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('receipt',$data);
         
-        $company_name = frappe_get_data('User',$_COOKIE['user_id'])->company;
+        $company_name = frappe_get_data('User','Administrator')->company;
         $amount = 0;
         if ($request->get('type') == 'catch'){
           $amount = (int)$request->get('amount');
@@ -45,7 +45,12 @@ class ReceiptController extends Controller
         }
         $result = frappe_add_company_balance($company_name,$amount);
         var_dump($result);
-        // return redirect('/receipt/index'); 
+        // if($result != 'error'){
+        //     return redirect('/receipt/index')->with('status','لقد تم حفظ السند');  
+        // }else{
+        //     return redirect('/receipt/index')->with('status','لم يتم حفظ السند الرجاء المحاولة مرة اخرى');  
+        // }
+        
         
     }
 
@@ -74,8 +79,12 @@ class ReceiptController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('receipt',$name,$data);
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث السند');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث السند الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()

@@ -20,6 +20,9 @@ body *{
     .pd-0-p div:last-child{
       padding-left: 0px !important;
     }
+    .top-menu{
+      width: 80%;
+    }
 
 }
 
@@ -86,6 +89,9 @@ body *{
 .property_management .custom-page-sidebar .page-sidebar-menu .sub-menu a:hover{
   background-color: #cec8e4 !important;
 }
+.property_management .custom-page-sidebar .page-sidebar-menu .sub-menu .nav-item.active a{
+  background-color: #cec8e4 !important;
+}
 .property_management .page-sidebar .page-sidebar-menu>li>a{
   border-top: #9F7C98 1px solid;
 }
@@ -122,3 +128,14 @@ hr{
 .page-sidebar .page-sidebar-menu>li.open>a{
   background-color: #807ab8 !important;
 }
+
+.page-header-fixed .page-container{
+  margin-top: 100px !important;
+}
+
+.c-menue-item.pm_a{
+  background-color: #ddd;
+}
+
+
+

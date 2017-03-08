@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','lease')
 @extends('template')
   
 @section('css_page')
@@ -14,11 +15,22 @@
     $(document).ready(function(){
       terms = {!!json_encode($terms)!!}
       $('#terms').hide();
-        $("#terms_group").change(function() {
-          // $('#terms').summernote({height: 300});
-          $("#terms").summernote("code", terms[this.value]);
+      pay_dof = 0;
+      $("#terms_group").change(function() {
+        // $('#terms').summernote({height: 300});
+        $("#terms").summernote("code", terms[this.value]);
           
           
+        })
+
+        $('#dof').change(function(){
+          $("#pay_dof").empty()
+          for(count=0;count<this.value;count++){
+            $("#pay_dof").append('<div class="col-md-6 .col-md-offset-6"><div class="form-group form-md-line-input form-md-floating-label"><input class="form-control form-control-inline " size="16" type="number" name=daf['+count+']><label >دفعة رقم '+(count+1)+'</label></div></div>');
+          }
+          
+          
+
         })
       })
       
@@ -32,7 +44,7 @@
         <div class="portlet light bordered">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                <h3>اضافة عقد</h3>
+                <h3>اضافة عقد داخلى</h3>
             </div>
           </div>
           <div class="portlet-body form">

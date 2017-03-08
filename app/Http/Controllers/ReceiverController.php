@@ -21,8 +21,8 @@ class ReceiverController extends Controller
         $validator = Validator::make($request->all(), [
                'employee_name' => 'required|Min:3|Max:80|AlphaNum',
                'company' => 'Min:3|Max:80|AlphaNum',
-               'date_of_joining' => 'date|date_format:Y-m-d',
-               'date_of_birth' => 'date|date_format:Y-m-d|before:today',
+               'date_of_joining' => 'date',
+               'date_of_birth' => 'date|before:today',
                'employee_number' => 'numeric|Min:1|Max:20',
                 
             ]);
@@ -37,7 +37,13 @@ class ReceiverController extends Controller
         $data["gender"] = "Male" ;
         unset($data["_token"]);
         $result = frappe_insert('Employee',$data);
-        return redirect('receiver/index');
+
+        if($result != 'error'){
+            return redirect('/receiver/index')->with('status','لقد تم حفظ المحصل');  
+        }else{
+            return redirect('/receiver/index')->with('status','لم يتم حفظ المحصل الرجاء المحاولة مرة اخرى');  
+        }
+        
         
     }
 
@@ -85,8 +91,12 @@ class ReceiverController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('Employee',$name,$data);
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث المحصل');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث المحصل الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()

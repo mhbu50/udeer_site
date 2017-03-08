@@ -1,5 +1,6 @@
 @section('lang','ar')
 @section('module','property_management')
+@section('page_title','property_lease')
 @extends('template')
 
 @section('css_page')
@@ -57,9 +58,9 @@
                     
                         @for ($i = 0; $i < count($result); $i++)
                         <tr>
-                            <th scope="row"><a href="{!!action('LeaseController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                            <td>{{$result[$i]->property_unit}}</td>
-                            <td>{{$result[$i]->expiry_date}}</td> 
+                            <th scope="row"><a href="{!!action('LeaseController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name or ''}}</a></th>
+                            <td>{{$result[$i]->property_unit or ''}}</td>
+                            <td>{{$result[$i]->expiry_date or ''}}</td> 
                             
                            <td class="bs-checkbox">
                                 <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab "><input data-index="0" name="btSelectItem" type="checkbox" class='del-check' id="{!!$result[$i]->name!!}"><span></span></label>

@@ -28,17 +28,17 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'property_name' => 'required|AlphaNum',
-                'property_type' => 'AlphaNum',
-                'construction_date' => 'date|date_format:Y-m-d|before:today',
-                'evaluation' => 'AlphaNum',
-                'city' => 'AlphaNum',
-                'address' => 'AlphaNum',
-                'property_advantage' => 'AlphaNum',
-                'owner_name' => 'AlphaNum',
+                'property_name' => 'required',
+                // 'property_type' => 'AlphaNum',
+                'construction_date' => 'date|before:today',
+                // 'evaluation' => 'AlphaNum',
+                // 'city' => 'AlphaNum',
+                // 'address' => 'AlphaNum',
+                // 'property_advantage' => 'AlphaNum',
+                // 'owner_name' => 'AlphaNum',
                 'property_number' => 'numeric',
                 'instrument_number' => 'numeric',
-                'instrument_date' => 'date|date_format:Y-m-d|before:today',
+                'instrument_date' => 'date|before:today',
                 
             ]);
 
@@ -51,8 +51,13 @@ class PropertyController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property',$data);
-        // var_dump($result);
-        return redirect('property/index');  
+        
+        if($result != 'error'){
+            return redirect('property/index')->with('status','لقد تم حفظ العقار');  
+        }else{
+            return redirect('property/index')->with('error','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
     public function store_ajax(Request $request)
@@ -70,7 +75,8 @@ class PropertyController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('property',$data);
        
-        return $result->name;
+        
+        return $result;
     }
 
     public function edit($property_name)
@@ -100,19 +106,23 @@ class PropertyController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('property',$property_name,$data);
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث العقار');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث العقار الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function show($property_name)
     {
 
-       $resultObj = frappe_get_data('property',$property_name);
+       $property = frappe_get_data('property',$property_name);
 
         // $property_units = frappe_get_data('property',$name);
         // $leases = frappe_get_data('property',$name);
 
-        $property = json_decode($resultObj)->data;
+        
         return view('ar.property.show',compact('property','property_name'));
 
     }
@@ -216,7 +226,7 @@ class PropertyController extends Controller
 
     public function create_unit($property_name){
         $unit = frappe_get_data('property%20unit','?fields=["name","creation","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
-        $last_unit_number = isset(json_decode($unit)->data[0]->unit_number) ? json_decode($unit)->data[0]->unit_number : 0 ;
+        $last_unit_number = isset($unit[0]->unit_number) ? $unit[0]->unit_number : 0 ;
         // var_dump($last_unit_number);
         return view('ar.property.create_unit',compact('property_name','last_unit_number'));
     }

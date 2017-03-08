@@ -430,34 +430,7 @@ Route::get('/doc/{name?}/show','DocsController@show');
 Route::get('/dashboard', function () {
     return view('ar.ar_dashboard');
 });
-Route::get('/control', function () {
-    
-	define("COOKIE_FILE", "cookie.txt");
 
-
-	// ===============get data======================
-	$ch = curl_init('http://52.8.230.142/api/resource/User');
-	curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE);
-	curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_PORT, 8000);
-	// curl_setopt($ch, CURLOPT_HEADER, true);
-	$result=curl_exec($ch);
-	if($result === false){
-	    echo 'Curl error: ' . curl_error($ch);
-	}
-	else{
-		echo 'Curl res: ' . $result;
-	// 	if($result === 'notalow'){
-	// 		return return redirect('/loginn');
-	// 	}elseif ($result === 'alow') {
-	// 		return 
-	// 	}
-	    
-	}
-
-
-});
 
 
 

@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','unit_show')
 @extends('template')
 
 @section('css_page')

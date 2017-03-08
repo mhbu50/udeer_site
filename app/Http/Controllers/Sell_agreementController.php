@@ -37,7 +37,12 @@ class Sell_agreementController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('sell_agreement',$data);
-        return redirect('sell_agreement/index');
+        if($result != 'error'){
+            return redirect('sell_agreement/index')->with('status','لقد تم حفظ العقد');  
+        }else{
+            return redirect('sell_agreement/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
     public function store_ajax(Request $request)
@@ -83,8 +88,12 @@ class Sell_agreementController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('sell_agreement',$name,$data);
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث العقد');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()

@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','renter')
 @extends('template')
 
 @section('css_page')

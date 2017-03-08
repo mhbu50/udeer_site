@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','unit_create')
 @extends('template')
 
 @section('css_page')
@@ -26,5 +27,6 @@
         </div>
       </div>
     </div>
+    @include('ar.modals.property_modal')
     
 @endsection

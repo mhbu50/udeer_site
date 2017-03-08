@@ -1,6 +1,7 @@
 @section('module','property_management')
+@section('page_title','receipt')
 @extends('template')
-  
+
 @section('css_page')
 
 @endsection

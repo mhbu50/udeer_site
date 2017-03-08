@@ -1,4 +1,5 @@
 @extends('template')
+@section('page_title','unit_rents')
 @section('lang','ar')
 @section('head')
     <link href="/css/bootstrap-rtl.css" rel="stylesheet">

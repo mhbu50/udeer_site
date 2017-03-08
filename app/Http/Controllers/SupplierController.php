@@ -41,15 +41,19 @@ class SupplierController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('Supplier',$data);
-       return redirect('supplier/index');
+        if($result != 'error'){
+            return redirect('/supplier/index')->with('status','لقد تم حفظ مزود خدمة');  
+        }else{
+            return redirect('/supplier/index')->with('status','لم يتم حفظ مزود خدمة الرجاء المحاولة مرة اخرى');  
+        }
     }
 
 
     public function edit($name)
     {
        
-        $resultObj = frappe_get_data('Supplier',$name);
-        $supplier = json_decode($resultObj)->data;
+        $supplier = frappe_get_data('Supplier',$name);
+        
         return view('ar.supplier.edit',compact('supplier'));
 
     }
@@ -69,15 +73,18 @@ class SupplierController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('supplier',$name,$data);
-        
-        return redirect()->back();
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث مزود خدمة');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث مزود خدمة الرجاء المحاولة مرة اخرى');  
+        }
     }
 
     public function index()
     {
 
-       $resultObj = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]');
-       $result = json_decode($resultObj)->data;
+       $result = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]');
+       
        
        return view('ar.supplier.index',compact('result'));
 
@@ -96,8 +103,8 @@ class SupplierController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]&filters=['.$f_.']');
-      $result = json_decode($resultObj)->data;
+      $result = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]&filters=['.$f_.']');
+     
       return view('ar.supplier.index',compact('result'));
 
     }

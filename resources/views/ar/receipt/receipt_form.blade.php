@@ -20,8 +20,7 @@
         <div class="form-group form-md-line-input form-md-floating-label">
             <div class="input-group">
                 <div class="input-group-control">
-                    <input type="text" class="form-control typeahead" id="property" placeholder="" name='property'>
-                    <label for="">العقار</label>
+                    <input type="text" class="form-control typeahead" id="property" placeholder="العقار" name='property'>
                 </div>
                 <span class="input-group-btn btn-left">
                     <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="fa fa-plus"></i></a>

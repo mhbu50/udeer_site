@@ -60,6 +60,50 @@
           });
         });
 
+
+        var custom = new Bloodhound({
+          datumTokenizer: function(d) { return d.tokens; },
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          remote: {
+            url: '../demo/typeahead_custom.php?query=%QUERY',
+            wildcard: '%QUERY'
+          }
+        });
+         
+        custom.initialize();
+         
+        if (App.isRTL()) {
+          $('#typeahead_example_3').attr("dir", "rtl");  
+        }  
+        $('#typeahead_example_3').typeahead(null, {
+          name: 'datypeahead_example_3',
+          displayKey: 'value',
+          source: custom.ttAdapter(),
+          hint: (App.isRTL() ? false : true),
+          templates: {
+            suggestion: Handlebars.compile([
+              '<div class="media">',
+                    '<div class="pull-left">',
+                        '<div class="media-object">',
+                            '<img src="{{img}}" width="50" height="50"/>',
+                        '</div>',
+                    '</div>',
+                    '<div class="media-body">',
+                        '<h4 class="media-heading">{{value}}</h4>',
+                        '<p>{{desc}}</p>',
+                    '</div>',
+              '</div>',
+            ].join(''))
+          }
+        });
+
+
+
+
+
+
+        
+
         $('select#management_type').change(function(){
           switch(this.value) {
               case 'percentage':

@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','unit_create')
 @extends('template')
 
 @section('css_page')
@@ -32,7 +33,7 @@
             </div>
           </div>
           <div class="portlet-body form">
-               @include('ar.property_unit.property_unit_form',['action' => action('PropertyController@store_unit')])
+               @include('ar.property_unit.property_unit_form',['action' => action('PropertyController@store_unit',$property_name)])
           </div>
 
         </div>

@@ -1,5 +1,6 @@
 
 @section('module','property_management')
+@section('page_title','debt')
 @extends('template')
 
 @section('css_page')

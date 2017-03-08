@@ -1,5 +1,6 @@
 
-<form type="post" action="{{$action}}" >
+<form method='post' action="{{$action}}" enctype="multipart/form-data">
+    <input type='hidden' name='_token' value="{!! csrf_token() !!}">   
     <div class="form-body">
 
 
@@ -33,7 +34,7 @@
       </div>
       <div class="col-md-6">
           <div class="form-group form-md-line-input form-md-floating-label">
-              <input type="number" class="form-control" id="number_of_units" name='number_of_units' placeholder="">
+              <input type="number" class="form-control" id="number_of_units" name='number_of_units' placeholder="" min="0">
               <label for="number_of_units">عدد الوحدات</label>
           </div>
       </div>
@@ -77,9 +78,13 @@
               <label for="management_type">طريقة ادارة الاملاك</label>
           </div>
       </div>
-      <div class="col-md-6">
-          <div class="form-group form-md-line-input form-md-floating-label">
-              <select id="commission" class="form-control" name="commission">
+      <div class="col-md-6" >
+          <div class="form-group form-md-line-input form-md-floating-label commission" id="not_percentage">
+            <input type="number" class="form-control" name="commission"/>
+            <label>المبلغ</label>
+          </div>
+          <div class="form-group form-md-line-input form-md-floating-label commission" id="percentage">
+              <select class="form-control" name="commission">
                 <option value=""></option>
                 <option value="0.5/100">0.5%</option>
                 <option value="1/100">1%</option>
@@ -111,19 +116,19 @@
       </div>
       <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="price" name="price" placeholder="">
+          <input type="number" class="form-control" id="price" name="price" placeholder="">
           <label for="price">السعر</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="meter_price" name="meter_price" placeholder="">
+          <input type="number" class="form-control" id="meter_price" name="meter_price" placeholder="">
           <label for="meter_price">سعر المتر</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="negotiating_boundary" name="negotiating_boundary" placeholder="">
+          <input type="number" class="form-control" id="negotiating_boundary" name="negotiating_boundary" placeholder="">
           <label for="negotiating_boundary">حد التفاوض</label>
         </div>
       </div>
@@ -180,13 +185,13 @@
       </div>
       <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="total_area" name="total_area" placeholder="">
+          <input type="number" class="form-control" id="total_area" name="total_area" placeholder="">
           <label for="">المساحة الاجمالية</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="construction_area" name="construction_area" placeholder="">
+          <input type="number" class="form-control" id="construction_area" name="construction_area" placeholder="">
           <label for="">مساحة البناء</label>
         </div>
       </div>
@@ -208,7 +213,7 @@
           <label for="">اتجاه العقار</label>
         </div>
       </div>
-      <div class="col-md-6 ">
+      <div class="col-md-12 ">
         <div class="form-group">
           <div id="mapCanvas"></div>
           <input type="text" id="longitude" name="longitude" hidden>
@@ -227,9 +232,7 @@
           <div class="input-group">
             
             <div class="input-group-control">
-                <label for="owner_name">اسم المالك</label>
-                <input type="text" class="form-control typeahead" id="owner_name" placeholder="" name="owner_name" >
-                
+                <input type="text" class="form-control typeahead" id="owner_name" placeholder="اسم المالك" name="owner_name" >
             </div>
             <span class="input-group-btn btn-left">
                 <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>
@@ -245,26 +248,26 @@
           <label for="property_number">رقم العقار</label>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="instrument_number" name="instrument_number" placeholder="">
-          <label for="instrument_number">رقم الصك</label>
+      <div class='col-md-12'>
+        <div class='row'>
+        <div class="col-md-6">
+          <div class="form-group form-md-line-input form-md-floating-label">
+            <input type="text" class="form-control" id="instrument_number" name="instrument_number" placeholder="">
+            <label for="instrument_number">رقم الصك</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-md-line-input form-md-floating-label">
+            <div class="input-icon right">
+                <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="instrument_date" name="instrument_date">
+                <i class="fa fa-calendar"></i>  
+                <label for="instrument_date">تاريخ الصك</label>
+            </div>
+          </div>  
+        </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group form-md-line-input form-md-floating-label">
-          <div class="input-icon right">
-              <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="instrument_date" name="instrument_date">
-              <i class="fa fa-calendar"></i>  
-              <label for="instrument_date">تاريخ الصك</label>
-          </div>
-        </div>  
-      </div>
-    
       
-
-
-
     </div>
     <div class="form-actions noborder">
       <div class="col-md-12">

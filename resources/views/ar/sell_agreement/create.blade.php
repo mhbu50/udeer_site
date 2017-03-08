@@ -1,4 +1,7 @@
 @section('module','property_management')
+@section('page_title','sell_agreement')
+
+
 @extends('template')
   
 @section('css_page')

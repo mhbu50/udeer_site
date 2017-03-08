@@ -13,8 +13,8 @@
     </div> 
     <div class="col-md-6">    
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="renter" placeholder="" name="renter">
-            <label for="renter">المستاجر</label>
+            <input type="text" class="form-control typeahead" id="renter" placeholder="المستاجر" name="renter">
+            
         </div>
     </div> 
     <div class="col-md-6">
@@ -65,8 +65,8 @@
             <div class="input-group">
                 <div class="input-group-control">
                     
-                    <input type="text" class="form-control typeahead" id="property" placeholder="" name="property">
-                    <label for="property">اسم العقار</label>
+                    <input type="text" class="form-control typeahead" id="property" placeholder="اسم العقار" name="property">
+                    
                 </div>
                 <span class="input-group-btn btn-left">
                     <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>
@@ -80,8 +80,8 @@
             <div class="input-group">
                 <div class="input-group-control">
                     
-                    <input type="text" class="form-control typeahead" id="property_unit" placeholder="" name="property_unit">
-                    <label for="property unit">وحدة العقار</label>
+                    <input type="text" class="form-control typeahead" id="property_unit" placeholder="وحدة العقار" name="property_unit">
+                   
                 </div>
                 <span class="input-group-btn btn-left">
                     <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>
@@ -102,11 +102,24 @@
           </div>
     </div>
     @endif  
+    <div class="col-md-6">
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <div class="input-icon right">
+                  <input class="form-control form-control-inline " size="16" type="number" id="dof" min='1'>  
+                  <label for="lease_starting_date">عدد الدفعات</label>  
+            </div>
+        </div>
+    </div> 
+    <div class="col-md-12">
+        <div class="row" id='pay_dof'>
+            
+        </div>
+    </div> 
+
     <div class="col-md-12">
         <div class="form-group form-md-line-input form-md-floating-label">
             <textarea name="terms" id="terms">  </textarea>
-            
-            
+    
         </div>
     </div>    
     <div class="form-actions noborder">

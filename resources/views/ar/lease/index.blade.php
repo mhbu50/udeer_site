@@ -1,5 +1,6 @@
 @section('lang','ar')
 @section('module','property_management')
+@section('page_title','lease')
 @extends('template')
 
 @section('css_page')
@@ -21,7 +22,7 @@
         <div class="portlet light bordered ">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                العقود
+                العقود الداخلية
             </div>
             <div class="actions">
 

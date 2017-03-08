@@ -37,28 +37,31 @@
     </li>
     
     
-        <li class="nav-item active">
+        <li class="nav-item" id="side_property_m">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-settings"></i> العقار و الوحدات
+                <i class="icon-diamond"></i>
+                <span class="title">العقار و الوحدات</span>
                 <span class="arrow"></span>
             </a>
+
             <ul class="sub-menu">
-                <li class="nav-item ">
+                <li class="nav-item " id="side_ad-pro_it">
                     <a href="/property/create"  class="nav-link">
-                        <i class="icon-user"></i> اضافة عقار
+                        <i class="icon-user"></i> 
+                        اضافة عقار
                     </a>
                 </li>   
-                <li class="nav-item">
+                <li class="nav-item" id="side_ad-pro-un_it">
                     <a href="/property_unit/create"  class="nav-link">
-                        <i class="icon-user"></i> اضافة وحدة  
+                        <i class="icon-user" ></i> اضافة وحدة  
                     </a>
                 </li>     
-                <li class="nav-item">    
+                <li class="nav-item" id="side_sh-pro_it">    
                     <a href="/property/index"  class="nav-link">
                         <i class="icon-user"></i> عرض العقار
                     </a>
                 </li>     
-                <li class="nav-item">    
+                <li class="nav-item" id="side_sh-pro-un_it">    
                     <a href="/property_unit/index"  class="nav-link">
                         <i class="icon-user"></i> عرض الوحدات
                     </a>
@@ -66,56 +69,59 @@
             </ul>       
                     
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item" id="side_lease_m">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-settings"></i> عقود الايجار
+                <i class="icon-settings" ></i>
+                <span class="title"> عقود الايجار</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item">
+                <li class="nav-item" id="side_in-lea_it">
                     <a href="/lease/index"  class="nav-link">
                         <i class="icon-user"></i> عرض عقود الداخلية
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="side_ex-lea_it">
                     <a href="/external_lease/index"  class="nav-link">
                         <i class="icon-user"></i> عرض عقود الخارجية
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/lease/index"  class="nav-link">
+                <li class="nav-item" id="side_sel-agr_it">
+                    <a href="/sell_agreement/index"  class="nav-link">
                         <i class="icon-user"></i> عرض عقود بيع و شراء
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/sell_agreement/index"  class="nav-link">
+                <li class="nav-item" id="side_pro-man_it">
+                    <a href="/property_management_contract/index"  class="nav-link">
                         <i class="icon-user"></i> عرض عقود ادارة الالملاك
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="/lease_rent_payment/index;" target="_blank" class="nav-link">
-                        <i class="icon-user"></i> تقارير العقود 
+                <li class="nav-item" id="side_lea-rep_it">
+                    <a href="#" class="nav-link">
+                        <i class="icon-user"></i> تقارير العقود *
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/lease_rent_payment/index"  class="nav-link">
-                        <i class="icon-user"></i> ارشيف عقود الايجار
+                <li class="nav-item" id="side_lea-arch_it">
+                    <a href="#"  class="nav-link">
+                        <i class="icon-user"></i> ارشيف عقود الايجار*
                     </a>
                 </li>    
             </ul>    
         </li>
 
 
-        <li class="nav-item">
+        <li class="nav-item" id="side_finance_m">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-settings"></i> النظام المالي
+                <i class="icon-settings"></i> 
+                <span class="title">النظام المالي</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item">
-                    <a href="/rent_payment/create"  class="nav-link">
-                        <i class="icon-user"></i> تحصيل ايجار
+                <li class="nav-item" >
+                    <a href="#"  class="nav-link">
+                        <i class="icon-user" ></i> تحصيل ايجار*
                     </a>
                 </li>
                 <li class="nav-item">
@@ -123,12 +129,12 @@
                         <i class="icon-user"></i> استلام مبلغ*
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="side_fin-dbt_it">
                     <a href="/debt/index"  class="nav-link">
                         <i class="icon-user"></i> سجلات المكتب
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="side_fin-rec_it">
                     <a href="/receipt/index" class="nav-link">
                         <i class="icon-user"></i> السندات
                     </a>
@@ -160,48 +166,50 @@
                 </li>
             </ul>    
         </li> 
-        <li class="nav-item">
+        <li class="nav-item" id="side_human-re_m">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-settings"></i> كل العملاء*
+                <i class="icon-settings"></i> 
+                <span class="title">كل العملاء</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item">
-                    <a href="/property_owner/index" target="_blank" class="nav-link">
+                <li class="nav-item" id="side_pro-own_it">
+                    <a href="/property_owner/index" class="nav-link">
                         <i class="icon-user"></i> اصحاب الاملاك
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/renter/index" target="_blank" class="nav-link">
-                        <i class="icon-user"></i> الموستجرون
+                <li class="nav-item" id="side_renter_it">
+                    <a href="/renter/index"  class="nav-link">
+                        <i class="icon-user"></i> المستأجرون
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/supplier/index" target="_blank" class="nav-link">
+                <li class="nav-item" id="side_supplier_it" >
+                    <a href="/supplier/index"  class="nav-link">
                         <i class="icon-user"></i> مزودو الخدمة
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/receiver/index" target="_blank" class="nav-link">
-                        <i class="icon-user"></i> المحصلين
+                <li class="nav-item" id="side_receiver_it">
+                    <a href="/receiver/index" class="nav-link">
+                        <i class="icon-user"  ></i> المحصلين
                     </a>
                 </li>    
             </ul>    
         </li> 
-        <li class="nav-item">
+        <li class="nav-item" id="side_archive_m">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-settings"></i> ارشفة سريعة
+                <i class="icon-settings"></i>
+                <span class="title">ارشفة سريعة</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item">
-                    <a href="#" target="_blank" class="nav-link">
-                        <i class="icon-user"></i> عرض كافة العقود
+                    <a href="#" class="nav-link">
+                        <i class="icon-user"></i> عرض كافة العقود*
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" target="_blank" class="nav-link">
-                        <i class="icon-user"></i> عرض كافة السندات
+                    <a href="#" class="nav-link">
+                        <i class="icon-user"></i> عرض كافة السندات*
                     </a>
                 </li>    
             </ul>    

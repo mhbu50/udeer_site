@@ -1,5 +1,6 @@
 @extends('template')
 @section('lang','ar')
+@section('page_title','property_finance')
 @section('head')
     <link href="/css/bootstrap-rtl.css" rel="stylesheet">
 @endsection

@@ -33,7 +33,13 @@ class DebtController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('debt',$data);
-        return redirect('debt/index');
+
+        if($result != 'error'){
+            return redirect('debt/index')->with('status','لقد تم حفظ السجل');  
+        }else{
+            return redirect('debt/index')->with('status','لم يتم حفظ السجل الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
 
@@ -61,8 +67,12 @@ class DebtController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('debt',$name,$data);
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث السجل');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث السجل الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()

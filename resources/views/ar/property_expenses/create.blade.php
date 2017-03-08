@@ -26,5 +26,7 @@
         </div>
       </div>
     </div>
+    @include('ar.modals.property_modal')
+
    
 @endsection

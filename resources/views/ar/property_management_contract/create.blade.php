@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','management_contract')
 @extends('template')
   
 @section('css_page')
@@ -30,7 +31,7 @@
         <div class="portlet light bordered">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                <h3>اضافة عقد خارجي</h3>
+                <h3>اضافة عقد ادارة املاك</h3>
             </div>
           </div>
           <div class="portlet-body form">

@@ -1,5 +1,6 @@
 @section('lang','ar')
 @section('module','property_management')
+@section('page_title','property_expense')
 @extends('template')
 
 @section('css_page')
@@ -22,7 +23,7 @@
         <div class="portlet light bordered ">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                العقود
+                المصروفات
             </div>
             <div class="actions">
 
@@ -31,7 +32,7 @@
                     اضافة
                     <i class="fa fa-plus"></i>
                 </a>
-                <a class="btn red btn-outline c-btn-tp" href="javascript:;" id="del-btn" doctype="unit%20expenses">
+                <a class="btn red btn-outline c-btn-tp" href="javascript:;" id="del-btn" doctype="property_expense">
                     مسح
                     <i class="icon-trash"></i>
                     <input type='hidden' name='_token' class="token" value="{!! csrf_token() !!}" />
@@ -50,7 +51,6 @@
                         <th>#</th>
                         <th><div class="th-inner ">مقدار</div></th>  
                         <th><div class="th-inner ">تاريخ</div></th> 
-                        <th><div class="th-inner ">رقم العقد</div></th> 
                         <th><div class="th-inner ">رقم الوحدة</div></th> 
                         <th></th> 
                     </tr> 
@@ -58,11 +58,10 @@
                 <tbody> 
                     @for ($i = 0; $i < count($result); $i++)
                     <tr>
-                        <th scope="row"><a href="{!!action('Unit_expensesController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
+                        <th scope="row"><a href="{!!action('Property_expenseController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
                         <td>{{$result[$i]->amount}}</td>
                         <td>{{$result[$i]->date}}</td>
-                        <td>{{$result[$i]->lease}}</td>
-                        <td>{{$result[$i]->unit}}</td> 
+                        <td>{{$result[$i]->property_unit}}</td> 
                         <td class="bs-checkbox">
                             <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab "><input data-index="0" name="btSelectItem" type="checkbox" class='del-check' id="{!!$result[$i]->name!!}"><span></span></label>
                         </td> 

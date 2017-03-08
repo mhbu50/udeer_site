@@ -1,4 +1,6 @@
+@section('lang','ar')
 @section('module','property_management')
+@section('page_title','property_index')
 @extends('template')
 
 @section('css_page')
@@ -42,6 +44,7 @@
             
           </div>
           <div class="portlet-body form">
+            @if(count($result))
             <table class="table table-hover table-striped" id="sample_1"> 
                 <thead> 
                     <tr> 
@@ -65,6 +68,9 @@
                     </tr> 
                 </tbody> 
             </table>
+            @else
+                <p class="bg-warning">لا يوجد </p>
+            @endif
           </div>
 
         </div>

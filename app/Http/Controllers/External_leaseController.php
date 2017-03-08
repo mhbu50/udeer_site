@@ -36,7 +36,13 @@ class External_leaseController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('external_lease',$data);
-        return redirect('external_lease/index');
+
+        if($result != 'error'){
+            return redirect('external_lease/index')->with('status','لقد تم حفظ العقد');  
+        }else{
+            return redirect('external_lease/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
     public function store_ajax(Request $request)
@@ -82,8 +88,13 @@ class External_leaseController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('external_lease',$name,$data);
+
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث العقد');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()

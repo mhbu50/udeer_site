@@ -7,11 +7,12 @@
         <div class="input-group">
           
           <div class="input-group-control">
-              <input type="text" class="form-control" id="property" placeholder="" name='property'>
-              <label for="property">العقار</label>
+              <input type="text" class="form-control typeahead" id="property" placeholder="العقار" name='property'>
+              
           </div>
           <span class="input-group-btn btn-left">
-              <button class="btn blue btn-outline" type="button"><i class="fa fa-plus"></i></button>
+              
+                <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="fa fa-plus"></i></a>
           </span>
         </div>
       </div>
@@ -208,7 +209,7 @@
   </div>
   <div class="form-actions noborder">
     <div class="col-md-12">
-      <a type="button" class="btn blue" >حفظ</a>
+      <input type="submit" class="btn blue" value="حفظ" />
       <a type="button" class="btn default">الغاء</a>
     </div>
       

@@ -61,7 +61,13 @@ class LeaseController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('lease',$data);
-       return redirect('lease/index');
+
+        if($result != 'error'){
+            return redirect('lease/index')->with('status','لقد تم حفظ العقد');  
+        }else{
+            return redirect('lease/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
+        }
+      
     }
 
 
@@ -116,8 +122,12 @@ class LeaseController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('lease',$name,$data);
+        if($result != 'error'){
+            return redirect()->back()->with('status','لقد تم تحديث العقد');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
+        }
         
-        return redirect()->back();
     }
 
     public function index()
