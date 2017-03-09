@@ -136,6 +136,8 @@ hr{
 .c-menue-item.pm_a{
   background-color: #ddd;
 }
-
+.datepicker{
+  z-index: 9996 !important;
+}
 
 

@@ -96,7 +96,7 @@ class RenterController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('Customer','?fields=["name","customer_name","email"]');
+       $result = frappe_get_data('Customer','?fields=["name","first_name","last_name","email"]');
       
        
        return view('ar.renter.index',compact('result'));

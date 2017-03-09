@@ -30,7 +30,7 @@
     <div class='col-md-6'>
         <div class="form-group form-md-line-input form-md-floating-label">
             <input type="text" class="form-control" id="bank_name" placeholder="" name="bank_name">
-            <label for="mobile_number">اسم البنك</label>
+            <label for="bank_name">اسم البنك</label>
         </div>
     </div>
     <div class='col-md-6'>
@@ -65,9 +65,9 @@
             <label for="kafeel_name">اسم الكفيل</label>
         </div>
     </div>
-    <div class='col-md-6'>
+    <div class='col-md-6' hidden>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="supplier_type" placeholder="" name="supplier_type">
+            <input type="text" class="form-control" id="supplier_type" placeholder="" name="supplier_type" value="Local">
             <label for="supplier_type">نوع الخدمة</label>
         </div>
     </div>

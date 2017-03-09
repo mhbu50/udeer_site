@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="amount" placeholder="" name="amount" value="{{ isset($debt->amount) ? $debt->amount : ""}}">
+            <input type="number" class="form-control" id="amount" placeholder="" name="amount" value="{{ isset($debt->amount) ? $debt->amount : ""}}">
             <label for="amount">مقدار</label>
         </div>
     </div>

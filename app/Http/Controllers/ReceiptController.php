@@ -43,13 +43,13 @@ class ReceiptController extends Controller
         }elseif($request->get('type') == 'pay'){
           $amount = -(int)$request->get('amount');
         }
-        $result = frappe_add_company_balance($company_name,$amount);
-        var_dump($result);
-        // if($result != 'error'){
-        //     return redirect('/receipt/index')->with('status','لقد تم حفظ السند');  
-        // }else{
-        //     return redirect('/receipt/index')->with('status','لم يتم حفظ السند الرجاء المحاولة مرة اخرى');  
-        // }
+        // $result = frappe_add_company_balance($company_name,$amount);
+        // var_dump($result);
+        if($result != 'error'){
+            return redirect('/receipt/index')->with('status','لقد تم حفظ السند');  
+        }else{
+            return redirect('/receipt/index')->with('status','لم يتم حفظ السند الرجاء المحاولة مرة اخرى');  
+        }
         
         
     }

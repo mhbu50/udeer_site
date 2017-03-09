@@ -7,12 +7,12 @@
             <label for="employee_name">اسم الكامل</label>
         </div>
     </div>
-    <div class='col-md-6'>
+    <!-- <div class='col-md-6'>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="company" placeholder="" name="company">
+            <input type="text" class="form-control" id="company" placeholder="" name="company" value="udeer">
             <label for="company">الشركة</label>
         </div>
-    </div>
+    </div> -->
      <div class='col-md-6'>
         <div class="form-group form-md-line-input form-md-floating-label">        
             <div class="input-icon right">

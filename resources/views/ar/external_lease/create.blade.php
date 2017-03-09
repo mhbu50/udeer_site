@@ -7,7 +7,7 @@
 @endsection
 @section('js_page')
     <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>  
-    <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+    
       <script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
       <script type="text/javascript">
       $(document).ready(function(){

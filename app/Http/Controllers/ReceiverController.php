@@ -19,11 +19,10 @@ class ReceiverController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-               'employee_name' => 'required|Min:3|Max:80|AlphaNum',
-               'company' => 'Min:3|Max:80|AlphaNum',
+               'employee_name' => 'required|AlphaNum',
+               'company' => 'AlphaNum',
                'date_of_joining' => 'date',
                'date_of_birth' => 'date|before:today',
-               'employee_number' => 'numeric|Min:1|Max:20',
                 
             ]);
 

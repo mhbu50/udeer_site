@@ -30,7 +30,7 @@
         @yield('css_page')
     </head>
     <!-- END HEAD -->
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md @yield('module') @yield('page_title')" page-id="@yield('page_title')">
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md @yield('module') @yield('page_type') " page-id="@yield('page_title')">
         <div class="page-wrapper">
             <!-- BEGIN HEADER -->
             <div class="page-header navbar navbar-fixed-top custom-nav">

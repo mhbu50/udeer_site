@@ -72,7 +72,7 @@ class SupplierController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         
-        $result = frappe_update('supplier',$name,$data);
+        $result = frappe_update('Supplier',$name,$data);
         if($result != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث مزود خدمة');  
         }else{

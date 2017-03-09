@@ -55,7 +55,7 @@ class PropertyController extends Controller
         if($result != 'error'){
             return redirect('property/index')->with('status','لقد تم حفظ العقار');  
         }else{
-            return redirect('property/index')->with('error','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى');  
+            return redirect('property/index')->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى');  
         }
         
     }
@@ -234,21 +234,7 @@ class PropertyController extends Controller
 
     public function store_unit(Request $request,$property_name){
       $validator = Validator::make($request->all(), [
-                'property' => 'required|AlphaNum',
-                'unit_number' => 'numeric',
-                'unit_type' => 'in:apartment,room,villa,house',
-                'annual_rent_amount' => 'numeric',
-                'rent_currency' => 'AlphaNum',
-                'insurance_amount' => 'numeric',
-                'commission_type' => 'in:percentage,cash',
-                'unit_space' => 'numeric',
-                'finishing_status' => 'AlphaNum',
-                'room_slot' => 'numeric',
-                'number_of_bathrooms' => 'numeric',
-                'unit_activity' => 'in:commercial,residential',
-                'water_meter_number' => 'numeric',
-                'electricity_meter_number' => 'numeric',
-                'number_of_copies' => 'numeric',
+                
                 
             ]);
 
@@ -264,8 +250,12 @@ class PropertyController extends Controller
         for( $i = 0; $i<$counter; $i++ ) {
             $result = frappe_insert('property%20unit',$data);
             $data["unit_number"]++;
+            if($result = 'error'){
+            return redirect('property/'.$request->get('property').'/units')->with('status','لم تتم العملية كاملا الرجاء المحاولة مرة اخرى');  
+            }
+                  
         }
-        return redirect('property/'.$request->get('property').'/units');
+        return redirect('property/'.$request->get('property').'/units')->with('status','لقد تم الاضافة بانجاح');  
     }
 
 
@@ -285,15 +275,7 @@ class PropertyController extends Controller
     public function store_lease(Request $request,$property_name)
     {
         $validator = Validator::make($request->all(), [
-                'property' => 'required|AlphaNum',
-                'property_unit' => 'required|AlphaNum',
-                'date' => 'date|date_format:Y-m-d',
-                'renter' => 'required|AlphaNum',
-                'lease_doc' => 'AlphaNum',
-                'lease_writing_date' => 'date|date_format:Y-m-d',
-                'expiry_date' => 'date|date_format:Y-m-d|after:today',
-                'lease_duration' => 'numeric|Min:1|Max:20',
-                'rent_starting_date' => 'date|date_format:Y-m-d',
+                
                  
                 
             ]);

@@ -80,9 +80,11 @@
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 try {
                         $result = curl_exec($ch);
-                        return $result;
+                        var_dump($result);
+                        return json_decode($result)->data;
                 } catch (Exception $e) {
                         return 'error';
+                        
                 }
                 
 
@@ -98,8 +100,13 @@
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($arr)));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-                $result = curl_exec($ch);
-                return $result;
+                try {
+                        $result = curl_exec($ch);
+                        
+                        return json_decode($result)->data;
+                } catch (Exception $e) {
+                        return 'error';
+                }
 
         }
 

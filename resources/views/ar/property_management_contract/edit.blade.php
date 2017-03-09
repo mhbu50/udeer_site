@@ -1,5 +1,6 @@
 @section('module','property_management')
 @section('page_title','management_contract')
+@section('page_type','edit_page')
 @extends('template')
 
 @section('css_page')

@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="portlet-body form">
-               @include('ar.supplier.supplier_form',['action' => action('SupplierController@edit',$supplier->name)])
+               @include('ar.supplier.supplier_form',['action' => action('SupplierController@update',$supplier->name)])
           </div>
 
         </div>

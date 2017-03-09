@@ -232,7 +232,7 @@
           <div class="input-group">
             
             <div class="input-group-control">
-                <input type="text" class="form-control typeahead" id="owner_name" placeholder="اسم المالك" name="owner_name" >
+                <input type="text" class="form-control typeahead edit_read_only" id="owner_name" placeholder="اسم المالك" name="owner_name" >
             </div>
             <span class="input-group-btn btn-left">
                 <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>

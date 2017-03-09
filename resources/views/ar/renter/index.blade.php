@@ -57,7 +57,7 @@
                     @for ($i = 0; $i < count($result); $i++)
                     <tr>
                         <th scope="row"><a href="{!!action('RenterController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
-                        <td>{{$result[$i]->customer_name}}</td>
+                        <td>{{$result[$i]->first_name}} {{$result[$i]->last_name}}</td>
                         <td>{{$result[$i]->email}}</td> 
                        <td class="bs-checkbox">
                             <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab "><input data-index="0" name="btSelectItem" type="checkbox" class='del-check' id="{!!$result[$i]->name!!}"><span></span></label>

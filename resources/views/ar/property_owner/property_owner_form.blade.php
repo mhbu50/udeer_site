@@ -28,7 +28,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="id_number" placeholder="" name="id_number">
+            <input type="number" class="form-control" id="id_number" placeholder="" name="id_number">
             <label for="id_number">رقم الهویة</label>
         </div>
     </div>

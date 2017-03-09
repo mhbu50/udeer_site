@@ -1,5 +1,6 @@
 @section('module','property_management')
 @section('page_title','lease')
+@section('page_type','create_page')
 @extends('template')
   
 @section('css_page')
@@ -15,7 +16,7 @@
     $(document).ready(function(){
       terms = {!!json_encode($terms)!!}
       $('#terms').hide();
-      pay_dof = 0;
+      
       $("#terms_group").change(function() {
         // $('#terms').summernote({height: 300});
         $("#terms").summernote("code", terms[this.value]);
@@ -23,10 +24,10 @@
           
         })
 
-        $('#dof').change(function(){
-          $("#pay_dof").empty()
+        $('#instalment_number').change(function(){
+          $("#instalment_amount").empty()
           for(count=0;count<this.value;count++){
-            $("#pay_dof").append('<div class="col-md-6 .col-md-offset-6"><div class="form-group form-md-line-input form-md-floating-label"><input class="form-control form-control-inline " size="16" type="number" name=daf['+count+']><label >دفعة رقم '+(count+1)+'</label></div></div>');
+            $("#instalment_amount").append('<div class="col-md-6 .col-md-offset-6"><div class="form-group form-md-line-input form-md-floating-label"><input class="form-control form-control-inline " size="16" type="number"><label >دفعة رقم '+(count+1)+'</label></div></div>');
           }
           
           
@@ -56,5 +57,6 @@
     </div>
     @include('ar.modals.property_modal')
     @include('ar.modals.property_unit_modal')
+    @include('ar.modals.renter_modal')
     
 @endsection

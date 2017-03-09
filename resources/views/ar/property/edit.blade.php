@@ -1,6 +1,7 @@
 @section('lang','ar')
 @section('module','property_management')
 @section('page_title','property_edit')
+@section('page_type','edit_page')
 @extends('template')
 
 @section('css_page')
@@ -17,6 +18,14 @@
       $(document).ready(function(){
         property = {!!json_encode($property)!!}
         set_value(property)
+        $("#not_percentage").hide();
+        if(property.management_type == 'percentage'){
+          $("#percentage").show()
+          $("#not_percentage,#not_percentage").hide();
+        }else if(property.management_type == 'not_percentage'){
+          $("#percentage").hide()
+          $("#not_percentage").show();
+        }
         google.maps.event.addDomListener(window, 'load', set_map(property.longitude,property.latitude));
         $(".nav-tabs #show").addClass('active');
       });

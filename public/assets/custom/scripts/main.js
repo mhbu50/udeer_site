@@ -79,6 +79,10 @@ $(document).ready(function(){
         case 'supplier':
              $('#side_human-re_m,#side_supplier_it').addClass('active');
             break; 
+        case 'receiver':
+             $('#side_human-re_m,#side_receiver_it').addClass('active');
+            break;     
+            
           
         // finannce   
         case 'debt':
@@ -115,10 +119,12 @@ $(document).ready(function(){
 
     $('.btn-primary').on('click',function(){$('.collapse').collapse('hide');})
 
+    // property_unit 
     $("#annual_rent_amount").change(function(){
               com_val = $(this).val()*(5/200);
 
             $("#commission_amount").val(com_val);
+            $("#commission_amount").addClass('edited');
     })
 
 
@@ -437,7 +443,14 @@ $(document).ready(function(){
                 break;
         }
       });
-
+      // handling the special fileds ofor create type or edit
+      $('body.create_page .create_hide').hide();
+      $('body.create_page .create_read_only').attr('disabled', true);
+      $('body.create_page .create_remove').remove();
+      $('body.edit_page .edit_hide').hide();
+      $('body.edit_page .edit_read_only').attr('disabled', true);
+      $('body.edit_page .edit_remove').remove();
+      // datae form
       $('.date-picker').datepicker({
           rtl: App.isRTL(),
           orientation: "left",

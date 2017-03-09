@@ -23,11 +23,11 @@ class Property_ownerController extends Controller
                'second_name' => 'required|AlphaNum',
                'third_name' => 'required|AlphaNum',
                'last_name' => 'required|AlphaNum',
-               'id_number' => 'numeric',
-               'mobile_number' => 'numeric',
+               'id_number' => 'AlphaNum',
+               'mobile_number' => 'AlphaNum',
                'email' => 'email',
                'bank_acount' => 'AlphaNum',
-               'telephone_number' => 'numeric',
+               'telephone_number' => 'AlphaNum',
                'fax' => 'AlphaNum',
                 
             ]);
@@ -102,7 +102,7 @@ class Property_ownerController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property_owner','?fields=["name","full_name","email"]');
+       $result = frappe_get_data('property_owner','?fields=["name","first_name","last_name","email"]');
        
        
        return view('ar.property_owner.index',compact('result'));

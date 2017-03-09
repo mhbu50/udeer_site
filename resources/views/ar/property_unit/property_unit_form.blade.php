@@ -7,7 +7,7 @@
         <div class="input-group">
           
           <div class="input-group-control">
-              <input type="text" class="form-control typeahead" id="property" placeholder="العقار" name='property'>
+              <input type="text" class="form-control typeahead edit_read_only" id="property" placeholder="العقار" name='property'>
               
           </div>
           <span class="input-group-btn btn-left">
@@ -28,7 +28,7 @@
     <div class="col-md-6">
       <div class="form-group form-md-line-input form-md-floating-label">
         <select id="unit_type" class="form-control" name='unit_type'>
-          <option value="" >  </option>
+          <option value="">  </option>
           <option value='apartment'>شقة</option>
           <option value='room'>غرفة</option>
           <option value='villa'>فيلا </option>
@@ -102,7 +102,7 @@
 
     <div class="col-md-6">
       <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="unit_space" placeholder="" name='unit_space'>
+          <input type="number" class="form-control" id="unit_space" placeholder="" name='unit_space'>
           <label for="unit_space">المساحة</label>
       </div>
     </div>
@@ -200,7 +200,7 @@
 
 
 
-    <div class="col-md-6">
+    <div class="col-md-6 edit_hide">
       <div class="form-group form-md-line-input form-md-floating-label">
         <input type="number" class="form-control edited" id="number_of_copies" placeholder="" name="number_of_copies" value='1' min="1">
         <label for="number_of_copies">عدد النسخ</label>
