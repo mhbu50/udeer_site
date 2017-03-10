@@ -1,4 +1,8 @@
+
+@section('lang','ar')
 @section('module','property_management')
+@section('page_title','property_edit')
+@section('page_type','edit_page')
 @extends('template')
 
 @section('css_page')
@@ -9,8 +13,8 @@
     <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-          unit_expense = {!!json_encode($unit_expense)!!}
-          set_value(unit_expense)
+          property_expense = {!!json_encode($property_expense)!!}
+          set_value(property_expense)
         });
     </script>
 @endsection
@@ -22,11 +26,11 @@
         <div class="portlet light bordered">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                {{$unit_expense->name}}
+                {{$property_expense->name}}
             </div>
           </div>
           <div class="portlet-body form">
-               @include('ar.property_expenses.property_expenses_form',['action' => action('LeaseController@update',$unit_expense->name)])
+               @include('ar.property_expenses.property_expenses_form',['action' => action('Property_expenseController@update',$property_expense->name)])
           </div>
 
         </div>

@@ -48,6 +48,28 @@ class SupplierController extends Controller
         }
     }
 
+    public function store_ajax(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                
+            ]);
+
+            if ($validator->fails()) {
+                return 'error';
+                
+        }
+        $data = $request->all();
+        unset($data["_token"]);
+        $result = frappe_insert('Supplier',$data);
+        if($result == 'error'){
+            return 'error';
+        }else{
+            return $result->name;
+        }
+        
+        
+    }
+
 
     public function edit($name)
     {

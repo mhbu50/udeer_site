@@ -64,13 +64,13 @@
                         <div class="col-md-6">
                           <div class="form-group form-md-line-input form-md-floating-label">
                             
-                            <input type="text" class="form-control" id="property" placeholder="" name="property">
+                            <input type="text" class="form-control" id="property" placeholder="" name="property" vale="{{$property or ''}}">
                             <label for="property">اسم العقار</label>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group form-md-line-input form-md-floating-label">
-                            <input type="text" class="form-control" id="property_unit" placeholder="" name="property_unit">
+                            <input type="text" class="form-control" id="property_unit" placeholder="" name="property_unit" value="{{$property_unit or ''}}">
                             <label for="property unit">وحدة العقار</label>
                           </div>
                         </div>

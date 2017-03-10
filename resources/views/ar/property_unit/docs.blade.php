@@ -70,7 +70,7 @@
         </div>
       </div>
     </div>
-    
+    @include('ar.modals.confirm_modal')
 @endsection
 
 

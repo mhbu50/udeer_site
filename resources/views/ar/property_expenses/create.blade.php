@@ -1,4 +1,9 @@
+
+@section('lang','ar')
 @section('module','property_management')
+@section('page_title','property_edit')
+@section('page_type','create_page')
+
 @extends('template')
   
 @section('css_page')
@@ -20,13 +25,17 @@
             </div>
           </div>
           <div class="portlet-body form">
-               @include('ar.property_expenses.property_expenses_form',['action' => action('LeaseController@store')])
+               @include('ar.property_expenses.property_expenses_form',['action' => action('Property_expenseController@store',$property_name)])
           </div>
 
         </div>
       </div>
     </div>
+    
+    @include('ar.modals.property_unit_modal')
+    @include('ar.modals.supplier_modal')
     @include('ar.modals.property_modal')
+
 
    
 @endsection

@@ -257,6 +257,8 @@ Route::post('/receiver/delete_array', 'ReceiverController@delete_array');
 Route::get('/supplier/create', 'SupplierController@create');
 Route::post('/supplier/create','SupplierController@store');
 
+Route::post('/supplier/create_ajax','SupplierController@store_ajax');
+
 Route::get('/supplier/{name?}/edit','SupplierController@edit');
 Route::post('/supplier/{name?}/edit','SupplierController@update');
 

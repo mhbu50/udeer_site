@@ -36,7 +36,7 @@ class Property_expenseController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('property_expense',$data);
         
-        return redirect()->action('PropertyController@unit_expense_index',$property_name);
+        return redirect()->action('PropertyController@expense_index',$property_name);
     }
 
 

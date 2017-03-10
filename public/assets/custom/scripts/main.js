@@ -146,11 +146,12 @@ $(document).ready(function(){
         success: function(msg) {
             if(msg == 'error'){
               $(".modal-msg").html('<div class="alert alert-danger alert-dismissible fade in" role="alert">  error </div>');
-              console.log('error');
+              
             }else{
+
               $(form.attr("target")).val(msg);
               $(form.attr("target")).addClass('edited');
-              $('.c-ud-modal').modal('toggle');
+              $('.c-ud-modal').modal('hide');
             }
         }
       });

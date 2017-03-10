@@ -6,11 +6,26 @@
             <div class="input-group">
                 <div class="input-group-control">
                     
-                    <input type="text" class="form-control typeahead" id="property" placeholder="اسم العقار" name="property">
+                    <input type="text" class="form-control typeahead edit_read_only" id="property" placeholder="اسم العقار" name="property">
                     
                 </div>
                 <span class="input-group-btn btn-left">
                     <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="fa fa-plus"></i></a>
+                </span>
+            </div>
+        </div>
+
+    </div> 
+    <div class="col-md-6">
+        <div class="form-group form-md-line-input form-md-floating-label">
+            <div class="input-group">
+                <div class="input-group-control">
+                    
+                    <input type="text" class="form-control typeahead edit_read_only" id="property_unit" placeholder="اسم الوحدة" name="property_unit">
+                    
+                </div>
+                <span class="input-group-btn btn-left">
+                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#Property_unitModal"><i class="fa fa-plus"></i></a>
                 </span>
             </div>
         </div>
@@ -32,11 +47,11 @@
         <div class="form-group form-md-line-input form-md-floating-label">
             <div class="input-group">
                 <div class="input-group-control">
-                    <input type="text" class="form-control typeahead" id="supplier" placeholder="مزود الخدمة" name="supplier">
+                    <input type="text" class="form-control typeahead edit_read_only" id="supplier" placeholder="مزود الخدمة" name="supplier">
                     
                 </div>
                 <span class="input-group-btn btn-left">
-                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>
+                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#SupplierModal"><i class="fa fa-plus"></i></a>
                 </span>
             </div>
         </div>
@@ -59,7 +74,7 @@
     </div>
     <div class='col-md-6'>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="amount" placeholder="" name="amount">
+            <input type="number" class="form-control" id="amount" placeholder="" name="amount">
             <label for="">مقدار</label>
         </div>
     </div>
@@ -77,4 +92,4 @@
         <button type="button" class="btn default">الغاء</button>
       </div>
     </div>
-<form>
+</form>

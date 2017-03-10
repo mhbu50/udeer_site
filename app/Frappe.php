@@ -1,5 +1,6 @@
 <?php
 // namespace App\Frappe;
+use Illuminate\Support\Facades\Log;
 
 
         
@@ -60,13 +61,14 @@
                 // curl_setopt($ch, CURLOPT_HEADER, true);
                 try {
                         $result = curl_exec($ch);
-                        return json_decode($result)->data;
-
                         
+                        return json_decode($result)->data;
                 } catch (Exception $e) {
-                        return 'eror';
+                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$log);
+                    return 'error';
+                        
                 }
-
         }
 
 
@@ -80,10 +82,12 @@
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 try {
                         $result = curl_exec($ch);
-                        var_dump($result);
+                        
                         return json_decode($result)->data;
                 } catch (Exception $e) {
-                        return 'error';
+                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$log);
+                    return 'error';
                         
                 }
                 
@@ -105,7 +109,10 @@
                         
                         return json_decode($result)->data;
                 } catch (Exception $e) {
-                        return 'error';
+                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$log);
+                    return 'error';
+                        
                 }
 
         }
@@ -121,9 +128,13 @@
                 
                 try {
                         $result = curl_exec($ch);
-                        return $result;
+                        
+                        return json_decode($result)->data;
                 } catch (Exception $e) {
-                        return 'error';
+                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$log);
+                    return 'error';
+                        
                 }
                 
         }

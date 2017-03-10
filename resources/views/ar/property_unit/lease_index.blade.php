@@ -51,7 +51,7 @@
                         <th><div class="th-inner ">#</div></th>
                         <th><div class="th-inner ">اسم العقار</div></th>
                         <th><div class="th-inner ">رقم الوحدة</div></th>  
-                        <th><div class="th-inner ">تاريخ انتهاء العقد</div></th> 
+                        <th><div class="th-inner ">تاريخ امضاء العقد</div></th> 
                         <th></th> 
                     </tr> 
                 </thead> 
@@ -62,7 +62,7 @@
                             <th scope="row"><a href="{!!action('LeaseController@edit',['name'=>$result[$i]->name])!!}">{{ $result[$i]->name  }}</a></th>
                             <td>{{$result[$i]->property}}</td>
                             <td>{{$result[$i]->property_unit}}</td>
-                            <td>{{$result[$i]->expiry_date}}</td> 
+                            <td>{{$result[$i]->lease_signature_date}}</td> 
                             
                            <td class="bs-checkbox">
                                 <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline del-check-lab "><input data-index="0" name="btSelectItem" type="checkbox" class='del-check' id="{!!$result[$i]->name!!}"><span></span></label>

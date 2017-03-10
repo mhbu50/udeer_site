@@ -76,7 +76,7 @@ class Property_unitController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('property',$data);
+        $result = frappe_insert('property%20unit',$data);
         
         return $result->name;
     }
@@ -164,7 +164,7 @@ class Property_unitController extends Controller
     public function lease_index($unit_name)
     {
 
-       $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]');
+       $result = frappe_get_data('lease','?fields=["name","property","property_unit","lease_signature_date"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]');
      
        // var_dump($result);
        return view('ar.property_unit.lease_index',compact('result','unit_name'));
@@ -205,12 +205,18 @@ class Property_unitController extends Controller
 
     public function create_lease($unit_name)
     {
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
+        $term = [];
+        foreach ($terms_d as $term) {
+            $terms[$term->title] = $term->terms;
+        }
+
         $renters = frappe_get_data('Customer','?fields=["name"]');
         
         $property_unit = frappe_get_data('property%20unit',$unit_name);
         
         // var_dump($property_unit);
-        return view('ar.property_unit.create_lease',compact('property_unit','renters'));
+        return view('ar.property_unit.create_lease',compact('property_unit','renters','terms'));
 
     }
 

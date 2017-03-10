@@ -60,11 +60,23 @@ class UdeerController extends Controller
     public function delete_array(Request $request)
     {
         $doclist = json_decode($request->get('names'));
+        $e_docs = [];
         foreach ($doclist as $doc) {
             $result = frappe_delete($request->get('doctype'),$doc);
+            if($result == "error"){
+                array_push($e_docs,$doc);
+            }
         }
-
-        return redirect()->back();
+        if(empty($e_docs)){
+            $status = "لقد تمت عملية المسح بنجاح";
+        }else{
+            $status = "لم يتم مسح هذا البيانات: ";
+            foreach ($e_docs as $docs) {
+                $status = $status+$docs+"";
+            }
+            
+        }
+        return ;
     }
 
     public function find($doctype,$key)

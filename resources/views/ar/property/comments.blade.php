@@ -33,6 +33,7 @@
 
                       
                       <div class="mt-list-container list-news">
+                        @if(count($result))
                           <ul>
                             @for ($i = 0; $i < count($result); $i++)
                               <li class="mt-list-item">
@@ -47,6 +48,9 @@
                             @endfor   
                               
                           </ul>
+                          @else
+                              <p class="bg-warning">لا يوجد </p>
+                          @endif
                       </div>
                       <form method='post' action="{!!action('CommentController@store',['doctype' => 'property','name' => $property_name])!!}" enctype="multipart/form-data">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">

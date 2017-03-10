@@ -3,7 +3,7 @@
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
             <div class="input-icon right">
-                  <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="date" placeholder="" name="date">
+                  <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="lease_writing_date" placeholder="" name="lease_writing_date">
                   <i class="fa fa-calendar"></i>  
                   <label for="lease_writing_date">تاريخ كتابة العقد</label>
                       
@@ -18,7 +18,7 @@
                     <input type="text" class="form-control typeahead edit_read_only" id="renter" placeholder="المستاجر" name="renter">
                 </div>
                 <span class="input-group-btn btn-left">
-                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#RenterModal"><i class="fa fa-plus"></i></a>
+                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#Renter_Modal"><i class="fa fa-plus"></i></a>
                 </span>
             </div>
         </div>
@@ -27,7 +27,7 @@
     <div class="col-md-6">   
         <div class="form-group form-md-line-input form-md-floating-label">
             <div class="input-icon right">
-                  <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="lease_writing_date" placeholder="" name="lease_writing_date">
+                  <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="lease_signature_date" placeholder="" name="lease_signature_date">
                   <i class="fa fa-calendar"></i>  
                   <label for="lease_signature_date">تاربخ امضاء العقد</label>
                       
@@ -61,7 +61,7 @@
                     
                 </div>
                 <span class="input-group-btn btn-left">
-                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>
+                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#Property_Modal"><i class="fa fa-plus"></i></a>
                 </span>
             </div>
         </div>
@@ -76,7 +76,7 @@
                    
                 </div>
                 <span class="input-group-btn btn-left">
-                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#OwnerModal"><i class="fa fa-plus"></i></a>
+                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#Property_unitModal"><i class="fa fa-plus"></i></a>
                 </span>
             </div>
         </div>

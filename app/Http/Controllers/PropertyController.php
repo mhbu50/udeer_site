@@ -76,7 +76,7 @@ class PropertyController extends Controller
         $result = frappe_insert('property',$data);
        
         
-        return $result;
+        return $result->name;
     }
 
     public function edit($property_name)
@@ -163,7 +163,7 @@ class PropertyController extends Controller
     public function lease_index($property_name)
     {
 
-       $result = frappe_get_data('lease','?fields=["name","date","property_unit"]&filters=[["lease","property","=","'.$property_name.'"]]');
+       $result = frappe_get_data('lease','?fields=["name","date","property_unit","lease_signature_date"]&filters=[["lease","property","=","'.$property_name.'"]]');
       
        return view('ar.property.lease_index',compact('result','property_name'));
        
@@ -250,7 +250,7 @@ class PropertyController extends Controller
         for( $i = 0; $i<$counter; $i++ ) {
             $result = frappe_insert('property%20unit',$data);
             $data["unit_number"]++;
-            if($result = 'error'){
+            if($result == 'error'){
             return redirect('property/'.$request->get('property').'/units')->with('status','لم تتم العملية كاملا الرجاء المحاولة مرة اخرى');  
             }
                   
@@ -261,13 +261,22 @@ class PropertyController extends Controller
 
     public function create_lease($property_name)
     {
+        $terms = [];
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
+   
+        foreach ($terms_d as $term) {
+            $terms[$term->title] = $term->terms;
+        }
+
+       
+        
         $renters = frappe_get_data('Customer','?fields=["name"]');
         
         
         $property_units = frappe_get_data('property%20unit','?fields=["name","property"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
        
         
-        return view('ar.property.create_lease',compact('properties','property_units','property_name','renters'));
+        return view('ar.property.create_lease',compact('properties','property_units','property_name','renters','terms'));
 
     }
 

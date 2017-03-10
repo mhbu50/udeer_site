@@ -4,16 +4,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">اضافة مالك</h4>
+                <h4 class="modal-title">اضافة وحدة</h4>
             </div>
             <div class="modal-body"> 
                 <div class="form-body">
-                    <form  class="ajax-form" id="ajax-form" c-url="/property_unit/create_ajax" target="#lease">
+                    <form  class="ajax-form" id="ajax-form" c-url="/property_unit/create_ajax" target="#property_unit">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                         <div class="col-md-6">
                           <div class="form-group form-md-line-input form-md-floating-label">
                             
-                            <input type="text" class="form-control" id="property" placeholder="" name='property'>
+                            <input type="text" class="form-control" id="property" placeholder="" name='property' value="{{$property_name or '' }}">
                             <label for="property">العقار</label>
                           </div>
                         </div>
