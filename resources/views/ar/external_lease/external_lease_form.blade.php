@@ -7,7 +7,7 @@
             <label for="">اسم</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="seller_mobile_number" placeholder="" name="seller_mobile_number">
+            <input type="number" class="form-control" id="seller_mobile_number" placeholder="" name="seller_mobile_number">
             <label for="">رقم الجوال</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
@@ -31,7 +31,7 @@
             <label for="">نوع الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="seller_id_number" placeholder="" name="seller_id_number">
+            <input type="number" class="form-control" id="seller_id_number" placeholder="" name="seller_id_number">
             <label for="">رقم الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
@@ -53,7 +53,7 @@
             <label for="">اسم</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="buyer_mobile_number" placeholder="" name="buyer_mobile_number">
+            <input type="number" class="form-control" id="buyer_mobile_number" placeholder="" name="buyer_mobile_number">
             <label for="">رقم الجوال</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
@@ -77,7 +77,7 @@
             <label for="">نوع الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="buyer_id_number" placeholder="" name="buyer_id_number">
+            <input type="number" class="form-control" id="buyer_id_number" placeholder="" name="buyer_id_number">
             <label for="">رقم الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">

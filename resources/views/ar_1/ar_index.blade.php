@@ -5,7 +5,7 @@
     <script>
     $( document ).ready(function() {
       $("#login").click(function(){
-          $.ajax({
+        $.ajax({
          url: "{{ url('/login') }}",
          data: $("#login-form").serialize(),
          type: "POST",

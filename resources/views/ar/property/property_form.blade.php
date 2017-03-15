@@ -6,13 +6,13 @@
 
       <div class="col-md-6">
           <div class="form-group form-md-line-input form-md-floating-label">
-              <input type="text" class="form-control" id="property_name" name="property_name" placeholder="" >
+              <input type="text" class="form-control" id="property_name" name="property_name" placeholder="" value="">
               <label for="property_name">اسم العقار</label>
           </div>
       </div>
       <div class="col-md-6">
           <div class="form-group form-md-line-input form-md-floating-label">
-              <select id="Property_type" class="form-control" name='property_type'>
+              <select id="Property_type" class="form-control" name='property_type' value="{{ old('property_type') }}" >
                 <option value=""></option>
                 <option value="house">بيت</option>
                 <option value="schema">مخطط</option>
@@ -25,7 +25,7 @@
       <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
           <div class="input-icon right">
-              <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="construction_date" name='construction_date'>
+              <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="construction_date" name='construction_date' value="{{ old('construction_date') }}">
               <i class="fa fa-calendar"></i>  
               <label for="construction_date">سنة البناء</label>
                   
@@ -34,7 +34,7 @@
       </div>
       <div class="col-md-6">
           <div class="form-group form-md-line-input form-md-floating-label">
-              <input type="number" class="form-control" id="number_of_units" name='number_of_units' placeholder="" min="0">
+              <input type="number" class="form-control" id="number_of_units" name='number_of_units' placeholder="" min="0" value="{{ old('number_of_units') }}">
               <label for="number_of_units">عدد الوحدات</label>
           </div>
       </div>
@@ -244,7 +244,7 @@
       <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
           
-          <input type="text" class="form-control" id="property_number" name="property_number" placeholder="">
+          <input type="number" class="form-control" id="property_number" name="property_number" placeholder="" min="0">
           <label for="property_number">رقم العقار</label>
         </div>
       </div>
@@ -277,13 +277,6 @@
         
     </div>
 </form>
-
-
-
-
-
-
-
 
 
 

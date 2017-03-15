@@ -41,7 +41,7 @@ class SupplierController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('Supplier',$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('/supplier/index')->with('status','لقد تم حفظ مزود خدمة');  
         }else{
             return redirect('/supplier/index')->with('status','لم يتم حفظ مزود خدمة الرجاء المحاولة مرة اخرى');  
@@ -61,10 +61,11 @@ class SupplierController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('Supplier',$data);
-        if($result == 'error'){
+
+        if($result->status == 'error'){
             return 'error';
         }else{
-            return $result->name;
+            return $result->data->name;
         }
         
         
@@ -74,7 +75,7 @@ class SupplierController extends Controller
     public function edit($name)
     {
        
-        $supplier = frappe_get_data('Supplier',$name);
+        $supplier = frappe_get_data('Supplier',$name)->data;
         
         return view('ar.supplier.edit',compact('supplier'));
 
@@ -95,7 +96,7 @@ class SupplierController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('Supplier',$name,$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث مزود خدمة');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث مزود خدمة الرجاء المحاولة مرة اخرى');  
@@ -105,7 +106,7 @@ class SupplierController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]');
+       $result = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]')->data;
        
        
        return view('ar.supplier.index',compact('result'));
@@ -125,7 +126,7 @@ class SupplierController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $result = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]&filters=['.$f_.']');
+      $result = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]&filters=['.$f_.']')->data;
      
       return view('ar.supplier.index',compact('result'));
 

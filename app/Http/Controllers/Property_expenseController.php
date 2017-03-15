@@ -36,14 +36,19 @@ class Property_expenseController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('property_expense',$data);
         
-        return redirect()->action('PropertyController@expense_index',$property_name);
+        if($result->status != 'error'){
+            return redirect()->action('PropertyController@expense_index',$property_name)->with('status','لقد تم حفظ المصروف');  
+        }else{
+            return redirect()->action('PropertyController@expense_index',$property_name)->with('status','لم يتم حفظ المصروف الرجاء المحاولة مرة اخرى');  
+        }
+      
     }
 
 
     public function edit($name)
     {
        
-        $property_expense = frappe_get_data('property_expense',$name);
+        $property_expense = frappe_get_data('property_expense',$name)->data;
         
         return view('ar.property_expenses.edit',compact('property_expense'));
 
@@ -64,7 +69,12 @@ class Property_expenseController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('property_expense',$name,$data);
-        return redirect()->back();
+        if($result->status != 'error'){
+            return redirect()->back()->with('status','لقد تم حفظ المصروف');  
+        }else{
+            return redirect()->back()->with('status','لم يتم حفظ المصروف الرجاء المحاولة مرة اخرى');  
+        }
+       
     }
 
     public function index()

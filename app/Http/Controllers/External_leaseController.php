@@ -12,7 +12,7 @@ class External_leaseController extends Controller
 {
     public function create()
     {
-        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]')->data;
         
         foreach ($terms_d as $term) {
             $terms[$term->title] = $term->terms;
@@ -37,7 +37,7 @@ class External_leaseController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('external_lease',$data);
 
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('external_lease/index')->with('status','لقد تم حفظ العقد');  
         }else{
             return redirect('external_lease/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
@@ -66,9 +66,9 @@ class External_leaseController extends Controller
     public function edit($name)
     {
         
-        $external_lease = frappe_get_data('external_lease',$name);
-        $data['user'] = frappe_get_data('User','Administrator');
-        $data['company'] = frappe_get_company();
+        $external_lease = frappe_get_data('external_lease',$name)->data;
+        $data['user'] = frappe_get_data('User','Administrator')->data;
+        $data['company'] = frappe_get_company()->data;
         return view('ar.external_lease.edit',compact('external_lease','data'));
 
     }
@@ -89,7 +89,7 @@ class External_leaseController extends Controller
         
         $result = frappe_update('external_lease',$name,$data);
 
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث العقد');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
@@ -100,7 +100,7 @@ class External_leaseController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('external_lease','?fields=["name","buyer_name","seller_name","lease_start_day"]');
+       $result = frappe_get_data('external_lease','?fields=["name","buyer_name","seller_name","lease_start_day"]')->data;
       
        // var_dump($result);
 

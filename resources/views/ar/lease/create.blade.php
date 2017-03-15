@@ -16,23 +16,71 @@
     $(document).ready(function(){
       terms = {!!json_encode($terms)!!}
       $('#terms').hide();
+      annual_rent_amount = 0;
+      rent = 0;
+      dof_number = 0;
+      var start_day ;
+      var properties = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        
+        remote: {
+          url: '/find/property%20unit/%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+     $('#property_unit_c1').typeahead({
+        minLength: 0,
+        highlight: true
+        }, 
+        {
+        name: 'property_unit',
+        display: 'name',
+        source: properties,
+        
+      }).on('typeahead:selected', function() {
+  
+        // the second argument has the info you want
+        
+        $.ajax({
+           url: '/get_rent/property_unit/'+this.value,
+           type: "get",
+          success: function(msg) {
+              
+              if(msg != "error"){
+                  annual_rent_amount = msg;
+
+              }
+             
+            }
+        });
+        $("#instalment_number").val('');
+        $("#instalment_group").empty();
+
+      });
       
       $("#terms_group").change(function() {
         // $('#terms').summernote({height: 300});
         $("#terms").summernote("code", terms[this.value]);
-          
-          
         })
+
+        
 
         $('#instalment_number').change(function(){
-          $("#instalment_amount").empty()
+          $("#instalment_group").empty();
+          dof_number = $(this).val();
+          rent = annual_rent_amount / dof_number ;
+          d = $('#lease_starting_date').val();
+          lease_starting_date = new Date(parseInt(d.substring(0, 4)),parseInt(d.substring(5,7)),parseInt(d.substring(8, 10))); 
           for(count=0;count<this.value;count++){
-            $("#instalment_amount").append('<div class="col-md-6 .col-md-offset-6"><div class="form-group form-md-line-input form-md-floating-label"><input class="form-control form-control-inline " size="16" type="number"><label >دفعة رقم '+(count+1)+'</label></div></div>');
+            lease_starting_date.setMonth(lease_starting_date.getMonth() + 1);
+            $("#instalment_group").append('<tr><td>'+(count+1)+'</td><td><div class="form-group form-md-line-input "><div class="input-icon right"><input class="form-control form-control-inline instalment_amount edit_read_only " size="16" type="number" id="instalment_amount" name="instalment_amount['+count+']" value="'+rent+'" ></div></div></td><td><div class="form-group form-md-line-input "><div class="input-icon right"><input class="form-control form-control-inline date-picker" size="16" type="text" value="'+ (lease_starting_date).toISOString().slice(0,10) +'" id="due_date" placeholder="" name="due_date['+count+']" ><i class="fa fa-calendar"></i></div></div></td></tr>');
           }
-          
-          
-
         })
+
+        
+
+
       })
       
     </script>

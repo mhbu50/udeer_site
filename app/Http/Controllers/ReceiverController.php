@@ -37,7 +37,7 @@ class ReceiverController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('Employee',$data);
 
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('/receiver/index')->with('status','لقد تم حفظ المحصل');  
         }else{
             return redirect('/receiver/index')->with('status','لم يتم حفظ المحصل الرجاء المحاولة مرة اخرى');  
@@ -60,7 +60,12 @@ class ReceiverController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('Employee',$data);
         
-        return $result->name;
+        if($result->status != 'error'){
+            return $result->data->name;
+        }else{
+            return ;
+        }
+        
     }
 
 
@@ -68,7 +73,7 @@ class ReceiverController extends Controller
     public function edit($name)
     {
         $name = str_replace('*', '%2F', $name);
-        $reciever = frappe_get_data('Employee',$name);
+        $reciever = frappe_get_data('Employee',$name)->data;
        
         return view('ar.receiver.edit',compact('reciever'));
 
@@ -90,7 +95,7 @@ class ReceiverController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('Employee',$name,$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث المحصل');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث المحصل الرجاء المحاولة مرة اخرى');  
@@ -101,7 +106,7 @@ class ReceiverController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('Employee','?fields=["name","employee_name","company","date_of_joining","date_of_birth"]');
+       $result = frappe_get_data('Employee','?fields=["name","employee_name","company","date_of_joining","date_of_birth"]')->data;
        
        
        return view('ar.receiver.index',compact('result'));

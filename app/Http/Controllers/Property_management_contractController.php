@@ -13,8 +13,7 @@ class Property_management_contractController extends Controller
 {
     public function create()
     {
-        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
-        
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]')->data;
         foreach ($terms_d as $term) {
             $terms[$term->title] = $term->terms;
         }
@@ -38,7 +37,7 @@ class Property_management_contractController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property_management_contract',$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('property_management_contract/index')->with('status','لقد تم حفظ العقد');  
         }else{
             return redirect('property_management_contract/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
@@ -67,12 +66,12 @@ class Property_management_contractController extends Controller
     public function edit($name)
     {
         
-        $property_management_contract = frappe_get_data('property_management_contract',$name);
-        $data['user'] = frappe_get_data('User','Administrator');
+        $property_management_contract = frappe_get_data('property_management_contract',$name)->data;
+        $data['user'] = frappe_get_data('User','Administrator')->data;
         $data['company'] = frappe_get_company();
         
-        $data['property'] = frappe_get_data('property',$property_management_contract->property);
-        $data['owner'] = frappe_get_data('property_owner',$data['property']->owner_name);
+        $data['property'] = frappe_get_data('property',$property_management_contract->property)->data;
+        $data['owner'] = frappe_get_data('property_owner',$data['property']->owner_name)->data;
     
         return view('ar.property_management_contract.edit',compact('property_management_contract','data'));
 
@@ -93,7 +92,7 @@ class Property_management_contractController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('property_management_contract',$name,$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث العقد');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
@@ -104,7 +103,7 @@ class Property_management_contractController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property_management_contract','?fields=["name","property","signature_date"]');
+       $result = frappe_get_data('property_management_contract','?fields=["name","property","signature_date"]')->data;
        
        // var_dump($result);
 

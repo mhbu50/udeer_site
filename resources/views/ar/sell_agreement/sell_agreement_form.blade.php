@@ -31,7 +31,7 @@
             <label for="">نوع الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="seller_id_number" placeholder="" name="seller_id_number">
+            <input type="numbmer" class="form-control" id="seller_id_number" placeholder="" name="seller_id_number">
             <label for="">رقم الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
@@ -77,7 +77,7 @@
             <label for="">نوع الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="buyer_id_number" placeholder="" name="buyer_id_number">
+            <input type="number" class="form-control" id="buyer_id_number" placeholder="" name="buyer_id_number">
             <label for="">رقم الهوية</label>
         </div>
         <div class="form-group form-md-line-input form-md-floating-label">
@@ -110,7 +110,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="property_number" placeholder="" name="property_number">
+            <input type="number" class="form-control" id="property_number" placeholder="" name="property_number">
             <label for="">رقم العقار</label>
         </div>
     </div>
@@ -148,7 +148,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="property_instrument_number" placeholder="" name="property_instrument_number">
+            <input type="number" class="form-control" id="property_instrument_number" placeholder="" name="property_instrument_number">
             <label for="">رقم الصك</label>
         </div>
     </div>

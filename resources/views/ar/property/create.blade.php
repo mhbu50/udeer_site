@@ -16,7 +16,8 @@
       $(document).ready(function(){
         google.maps.event.addDomListener(window, 'load', set_map(50.0301574,26.3320884));
         $(".commission").hide();
-        
+        property = {!!json_encode( session()->getOldInput())!!}
+        set_value(property)
       });
     </script>
 @endsection

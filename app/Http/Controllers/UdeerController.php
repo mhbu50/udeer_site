@@ -79,10 +79,30 @@ class UdeerController extends Controller
         return ;
     }
 
-    public function find($doctype,$key)
+    public function find($doctype,$key='all')
     {
-        $result = frappe_get_data($doctype,'?fields=["name"]&filters=[["'.$doctype.'","name","like","%'.$key.'%"]]');
+        if($key=='all'){
+            $result = frappe_get_data($doctype,'?fields=["name"]')->data;
+        }else{
+            $result = frappe_get_data($doctype,'?fields=["name"]&filters=[["'.$doctype.'","name","like","%'.$key.'%"]]')->data;
+        }
+        
         
         return $result;
     }
+
+    public function get_rent($name)
+    {
+
+        $result = frappe_get_data("property%20unit",$name);
+        
+        if($result->status != 'error'){
+            return $result->data->annual_rent_amount;  
+        }else{
+            return 'error';  
+        }
+        
+    }
+
+    
 }

@@ -13,7 +13,7 @@ class Sell_agreementController extends Controller
 {
     public function create()
     {
-        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]')->data;
         
         foreach ($terms_d as $term) {
             $terms[$term->title] = $term->terms;
@@ -37,7 +37,7 @@ class Sell_agreementController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('sell_agreement',$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('sell_agreement/index')->with('status','لقد تم حفظ العقد');  
         }else{
             return redirect('sell_agreement/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
@@ -57,7 +57,7 @@ class Sell_agreementController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('sell_agreement',$data);
+        $result = frappe_insert('sell_agreement',$data)->data;
        
         return $result->name;
     }
@@ -66,8 +66,8 @@ class Sell_agreementController extends Controller
     public function edit($name)
     {
 
-        $sell_agreement = frappe_get_data('sell_agreement',$name);
-        $data['user'] = frappe_get_data('User','Administrator');
+        $sell_agreement = frappe_get_data('sell_agreement',$name)->data;
+        $data['user'] = frappe_get_data('User','Administrator')->data;
         $data['company'] = frappe_get_company();
         return view('ar.sell_agreement.edit',compact('sell_agreement','data'));
 
@@ -88,7 +88,7 @@ class Sell_agreementController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('sell_agreement',$name,$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث العقد');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
@@ -99,7 +99,7 @@ class Sell_agreementController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('sell_agreement','?fields=["name","buyer_name","seller_name","creation"]');
+       $result = frappe_get_data('sell_agreement','?fields=["name","buyer_name","seller_name","creation"]')->data;
        
        // var_dump($result);
 
@@ -119,7 +119,7 @@ class Sell_agreementController extends Controller
 
       $f_ = refactor_filter($filters);
 
-      $resultObj = frappe_get_data('property_owner','?fields=["name","full_name","email"]&filters=['.$f_.']');
+      $resultObj = frappe_get_data('property_owner','?fields=["name","full_name","email"]&filters=['.$f_.']')->data;
       
       return view('ar.property_owner.index',compact('result'));
 

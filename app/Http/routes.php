@@ -28,6 +28,8 @@ Route::get('/test2', function(){
 
 Route::get('/find/{doctype?}/{key?}', 'UdeerController@find');
 
+Route::get('/get_rent/property_unit/{name?}', 'UdeerController@get_rent');
+
 
 Route::post('/login', 'UdeerController@login');
 
@@ -150,6 +152,12 @@ Route::get('/lease/index','LeaseController@index');
 Route::post('/lease/index','LeaseController@set_index');
 
 Route::post('/lease/{name?}/delete','LeaseController@delete');
+
+Route::get('/lease/{name}/instalments','LeaseController@instalment_index');
+
+Route::get('/lease/{lease?}/instalment/{instalment?}','LeaseController@instalment_show');
+
+Route::post('/lease/{lease?}/instalment/{instalment?}','LeaseController@instalment_update');
 
 Route::post('/lease/delete_array', 'LeaseController@delete_array');
 

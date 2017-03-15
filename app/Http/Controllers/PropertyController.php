@@ -20,9 +20,8 @@ class PropertyController extends Controller
  
     public function create()
     {
-        $property_owners = frappe_get_data('property_owner','?fields=["name","first_name","second_name","third_name","last_name"]');
   
-        return view('ar.property.create',compact('property_owners'));
+        return view('ar.property.create');
     }
 
     public function store(Request $request)
@@ -45,17 +44,17 @@ class PropertyController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()
                         ->withErrors($validator)
-                        ;
+                        ->withInput();
                 
         }
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property',$data);
         
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('property/index')->with('status','لقد تم حفظ العقار');  
         }else{
-            return redirect('property/index')->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى');  
+            return redirect('property/index')->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
         }
         
     }
@@ -73,7 +72,7 @@ class PropertyController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('property',$data);
+        $result = frappe_insert('property',$data)->data;
        
         
         return $result->name;
@@ -82,12 +81,11 @@ class PropertyController extends Controller
     public function edit($property_name)
     {
        
-        $property = frappe_get_data('property',$property_name);
+        $property = frappe_get_data('property',$property_name)->data;
         
 
-        $owners = frappe_get_data('property_owner','?fields=["name"]');
         
-        return view('ar.property.edit',compact('property','property_name','owners'));
+        return view('ar.property.edit',compact('property','property_name'));
 
     }
 
@@ -106,7 +104,7 @@ class PropertyController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('property',$property_name,$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث العقار');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث العقار الرجاء المحاولة مرة اخرى');  
@@ -151,7 +149,7 @@ class PropertyController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property','?fields=["name","owner","property_name"]');
+       $result = frappe_get_data('property','?fields=["name","owner","property_name"]')->data;
        
        
        return view('ar.property.index',compact('result'));
@@ -163,7 +161,7 @@ class PropertyController extends Controller
     public function lease_index($property_name)
     {
 
-       $result = frappe_get_data('lease','?fields=["name","date","property_unit","lease_signature_date"]&filters=[["lease","property","=","'.$property_name.'"]]');
+       $result = frappe_get_data('lease','?fields=["name","date","property_unit","lease_signature_date"]&filters=[["lease","property","=","'.$property_name.'"]]')->data;
       
        return view('ar.property.lease_index',compact('result','property_name'));
        
@@ -173,7 +171,7 @@ class PropertyController extends Controller
     public function unit_index($property_name)
     {
 
-       $result = frappe_get_data('property%20unit','?fields=["name","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
+       $result = frappe_get_data('property%20unit','?fields=["name","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]')->data;
        
        
        return view('ar.property.unit_index',compact('result','property_name'));
@@ -182,7 +180,7 @@ class PropertyController extends Controller
 
     public function expense_index($property_name)
     {
-       $result = frappe_get_data('property_expense','?fields=["name","date","amount","property_unit","Supplier","invoice_number"]&filters=[["property_expense","property","=","'.$property_name.'"]]');
+       $result = frappe_get_data('property_expense','?fields=["name","date","amount","property_unit","Supplier","invoice_number"]&filters=[["property_expense","property","=","'.$property_name.'"]]')->data;
        
        
        return view('ar.property.property_expense_index',compact('result','property_name'));
@@ -193,10 +191,10 @@ class PropertyController extends Controller
     public function financial_movements($property_name)
     {
         $result = array();
-        $leases = frappe_get_data('lease','?filters=[["lease","property","=","'.$property_name.'"]]');
+        $leases = frappe_get_data('lease','?filters=[["lease","property","=","'.$property_name.'"]]')->data;
         
         foreach ($leases as $lease) {
-           $lease_rent_payments = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease->name.'"]]');
+           $lease_rent_payments = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease->name.'"]]')->data;
            
            array_push($result,$lease_rent_payments);
           
@@ -207,7 +205,7 @@ class PropertyController extends Controller
 
     public function comments($property_name)
     { 
-        $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$property_name.'"]]');
+        $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$property_name.'"]]')->data;
         
         // var_dump($result);
         return view('ar.property.comments',compact('result','property_name'));
@@ -217,7 +215,7 @@ class PropertyController extends Controller
     public function docs_index($property_name)
     { 
 
-        $result = frappe_get_data('File','?fields=["name","file_name","file_url","creation"]&filters=[["File","attached_to_name","=","'.$property_name.'"],["File","attached_to_doctype","=","property"]]');
+        $result = frappe_get_data('File','?fields=["name","file_name","file_url","creation"]&filters=[["File","attached_to_name","=","'.$property_name.'"],["File","attached_to_doctype","=","property"]]')->data;
         
         return view('ar.property.docs',compact('result','property_name'));
         
@@ -225,9 +223,10 @@ class PropertyController extends Controller
     }   
 
     public function create_unit($property_name){
-        $unit = frappe_get_data('property%20unit','?fields=["name","creation","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
+        $unit = frappe_get_data('property%20unit','?fields=["name","creation","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]')->data;
         $last_unit_number = isset($unit[0]->unit_number) ? $unit[0]->unit_number : 0 ;
         // var_dump($last_unit_number);
+
         return view('ar.property.create_unit',compact('property_name','last_unit_number'));
     }
 
@@ -250,7 +249,7 @@ class PropertyController extends Controller
         for( $i = 0; $i<$counter; $i++ ) {
             $result = frappe_insert('property%20unit',$data);
             $data["unit_number"]++;
-            if($result == 'error'){
+            if($result->status == 'error'){
             return redirect('property/'.$request->get('property').'/units')->with('status','لم تتم العملية كاملا الرجاء المحاولة مرة اخرى');  
             }
                   
@@ -262,7 +261,7 @@ class PropertyController extends Controller
     public function create_lease($property_name)
     {
         $terms = [];
-        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]')->data;
    
         foreach ($terms_d as $term) {
             $terms[$term->title] = $term->terms;
@@ -270,10 +269,10 @@ class PropertyController extends Controller
 
        
         
-        $renters = frappe_get_data('Customer','?fields=["name"]');
+        $renters = frappe_get_data('Customer','?fields=["name"]')->data;
         
         
-        $property_units = frappe_get_data('property%20unit','?fields=["name","property"]&filters=[["property%20unit","property","=","'.$property_name.'"]]');
+        $property_units = frappe_get_data('property%20unit','?fields=["name","property"]&filters=[["property%20unit","property","=","'.$property_name.'"]]')->data;
        
         
         return view('ar.property.create_lease',compact('properties','property_units','property_name','renters','terms'));
@@ -298,7 +297,12 @@ class PropertyController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('lease',$data);
-       return redirect('property/'.$property_name.'/leases');
+        if($result->status != 'error'){
+            return redirect('property/'.$property_name.'/leases')->with('status','لقد تم تحديث العقار');  
+        }else{
+            return redirect('property/'.$property_name.'/leases')->with('status','لم يتم تحديث العقار الرجاء المحاولة مرة اخرى');  
+        }
+        
     }
 
 
@@ -326,6 +330,11 @@ class PropertyController extends Controller
       $txt = $request->get('text');
       $doctype = $request->get('doctype');
       $result = frappe_search_link($doctype ,$txt);
+       if($result->status != 'error'){
+            return redirect('property/'.$property_name.'/leases')->with('status','لقد تم تحديث العقار');  
+        }else{
+            return redirect('property/'.$property_name.'/leases')->with('status','لم يتم تحديث العقار الرجاء المحاولة مرة اخرى');  
+        }
       return $result; 
     }
 

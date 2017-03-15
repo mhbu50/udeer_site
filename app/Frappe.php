@@ -61,12 +61,16 @@ use Illuminate\Support\Facades\Log;
                 // curl_setopt($ch, CURLOPT_HEADER, true);
                 try {
                         $result = curl_exec($ch);
-                        
-                        return json_decode($result)->data;
+                        $response = new stdClass();
+                        $response->data = json_decode($result)->data;
+                        $response->status = 'success';
+                        return $response;
                 } catch (Exception $e) {
-                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
-                    Log::error('frappe log: '.$log);
-                    return 'error';
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
                         
                 }
         }
@@ -82,12 +86,16 @@ use Illuminate\Support\Facades\Log;
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                 try {
                         $result = curl_exec($ch);
-                        
-                        return json_decode($result)->data;
+                        $response = new stdClass();
+                        $response->data = json_decode($result)->data;
+                        $response->status = 'success';
+                        return $response;
                 } catch (Exception $e) {
-                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
-                    Log::error('frappe log: '.$log);
-                    return 'error';
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
                         
                 }
                 
@@ -106,12 +114,16 @@ use Illuminate\Support\Facades\Log;
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                 try {
                         $result = curl_exec($ch);
-                        
-                        return json_decode($result)->data;
+                        $response = new stdClass();
+                        $response->data = json_decode($result)->data;
+                        $response->status = 'success';
+                        return $response;
                 } catch (Exception $e) {
-                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
-                    Log::error('frappe log: '.$log);
-                    return 'error';
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
                         
                 }
 
@@ -128,12 +140,16 @@ use Illuminate\Support\Facades\Log;
                 
                 try {
                         $result = curl_exec($ch);
-                        
-                        return json_decode($result)->data;
+                        $response = new stdClass();
+                        $response->data = json_decode($result)->data;
+                        $response->status = 'success';
+                        return $response;
                 } catch (Exception $e) {
-                    $log = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
-                    Log::error('frappe log: '.$log);
-                    return 'error';
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
                         
                 }
                 
@@ -190,11 +206,19 @@ use Illuminate\Support\Facades\Log;
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
             try {
-                $result = curl_exec($ch);
-                return $result;
-            } catch (Exception $e) {
-                return 'error';
-            }
+                        $result = curl_exec($ch);
+                        $response = new stdClass();
+                        $response->data = json_decode($result)->data;
+                        $response->status = 'success';
+                        return $response;
+                } catch (Exception $e) {
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
+                        
+                }
 
         }
 
@@ -259,9 +283,10 @@ use Illuminate\Support\Facades\Log;
         function frappe_get_company(){
 
                 // $company_name = frappe_get_data('User',$_COOKIE['user_id'])->company;
-                $company_name = frappe_get_data('User','Administrator')->company;
+                $company_name = frappe_get_data('User','Administrator')->data->company;
                 $company = frappe_get_data('Company',$company_name);
                 return $company;
+
                 
         }
 

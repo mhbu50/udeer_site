@@ -33,7 +33,13 @@ class ComplainController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('complain',$data);
-       return redirect('complain/index');
+
+        if($result->status != 'error'){
+            return redirect('complain/index')->with('status','لقد تم تحديث العقار');  
+        }else{
+            return redirect('complain/index')->with('status','لم يتم تحديث العقار الرجاء المحاولة مرة اخرى');  
+        }
+       
     }
 
 
@@ -61,8 +67,12 @@ class ComplainController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('complain',$name,$data);
-        var_dump($result);
-        return redirect()->back();
+
+        if($result->status != 'error'){
+            return redirect()->back()->with('status','لقد تم حفظ العقار');  
+        }else{
+            return redirect()->back()->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
+        }
     }
 
     public function index()

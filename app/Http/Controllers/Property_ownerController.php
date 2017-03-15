@@ -41,7 +41,7 @@ class Property_ownerController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property_owner',$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('property_owner/index')->with('status','لقد تم حفظ المالك');  
         }else{
             return redirect('property_owner/index')->with('status','لم يتم حفظ المالك الرجاء المحاولة مرة اخرى');  
@@ -61,7 +61,7 @@ class Property_ownerController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('property_owner',$data);
+        $result = frappe_insert('property_owner',$data)->data;
         
         return $result->name;
     }
@@ -70,7 +70,7 @@ class Property_ownerController extends Controller
     public function edit($name)
     {
         
-        $property_owner = frappe_get_data('property_owner',$name);
+        $property_owner = frappe_get_data('property_owner',$name)->data;
         
         return view('ar.property_owner.edit',compact('property_owner'));
 
@@ -102,7 +102,7 @@ class Property_ownerController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property_owner','?fields=["name","first_name","last_name","email"]');
+       $result = frappe_get_data('property_owner','?fields=["name","first_name","last_name","email"]')->data;
        
        
        return view('ar.property_owner.index',compact('result'));

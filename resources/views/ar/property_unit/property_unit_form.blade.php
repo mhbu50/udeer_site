@@ -20,7 +20,7 @@
 
     <div class="col-md-6">
       <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="unit_number" placeholder="" name='unit_number'>
+            <input type="number" class="form-control" id="unit_number" placeholder="" name='unit_number'>
             <label for="unit_number">رقم الوحدة</label>
         </div>
     </div>
@@ -63,7 +63,7 @@
 
     <div class="col-md-6">
       <div class="form-group form-md-line-input form-md-floating-label">
-          <input type="text" class="form-control" id="insurance_amount" placeholder="" name='insurance_amount'>
+          <input type="number" class="form-control" id="insurance_amount" placeholder="" name='insurance_amount'>
           <label for="insurance_amount">مبلغ التامين</label>
       </div>
     </div>
@@ -152,7 +152,7 @@
     <div class="col-md-6">
       <div class="form-group form-md-line-input form-md-floating-label">
         
-        <input type="text" class="form-control" id="water_meter_number" placeholder="" name='water_meter_number' >
+        <input type="number" class="form-control" id="water_meter_number" placeholder="" name='water_meter_number' >
         <label for="water_meter_number">رقم عداد المياه</label>
       </div>
     </div>
@@ -161,13 +161,13 @@
       <div class="form-group form-md-line-input form-md-floating-label">
         
         <input type="text" class="form-control" id="electricity_meter_number" placeholder="" name='electricity_meter_number'>
-        <label for="electricity_meter_number">رقم عداد الكهرباء</label>
+        <label for="number">رقم عداد الكهرباء</label>
       </div>
     </div>
 
     <div class="col-md-6">
       <div class="form-group form-md-line-input form-md-floating-label">
-        <input type="text" class="form-control" id="annual_water_usage" placeholder="" name="annual_water_usage">
+        <input type="number" class="form-control" id="annual_water_usage" placeholder="" name="annual_water_usage">
         <label for="">استهلاك الماء السنوي</label>
       </div>
     </div>

@@ -203,8 +203,13 @@ $(document).ready(function(){
 
       set_value = function(data){
         for (var key in data) {
+
+          if(data[key]){
+            console.log(key)
             $("[name='"+key+"']").val(data[key])
             $("[name='"+key+"']").addClass('edited')
+          }
+            
         }
       }
 
@@ -296,11 +301,15 @@ $(document).ready(function(){
       var properties = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
+        
         remote: {
           url: '/find/property/%QUERY',
           wildcard: '%QUERY'
         }
       });
+      
+
+     
 
       var property_units = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
@@ -340,7 +349,7 @@ $(document).ready(function(){
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-          url: '/find/receiver/%QUERY',
+          url: '/find/Employee/%QUERY',
           wildcard: '%QUERY'
         }
       });
@@ -357,19 +366,28 @@ $(document).ready(function(){
         }
       });
 
-      $('#property').typeahead(null, {
+      $('#property').typeahead({
+          minLength: 0,
+          highlight: true
+        }, 
+        {
         name: 'property',
         display: 'name',
-        hint:1,
+        hint:true,
         source: properties,
         templates: {
           suggestion: Handlebars.compile([
-            '<p ">({{name}})</p>'
+            '<p>({{name}})</p>'
           ].join(''))
         }
-      });
+      })
 
-      $('#property_unit').typeahead(null, {
+
+      $('#property_unit').typeahead({
+          minLength: 0,
+          highlight: true
+        },
+        {
         name: 'property_unit',
         display: 'name',
         hint:1,
@@ -380,7 +398,11 @@ $(document).ready(function(){
           ].join(''))
         }
       });
-      $('#lease').typeahead(null, {
+      $('#lease').typeahead({
+          minLength: 0,
+          highlight: true
+        },
+        {
         name: 'property',
         display: 'name',
         hint:1,
@@ -392,7 +414,11 @@ $(document).ready(function(){
         }
       });
 
-      $('#renter').typeahead(null, {
+      $('#renter').typeahead({
+          minLength: 0,
+          highlight: true
+        },
+        {
         name: 'customer',
         display: 'name',
         hint:1,
@@ -404,7 +430,11 @@ $(document).ready(function(){
         }
       });
 
-      $('#supplier').typeahead(null, {
+      $('#supplier').typeahead({
+          minLength: 0,
+          highlight: true
+        },
+        {
         name: 'supplier',
         display: 'name',
         hint:1,
@@ -416,7 +446,11 @@ $(document).ready(function(){
         }
       });
 
-      $('#receiver').typeahead(null, {
+      $('#receiver').typeahead({
+          minLength: 0,
+          highlight: true
+        },
+        {
         name: 'receiver',
         display: 'name',
         hint:1,
@@ -459,7 +493,7 @@ $(document).ready(function(){
           format: 'yyyy-mm-dd',
       });
         
-      
+
 
 
    

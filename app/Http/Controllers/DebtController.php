@@ -34,7 +34,7 @@ class DebtController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('debt',$data);
 
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('debt/index')->with('status','لقد تم حفظ السجل');  
         }else{
             return redirect('debt/index')->with('status','لم يتم حفظ السجل الرجاء المحاولة مرة اخرى');  
@@ -46,7 +46,7 @@ class DebtController extends Controller
     public function edit($name)
     {
         
-        $debt = frappe_get_data('debt',$name);
+        $debt = frappe_get_data('debt',$name)->data;
         
         return view('ar.debt.edit',compact('debt'));
 
@@ -67,7 +67,7 @@ class DebtController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('debt',$name,$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث السجل');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث السجل الرجاء المحاولة مرة اخرى');  
@@ -81,7 +81,7 @@ class DebtController extends Controller
        $result = frappe_get_data('debt','?fields=["name","debtor_name","amount"]');
        
        
-       return view('ar.debt.index',compact('result'));
+       return view('ar.debt.index',['result' => $result->data]);
 
     }
 

@@ -18,6 +18,8 @@
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="/assets/global/css/components-md-rtl.min.css" rel="stylesheet" id="style_components" type="text/css" />
         <link href="/assets/global/css/plugins-md-rtl.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="/assets/layouts/layout/css/layout-rtl.min.css" rel="stylesheet" type="text/css" />
@@ -181,8 +183,10 @@
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyB3WTqSPaoOVVbU6SouYdATOMKsAIgrtGM"></script>
         <script src="/assets/global/plugins/typeahead/handlebars.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/typeahead/typeahead.bundle.min.js" type="text/javascript"></script>
-        <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>  
+        <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+         <script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="/assets/custom/scripts/main.js" type="text/javascript"></script>
+        
         @yield('js_page')
     </body>        
 <html>

@@ -41,16 +41,25 @@ class CommentController extends Controller
        
         $result = frappe_insert('Communication',$data);
         
-        return redirect()->back();
+        if($result->status != 'error'){
+            return return redirect()->back()->with('status','لقد تم حفظ العقار');  
+        }else{
+            return return redirect()->back()->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
+        }
+        
     }
 
 
     public function edit($name)
     {
        
-        $complain = frappe_get_data('complain',$name);
-        
-        return view('ar.complain.edit',compact('complain'));
+        $result = frappe_get_data('complain',$name);
+        if($result->status != 'error'){
+            return redirect('property/index')->with('status','لقد تم حفظ العقار');  
+        }else{
+            return redirect('property/index')->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
+        }
+        return view('ar.complain.edit',['complain' => $result->data]]);
 
     }
 
@@ -69,8 +78,12 @@ class CommentController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('complain',$name,$data);
-        var_dump($result);
-        return redirect()->back();
+        if($result->status != 'error'){
+            return redirect()->back()->with('status','لقد تم حفظ العقار');  
+        }else{
+            return redirect()->back()->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
+        }
+       
     }
 
     public function index()
@@ -86,7 +99,13 @@ class CommentController extends Controller
     public function delete($name)
     {
 
-        $resultObj = frappe_delete('complain',$name);
-        return redirect('complain/index');
+        $result = frappe_delete('complain',$name);
+
+        if($result->status != 'error'){
+            return redirect('complain/index');->with('status','لقد تم حفظ العقار');  
+        }else{
+            return redirect('complain/index');->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
+        }
+
     }
 }

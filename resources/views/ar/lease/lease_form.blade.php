@@ -15,7 +15,7 @@
         <div class="form-group form-md-line-input form-md-floating-label">
             <div class="input-group">
                 <div class="input-group-control">
-                    <input type="text" class="form-control typeahead edit_read_only" id="renter" placeholder="المستاجر" name="renter">
+                    <input type="text" class="form-control typeahead edit_read_only" id="renter" placeholder="المستاجر" name="renter" required>
                 </div>
                 <span class="input-group-btn btn-left">
                     <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#Renter_Modal"><i class="fa fa-plus"></i></a>
@@ -45,7 +45,7 @@
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
             <div class="input-icon right">
-                  <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="lease_starting_date" placeholder="" name="lease_starting_date">
+                  <input class="form-control form-control-inline date-picker" size="16" type="text" value="" id="lease_starting_date" placeholder="" name="lease_starting_date" required>
                   <i class="fa fa-calendar"></i>  
                   <label for="lease_starting_date">تاربخ بدء الايجار</label>  
             </div>
@@ -57,7 +57,7 @@
             <div class="input-group">
                 <div class="input-group-control">
                     
-                    <input type="text" class="form-control typeahead edit_read_only" id="property" placeholder="اسم العقار" name="property">
+                    <input type="text" class="form-control typeahead edit_read_only" id="property" placeholder="اسم العقار" name="property" required>
                     
                 </div>
                 <span class="input-group-btn btn-left">
@@ -72,7 +72,7 @@
             <div class="input-group">
                 <div class="input-group-control">
                     
-                    <input type="text" class="form-control typeahead edit_read_only" id="property_unit" placeholder="وحدة العقار" name="property_unit">
+                    <input type="text" class="form-control typeahead edit_read_only" id="property_unit_c1" placeholder="وحدة العقار" name="property_unit">
                    
                 </div>
                 <span class="input-group-btn btn-left">
@@ -103,15 +103,24 @@
         </div>
     </div> 
     <div class="col-md-12">
-        <div class="row" id='instalment_amount'>
-            
-        </div>
+         <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>رقم الدفعة</th>
+        <th>المقدار</th>
+        <th>تاريخ الاستحقاق</th>
+      </tr>
+    </thead>
+    <tbody id='instalment_group'>
+      
+    </table>
+        
     </div> 
 
     <div class="col-md-12">
         <div class="form-group form-md-line-input form-md-floating-label">
             <textarea name="terms" id="terms">  </textarea>
-    
+            
         </div>
     </div>    
     <div class="form-actions noborder">

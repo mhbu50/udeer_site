@@ -13,7 +13,7 @@ class ReceiptController extends Controller
 {
    public function create()
     {
-        $properties = frappe_get_data('property','?fields=["name"]');
+        $properties = frappe_get_data('property','?fields=["name"]')->daat;
         $properties = $properties;
         return view('ar.receipt.create',compact('properties'));
     }
@@ -45,7 +45,7 @@ class ReceiptController extends Controller
         }
         // $result = frappe_add_company_balance($company_name,$amount);
         // var_dump($result);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect('/receipt/index')->with('status','لقد تم حفظ السند');  
         }else{
             return redirect('/receipt/index')->with('status','لم يتم حفظ السند الرجاء المحاولة مرة اخرى');  
@@ -58,7 +58,7 @@ class ReceiptController extends Controller
     public function edit($name)
     {
        
-        $receipt = frappe_get_data('receipt',$name);
+        $receipt = frappe_get_data('receipt',$name)->data;
         
         return view('ar.receipt.edit',compact('receipt'));
 
@@ -79,7 +79,7 @@ class ReceiptController extends Controller
         unset($data["_token"]);
         
         $result = frappe_update('receipt',$name,$data);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم تحديث السند');  
         }else{
             return redirect()->back()->with('status','لم يتم تحديث السند الرجاء المحاولة مرة اخرى');  
@@ -89,7 +89,7 @@ class ReceiptController extends Controller
 
     public function index()
     {
-       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]');
+       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]')->data;
        
        // var_dump($result);
        return view('ar.receipt.index',['result' => $result,'type' => 'all']);
@@ -97,14 +97,14 @@ class ReceiptController extends Controller
 
     public function catch_index()
     {
-       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","catch"]]');
+       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","catch"]]')->data;
        
        // var_dump($result);
        return view('ar.receipt.index',['result' => $result,'type' => 'catch']);
     }
     public function pay_index()
     {
-       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","pay"]]');
+       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","pay"]]')->data;
       
        return view('ar.receipt.index',['result' => $result,'type' => 'pay']);
     }

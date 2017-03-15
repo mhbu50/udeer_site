@@ -50,11 +50,12 @@ class DocsController extends Controller
         $data['filedata'] = $urlencode;
         $result = frappe_uploadimage($data);
         // var_dump($result);
-        if($result != 'error'){
+        if($result->status != 'error'){
             return redirect()->back()->with('status','لقد تم حفظ السجل');  
         }else{
             return redirect($doctype.'/'.$docname.'/docs');
         }
+
         
     }
 
@@ -66,7 +67,7 @@ class DocsController extends Controller
      */
     public function show($name)
     {
-        $doc = frappe_get_data('File',$name);
+        $doc = frappe_get_data('File',$name)->data;
         
         // var_dump($doc);
         return view('ar.doc.show',compact('doc'));

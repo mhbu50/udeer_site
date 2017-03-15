@@ -15,11 +15,11 @@ class LeaseController extends Controller
 {
     public function create()
     {
-        $properties = frappe_get_data('property','?fields=["name"]');
+        $properties = frappe_get_data('property','?fields=["name"]')->data;
      
-        $property_units = frappe_get_data('property%20unit','?fields=["name"]');
+        $property_units = frappe_get_data('property%20unit','?fields=["name"]')->data;
        
-        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]');
+        $terms_d = frappe_get_data('Terms%20and%20Conditions','?fields=["title","terms"]')->data;
    
         foreach ($terms_d as $term) {
             $terms[$term->title] = $term->terms;
@@ -38,35 +38,32 @@ class LeaseController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-                'property' => 'required|AlphaNum',
-                'property_unit' => 'required|AlphaNum',
-                'date' => 'date|date_format:Y-m-d',
-                'renter' => 'required|AlphaNum',
-                'lease_doc' => 'AlphaNum',
-                'lease_writing_date' => 'date|date_format:Y-m-d',
-                'expiry_date' => 'date|date_format:Y-m-d|after:today',
-                'lease_duration' => 'numeric|Min:1|Max:20',
-                'rent_starting_date' => 'date|date_format:Y-m-d',
-                 
-                
-            ]);
+        
 
-            if ($validator->fails()) {
-                return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
-                
-        }
-        $data = $request->all();
-        unset($data["_token"]);
-        $result = frappe_insert('lease',$data);
+        $lease_data = $request->except(['_token','instalment_amount','due_date']);
+        $instalments['amount'] = $request->get('instalment_amount');
+        $instalments['due_date'] = $request->get('due_date');
+        $anual_rent = frappe_get_data('property%20unit',$request->get('property_unit') )->data->annual_rent_amount;
+        if(array_sum($instalments['amount']) == $anual_rent){
+            $result_lease = frappe_insert('lease',$lease_data);
+            if($result_lease->status != 'error'){
+                // adding instalments
 
-        if($result != 'error'){
-            return redirect('lease/index')->with('status','لقد تم حفظ العقد');  
+                for($counter = 0 ; $counter < count($instalments['amount']); $counter++) {
+                    $instalment_data['number'] = $counter+1;
+                    $instalment_data['lease'] = $result_lease->data->name;
+                    $instalment_data['amount'] = $instalments["amount"][$counter];
+                    $instalment_data['due_date'] = $instalments["due_date"][$counter];
+                    $result_instalment = frappe_insert('lease_instalment',$instalment_data);
+                }
+                // 
+                return redirect('lease/index')->with('status','لقد تم حفظ العقد');  
+            }else{
+                return redirect('lease/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
+            }
         }else{
-            return redirect('lease/index')->with('status','لم يتم حفظ العقد الرجاء المحاولة مرة اخرى');  
-        }
+            return redirect()->back()->with('status','مجموع الايجار غير صحيح');
+        }    
       
     }
 
@@ -76,17 +73,10 @@ class LeaseController extends Controller
 
     public function store_ajax(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-                
-            ]);
-
-            if ($validator->fails()) {
-                return 'error';
-                
-        }
+        
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('lease',$data);
+        $result = frappe_insert('lease',$data)->data;
         
         return $result->name;
     }
@@ -95,14 +85,14 @@ class LeaseController extends Controller
     public function edit($name,Request $request)
     {
        
-        $lease = frappe_get_data('lease',$name);
+        $lease = frappe_get_data('lease',$name)->data;
         // $data['user'] = frappe_get_data('User',$_COOKIE['user_id']);
-        $data['user'] = frappe_get_data('User','Administrator');
+        $data['user'] = frappe_get_data('User','Administrator')->data;
         $data['company'] = frappe_get_company();
-        $data['renter'] = frappe_get_data('Customer',$lease->renter);
-        $data['property'] = frappe_get_data('property',$lease->property);
-        $data['property_unit'] = frappe_get_data('property%20unit',$lease->property_unit);
-        $data['owner'] = frappe_get_data('property_owner',$data['property']->owner_name);
+        $data['renter'] = frappe_get_data('Customer',$lease->renter)->data;
+        $data['property'] = frappe_get_data('property',$lease->property)->data;
+        $data['property_unit'] = frappe_get_data('property%20unit',$lease->property_unit)->data;
+        $data['owner'] = frappe_get_data('property_owner',$data['property']->owner_name)->data;
         return view('ar.lease.edit',compact('lease','data'));
 
     }
@@ -133,7 +123,7 @@ class LeaseController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]');
+       $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]')->data;
 
        
        return view('ar.lease.index',compact('result'));
@@ -173,6 +163,41 @@ class LeaseController extends Controller
       return view('ar.lease.index',compact('result'));
 
     }
+
+    public function instalment_index($lease_name){
+        $result = frappe_get_data('lease_instalment','?fields=["name","number","amount","status","due_date","payment_date","receiver","payment_method"]&filters=[["lease_instalment","lease","=","'.$lease_name.'"]]&order_by=number');
+        if($result->status != 'error'){
+            return view('ar.lease.instalment_index',['lease_name'=>$lease_name,'result' => $result->data]);  
+        }else{
+            return redirect()->back()->with('status','لقد حصل مشكلة الرجاء المحاولة مرة اخرى');  
+        }
+        
+    }
+
+    public function instalment_show($lease,$instalment){
+        $result = frappe_get_data('lease_instalment',$instalment);
+        if($result->status != 'error'){
+            return view('ar.lease.instalment_show',['instalment' => $result->data,'lease_name' => $lease]);  
+        }else{
+            return redirect()->back()->with('status','لقد حصل مشكلة الرجاء المحاولة مرة اخرى');  
+        }
+        
+    }
+
+    public function instalment_update($lease,$instalment,Request $request){
+        $data = $request->all();
+        unset($data["_token"]);
+        
+        $result = frappe_update('lease_instalment',$instalment,$data);
+        if($result != 'error'){
+            return redirect()->action('LeaseController@instalment_index',$lease)->with('status','لقد تم تحديث العقد');  
+        }else{
+            return redirect()->back()->with('status','لم يتم تحديث العقد الرجاء المحاولة مرة اخرى');  
+        }
+        
+    }
+    
+       
 
     public function delete_array(Request $request)
     {
