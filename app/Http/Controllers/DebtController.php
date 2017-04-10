@@ -78,7 +78,7 @@ class DebtController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('debt','?fields=["name","debtor_name","amount"]');
+       $result = frappe_get_data_index('debt','?fields=["name","debtor_name","amount"]');
        
        
        return view('ar.debt.index',['result' => $result->data]);

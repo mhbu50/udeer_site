@@ -12,11 +12,7 @@ use Validator;
 class PropertyController extends Controller
 {   
 
-    public function test($property_name)
-    {
-
-        return frappe_late_payment_p($property_name);
-    }
+    
  
     public function create()
     {
@@ -27,17 +23,17 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'property_name' => 'required',
+                // 'property_name' => 'required',
                 // 'property_type' => 'AlphaNum',
-                'construction_date' => 'date|before:today',
+                // 'construction_date' => 'date|before:today',
                 // 'evaluation' => 'AlphaNum',
                 // 'city' => 'AlphaNum',
                 // 'address' => 'AlphaNum',
                 // 'property_advantage' => 'AlphaNum',
                 // 'owner_name' => 'AlphaNum',
-                'property_number' => 'numeric',
-                'instrument_number' => 'numeric',
-                'instrument_date' => 'date|before:today',
+                // 'property_number' => 'numeric',
+                // 'instrument_number' => 'numeric',
+                // 'instrument_date' => 'date|before:today',
                 
             ]);
 
@@ -72,10 +68,15 @@ class PropertyController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('property',$data)->data;
-       
+        $result = frappe_insert('property',$data);
         
-        return $result->name;
+        if($result->status == 'error'){
+            return 'error';  
+        }else{
+            return json_encode($result->data); 
+        }
+
+        
     }
 
     public function edit($property_name)
@@ -149,7 +150,7 @@ class PropertyController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property','?fields=["name","owner","property_name"]')->data;
+       $result = frappe_get_data_index('property','?fields=["name","owner","property_name"]')->data;
        
        
        return view('ar.property.index',compact('result'));
@@ -161,7 +162,7 @@ class PropertyController extends Controller
     public function lease_index($property_name)
     {
 
-       $result = frappe_get_data('lease','?fields=["name","date","property_unit","lease_signature_date"]&filters=[["lease","property","=","'.$property_name.'"]]')->data;
+       $result = frappe_get_data_index('lease','?fields=["name","date","property_unit","lease_signature_date"]&filters=[["lease","property","=","'.$property_name.'"]]')->data;
       
        return view('ar.property.lease_index',compact('result','property_name'));
        
@@ -171,7 +172,7 @@ class PropertyController extends Controller
     public function unit_index($property_name)
     {
 
-       $result = frappe_get_data('property%20unit','?fields=["name","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]')->data;
+       $result = frappe_get_data_index('property%20unit','?fields=["name","unit_number"]&filters=[["property%20unit","property","=","'.$property_name.'"]]&order_by=unit_number')->data;
        
        
        return view('ar.property.unit_index',compact('result','property_name'));
@@ -180,7 +181,7 @@ class PropertyController extends Controller
 
     public function expense_index($property_name)
     {
-       $result = frappe_get_data('property_expense','?fields=["name","date","amount","property_unit","Supplier","invoice_number"]&filters=[["property_expense","property","=","'.$property_name.'"]]')->data;
+       $result = frappe_get_data_index('property_expense','?fields=["name","date","amount","property_unit","Supplier","invoice_number"]&filters=[["property_expense","property","=","'.$property_name.'"]]')->data;
        
        
        return view('ar.property.property_expense_index',compact('result','property_name'));
@@ -205,7 +206,7 @@ class PropertyController extends Controller
 
     public function comments($property_name)
     { 
-        $result = frappe_get_data('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$property_name.'"]]')->data;
+        $result = frappe_get_data_index('Communication','?fields=["name","creation","user","content"]&filters=[["Communication","reference_doctype","=","property"],["Communication","communication_type","=","Communication"],["Communication","reference_name","=","'.$property_name.'"]]')->data;
         
         // var_dump($result);
         return view('ar.property.comments',compact('result','property_name'));
@@ -215,7 +216,7 @@ class PropertyController extends Controller
     public function docs_index($property_name)
     { 
 
-        $result = frappe_get_data('File','?fields=["name","file_name","file_url","creation"]&filters=[["File","attached_to_name","=","'.$property_name.'"],["File","attached_to_doctype","=","property"]]')->data;
+        $result = frappe_get_data_index('File','?fields=["name","file_name","file_url","creation","file_type"]&filters=[["File","attached_to_name","=","'.$property_name.'"],["File","attached_to_doctype","=","property"]]')->data;
         
         return view('ar.property.docs',compact('result','property_name'));
         

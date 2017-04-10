@@ -7,6 +7,12 @@
 @endsection
 @section('js_page')
   <script src="/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){ 
+      data = {!!json_encode( session()->getOldInput())!!}
+      set_value(data)
+    });
+  </script>
 @endsection
 
 @section('content')
@@ -39,6 +45,27 @@
                       </div>
                     </div>
                     
+                    <div class="col-md-6">
+                        <!--Simple Select with Search-->
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                            <label>نوع الملف</label>
+                            <div class="col-md-11">
+                                <div class="row">
+                                    <select class="select2-c pmd-select2 form-control" id="file_type" doctype="file_type" doc-label="type_name" name="file_type">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <span class="input-group-btn btn-left">
+                                            <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#File_type_Modal"><i class="fa fa-plus"></i></a>
+                                    </span>
+                                </div>    
+                            </div>
+                        </div>               
+                    </div>    
+                    
                     <div class="form-actions noborder">
                       <div class="col-md-12">
                         <input type="submit" class="btn blue" value="حفظ"></button>
@@ -51,7 +78,7 @@
         </div>
       </div>
     </div>
-    @include('ar.modals.owner_modal')
+    @include('ar.modals.file_type_modal')
     
 @endsection
 

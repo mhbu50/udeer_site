@@ -106,7 +106,7 @@ class ReceiverController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('Employee','?fields=["name","employee_name","company","date_of_joining","date_of_birth"]')->data;
+       $result = frappe_get_data_index('Employee','?fields=["name","employee_name","company","date_of_joining","date_of_birth"]')->data;
        
        
        return view('ar.receiver.index',compact('result'));

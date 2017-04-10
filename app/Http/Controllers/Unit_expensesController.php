@@ -66,7 +66,7 @@ class Unit_expensesController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('unit%20expenses','?fields=["name","unit","lease","unit","amount","date"]');
+       $resultObj = frappe_get_data_index('unit%20expenses','?fields=["name","unit","lease","unit","amount","date"]');
        
        $result = json_decode($resultObj)->data;
        

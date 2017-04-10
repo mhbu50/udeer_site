@@ -14,6 +14,8 @@
     <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
     <script type="text/javascript">
      $(document).ready(function(){
+        data = {!!json_encode( session()->getOldInput())!!}
+        set_value(data)
         $("#property").val("{{$property_name}}");
         $("#property").prop('readonly', true);
       });

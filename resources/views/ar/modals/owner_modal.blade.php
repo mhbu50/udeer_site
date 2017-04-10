@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body"> 
                 <div class="form-body">
-                    <form  class="ajax-form" id="ajax-form" c-url="/property_owner/create_ajax" target="#owner_name">
+                    <form  class="ajax-form" id="ajax-form" c-url="/property_owner/create_ajax" target="#property_owner">
                         <input type='hidden' name='_token' value="{!! csrf_token() !!}">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input form-md-floating-label">

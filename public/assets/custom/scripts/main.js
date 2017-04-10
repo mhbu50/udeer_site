@@ -138,25 +138,36 @@ $(document).ready(function(){
      
       
       form = $(e).parent().parent().parent().find('form');
+      target_label = $(form.attr("target")).attr('doc-label');
       $.ajax({
         url: form.attr("c-url"),
         data: form.serialize(),
         type: "POST",
         beforeSend: function(request){request.setRequestHeader('X-CSRF-TOKEN', form.find(".token").val() )},
         success: function(msg) {
+          
             if(msg == 'error'){
               $(".modal-msg").html('<div class="alert alert-danger alert-dismissible fade in" role="alert">  error </div>');
               
             }else{
-
-              $(form.attr("target")).val(msg);
-              $(form.attr("target")).addClass('edited');
+              msg = JSON.parse(msg);
+            
+              $(form.attr("target")).empty().append('<option value="'+msg.name+'">'+msg[target_label]+'</option>');
+              $(form.attr("target")).parent().parent().parent().addClass('pmd-textfield-floating-label-active pmd-textfield-floating-label-completed');
+              
               $('.c-ud-modal').modal('hide');
             }
         }
       });
 
     };
+
+    $('.img-circle').click(function(){
+      console.log($('#property').parent())
+      $('#property').parent().parent().parent().addClass('pmd-textfield-floating-label-active pmd-textfield-floating-label-completed');
+      
+    })
+
 
 
     openNav = function () {
@@ -205,7 +216,6 @@ $(document).ready(function(){
         for (var key in data) {
 
           if(data[key]){
-            console.log(key)
             $("[name='"+key+"']").val(data[key])
             $("[name='"+key+"']").addClass('edited')
           }
@@ -284,184 +294,37 @@ $(document).ready(function(){
           $(this).addClass( "edited" );;
       });
 
-
-      // auto complite
-
-      $('.typeahead').attr("dir", "rtl");  
-
-      var property_owners = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/find/property_owner/%QUERY',
-          wildcard: '%QUERY'
-        }
+      // select2 
+      var global = new Array();
+      $(".select2-c").select2({
+            minimumInputLength: 0,
+            ajax: {
+              url: function (params) {
+                global['doc-label'] = $(this).attr('doc-label')
+                if(params.term){
+                  return 'http://localhost:8000/find/'+$(this).attr('doctype')+'/key/'+params.term+'/field_search/'+$(this).attr('doc-label')
+                }else{
+                  return 'http://localhost:8000/find/'+$(this).attr('doctype')+'/key/all/field_search/name'
+                }
+                
+              },
+              dataType: 'json',
+              data: function(term) {
+                return {
+                  q: term.term
+                };
+              },
+              processResults: function(dat) {
+                return {
+                    results: $.map(dat, function(obj) {
+                        return { id: obj.name, text: obj[global['doc-label']] };
+                    })
+                };
+              }
+            }
       });
 
-      var properties = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        
-        remote: {
-          url: '/find/property/%QUERY',
-          wildcard: '%QUERY'
-        }
-      });
       
-
-     
-
-      var property_units = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/find/property%20unit/%QUERY',
-          wildcard: '%QUERY'
-        }
-      });
-
-      var leases = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/find/lease/%QUERY',
-          wildcard: '%QUERY'
-        }
-      });
-
-      var renters = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/find/Customer/%QUERY',
-          wildcard: '%QUERY'
-        }
-      });
-      var suppliers = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/find/Supplier/%QUERY',
-          wildcard: '%QUERY'
-        }
-      });
-      var receivers = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/find/Employee/%QUERY',
-          wildcard: '%QUERY'
-        }
-      });
-
-      $('#owner_name').typeahead(null, {
-        name: 'property_owner',
-        display: 'name',
-        hint:1,
-        source: property_owners,
-        templates: {
-          suggestion: Handlebars.compile([
-            '<p ">({{name}})</p>'
-          ].join(''))
-        }
-      });
-
-      $('#property').typeahead({
-          minLength: 0,
-          highlight: true
-        }, 
-        {
-        name: 'property',
-        display: 'name',
-        hint:true,
-        source: properties,
-        templates: {
-          suggestion: Handlebars.compile([
-            '<p>({{name}})</p>'
-          ].join(''))
-        }
-      })
-
-
-      $('#property_unit').typeahead({
-          minLength: 0,
-          highlight: true
-        },
-        {
-        name: 'property_unit',
-        display: 'name',
-        hint:1,
-        source: property_units,
-        templates: {
-          suggestion: Handlebars.compile([
-            '<p ">({{name}})</p>'
-          ].join(''))
-        }
-      });
-      $('#lease').typeahead({
-          minLength: 0,
-          highlight: true
-        },
-        {
-        name: 'property',
-        display: 'name',
-        hint:1,
-        source: leases,
-        templates: {
-          suggestion: Handlebars.compile([
-            '<p >({{name}})</p>'
-          ].join(''))
-        }
-      });
-
-      $('#renter').typeahead({
-          minLength: 0,
-          highlight: true
-        },
-        {
-        name: 'customer',
-        display: 'name',
-        hint:1,
-        source: renters,
-        templates: {
-          suggestion: Handlebars.compile([
-            '<p >({{name}})</p>'
-          ].join(''))
-        }
-      });
-
-      $('#supplier').typeahead({
-          minLength: 0,
-          highlight: true
-        },
-        {
-        name: 'supplier',
-        display: 'name',
-        hint:1,
-        source: suppliers,
-        templates: {
-          suggestion: Handlebars.compile([
-            '<p >({{name}})</p>'
-          ].join(''))
-        }
-      });
-
-      $('#receiver').typeahead({
-          minLength: 0,
-          highlight: true
-        },
-        {
-        name: 'receiver',
-        display: 'name',
-        hint:1,
-        source: receivers,
-        templates: {
-          suggestion: Handlebars.compile([
-            '<p >({{name}})</p>'
-          ].join(''))
-        }
-      });
-
       
       // property page
       $('#management_type').change(function(){
@@ -492,7 +355,7 @@ $(document).ready(function(){
           autoclose: true,
           format: 'yyyy-mm-dd',
       });
-        
+
 
 
 

@@ -7,8 +7,8 @@
 52.8.230.142	FALSE	/	FALSE	0	system_user	yes
 52.8.230.142	FALSE	/	FALSE	0	full_name	Guest
 52.8.230.142	FALSE	/	FALSE	1489485639	sid	Guest
-localhost	FALSE	/	FALSE	0	user_image	
+localhost	FALSE	/	FALSE	0	user_image	"/files/58888a36e7b95.jpg"
 localhost	FALSE	/	FALSE	0	user_id	Administrator
 localhost	FALSE	/	FALSE	0	system_user	yes
 localhost	FALSE	/	FALSE	0	full_name	Administrator
-localhost	FALSE	/	FALSE	1489862534	sid	b8f6e7dc7eb4dbe78bab402090a9289eb555a296cd0ccf087fb52a17
+localhost	FALSE	/	FALSE	1492109135	sid	4d094624d8d91c65d8c4dc300064a61a1e07e46555584cf9ea1df398

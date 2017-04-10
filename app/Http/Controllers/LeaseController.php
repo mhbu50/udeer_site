@@ -78,7 +78,11 @@ class LeaseController extends Controller
         unset($data["_token"]);
         $result = frappe_insert('lease',$data)->data;
         
-        return $result->name;
+        if($result->status == 'error'){
+            return 'error';  
+        }else{
+            return json_encode($result->data); 
+        }
     }
 
 
@@ -123,7 +127,7 @@ class LeaseController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('lease','?fields=["name","property","property_unit","expiry_date"]')->data;
+       $result = frappe_get_data_index('lease','?fields=["name","property","property_unit","expiry_date"]')->data;
 
        
        return view('ar.lease.index',compact('result'));

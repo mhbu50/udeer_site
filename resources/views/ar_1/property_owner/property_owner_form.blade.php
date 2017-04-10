@@ -36,7 +36,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="">رقم الجوال</label>
-                <input type="text" class="form-control" id="mobile_number" placeholder="" name="mobile_number">
+                <input type="number" class="form-control" id="mobile_number" placeholder="" name="mobile_number">
             </div>
         </div>
         <div class="col-md-6">

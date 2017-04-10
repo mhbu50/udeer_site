@@ -68,7 +68,7 @@ class Lease_scriptController extends Controller
     public function index()
     {
 
-       $resultObj = frappe_get_data('lease%20pattern','?fields=["name","script_name"]');
+       $resultObj = frappe_get_data_index('lease%20pattern','?fields=["name","script_name"]');
        $result = json_decode($resultObj)->data;
        
        return view('ar.lease_script.index',compact('result'));

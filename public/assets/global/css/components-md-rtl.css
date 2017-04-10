@@ -5183,7 +5183,7 @@ li [class*=" icon-"].icon-large {
   background-repeat: no-repeat !important;
   text-indent: -10000px;
   outline: none;
-  background-image: url("../img/remove-icon-small.png") !important; }
+   }
 
 /***
 Customized Bootstrap Dropdowns

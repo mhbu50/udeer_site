@@ -79,22 +79,22 @@
             <ul class="sub-menu">
                 <li class="nav-item" id="side_in-lea_it">
                     <a href="/lease/index"  class="nav-link">
-                        <i class="icon-user"></i> عرض عقود الداخلية
+                        <i class="icon-user"></i>  عقود الداخلية
                     </a>
                 </li>
                 <li class="nav-item" id="side_ex-lea_it">
                     <a href="/external_lease/index"  class="nav-link">
-                        <i class="icon-user"></i> عرض عقود الخارجية
+                        <i class="icon-user"></i>  عقود الخارجية
                     </a>
                 </li>
                 <li class="nav-item" id="side_sel-agr_it">
                     <a href="/sell_agreement/index"  class="nav-link">
-                        <i class="icon-user"></i> عرض عقود بيع و شراء
+                        <i class="icon-user"></i>  عقود بيع و شراء
                     </a>
                 </li>
                 <li class="nav-item" id="side_pro-man_it">
                     <a href="/property_management_contract/index"  class="nav-link">
-                        <i class="icon-user"></i> عرض عقود ادارة الالملاك
+                        <i class="icon-user"></i>  عقود ادارة الالملاك
                     </a>
                 </li>
 
@@ -210,6 +210,36 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="icon-user"></i> عرض كافة السندات*
+                    </a>
+                </li>    
+            </ul>    
+        </li> 
+        <li class="nav-item" id="side_archive_m">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-settings"></i>
+                <span class="title">الاعدادات</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item">
+                    <a href="setting/account" class="nav-link">
+                        <i class="icon-user"></i> اعدادت النظام
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon-user"></i> *
+                    </a>
+                </li>    
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon-user"></i> *
+                    </a>
+                </li>    
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon-user"></i> *
                     </a>
                 </li>    
             </ul>    

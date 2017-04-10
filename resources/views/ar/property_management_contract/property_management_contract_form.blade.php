@@ -1,17 +1,27 @@
 <form method='post' action="{{$action}}" enctype="multipart/form-data">
     <input type='hidden' name='_token' value="{!! csrf_token() !!}">  
-    <div class="col-md-6"> 
-        <div class="form-group form-md-line-input form-md-floating-label">
-            <div class="input-group">
-                <div class="input-group-control">
-                    <input type="text" class="form-control typeahead edit_read_only" id="property" placeholder="اسم العقار" name="property">
+   
+    <div class="col-md-6">
+        <!--Simple Select with Search-->
+        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+            <label>اسم العقار</label>
+            <div class="col-md-11">
+                <div class="row">
+                    <select class="select2-c pmd-select2 form-control" id="property" doctype="property" doc-label="property_name" name="property">
+                        <option></option>
+                    </select>
                 </div>
-                <span class="input-group-btn btn-left">
-                    <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#PropertyModal"><i class="fa fa-plus"></i></a>
-                </span>
+            </div>
+            <div class="col-md-1">
+                <div class="row">
+                    <span class="input-group-btn btn-left">
+                            <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#Property_Modal"><i class="fa fa-plus"></i></a>
+                    </span>
+                </div>    
             </div>
         </div>
-    </div> 
+                                    
+    </div>    
     
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">

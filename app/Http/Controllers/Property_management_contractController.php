@@ -103,7 +103,7 @@ class Property_management_contractController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property_management_contract','?fields=["name","property","signature_date"]')->data;
+       $result = frappe_get_data_index('property_management_contract','?fields=["name","property","signature_date"]')->data;
        
        // var_dump($result);
 

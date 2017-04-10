@@ -22,7 +22,7 @@
         <div class="portlet light bordered ">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                العقود
+                صحاب العقارات
             </div>
             <div class="actions">
 

@@ -26,6 +26,13 @@
         <link href="/assets/layouts/layout/css/themes/darkblue-rtl.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="/assets/layouts/layout/css/custom-rtl.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
+        <!-- select2 -->
+        <link href="/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/global/plugins/select2/css/select2-bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="/assets/global/plugins/select2/css/pmd-select2.css" type="text/css" rel="stylesheet"/>
+        <link href="/assets/global/plugins/select2/css/textfield.css" type="text/css" rel="stylesheet"/>
+        <!-- end select2 -->
         <link href="/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css" rel="stylesheet" type="text/css" />
         <link href="/assets/custom/css/main.css" rel="stylesheet" type="text/css" />
         <link rel="shortcut icon" href="/favicon.ico" /> 
@@ -89,7 +96,7 @@
                         <ul class="nav navbar-nav pull-left">
             
                             <li class="c-menue-item"><a href="{{url('/')}}"><img src="/image/home.png"><p>الصفحة الرئيسية</p></a></li>
-                            <li class="c-menue-item pm_a"><a href="{{action('PropertyController@index')}}"><img src="/image/Office.png"><p>ادارة الاملاك العقارية</p></a></li>
+                            <li class="c-menue-item "><a href="{{action('PropertyController@index')}}"><img src="/image/Office.png"><p>ادارة الاملاك العقارية</p></a></li>
                             <li class="c-menue-item"><a href="#"><img src="/image/File.png"><p>التقارير</p></a></li>
                             <li class="c-menue-item"><a href="#"><img src="/image/Tag.png"><p>العروض و الصيانة</p></a></li>
                             <li class="c-menue-item"><a href="#"><img src="/image/setting.png"><p>الصيانة</p></a></li>
@@ -115,8 +122,12 @@
                     <!-- BEGIN SIDEBAR -->
                     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
                     <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                    
-                    @include('ar.sidebar.property_management')
+                    <?php $module = $__env->yieldContent('module')  ?>
+                    @if($module == 'property_management')
+                        @include('ar.sidebar.property_management')
+                    @elseif($module == 'setting')
+                        @include('ar.sidebar.setting')
+                    @endif
                     <!-- END SIDEBAR -->
                 </div>
                 <!-- END SIDEBAR -->
@@ -180,12 +191,13 @@
         <script src="/assets/pages/scripts/components-bootstrap-touchspin.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/fuelux/js/spinner.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyB3WTqSPaoOVVbU6SouYdATOMKsAIgrtGM"></script>
-        <script src="/assets/global/plugins/typeahead/handlebars.min.js" type="text/javascript"></script>
-        <script src="/assets/global/plugins/typeahead/typeahead.bundle.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDsy6ZI-ExYZv6twA43MJm5dIH1JeLMSb4"></script>       
         <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-         <script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="/assets/custom/scripts/main.js" type="text/javascript"></script>
+        <!-- select2 -->
+        <script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://propeller.in/components/textfield/js/textfield.js"></script>
+        <script src="/assets/global/plugins/select2/js/pmd-select2.js" type="text/javascript"></script>
         
         @yield('js_page')
     </body>        

@@ -47,12 +47,65 @@ use Illuminate\Support\Facades\Log;
         }
 
 
+        function frappe_get($doctype,$params){
+                $doctype = str_replace(' ', '%20', $doctype);
+                $params = str_replace(' ', '%20', $params);
+                // $url = 'http://52.8.230.142/api/resource/'.$doctype.'/'.$params ;
+                $url = 'http://'.env('SERVER_ADD', '52.8.230.142').'/api/resource/'.$doctype.'/'.$params ;
+                $ch = curl_init($url);
+
+                curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
+                curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                // curl_setopt($ch, CURLOPT_HEADER, true);
+                try {
+                        $result = curl_exec($ch);
+                        $response = new stdClass();
+                        $response->data = json_decode($result);
+                        $response->status = 'success';
+                        return $response;
+                } catch (Exception $e) {
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
+                        
+                }
+        }
 
         function frappe_get_data($doctype,$params){
                 $doctype = str_replace(' ', '%20', $doctype);
                 $params = str_replace(' ', '%20', $params);
                 // $url = 'http://52.8.230.142/api/resource/'.$doctype.'/'.$params ;
                 $url = 'http://'.env('SERVER_ADD', '52.8.230.142').'/api/resource/'.$doctype.'/'.$params ;
+                $ch = curl_init($url);
+
+                curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
+                curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                // curl_setopt($ch, CURLOPT_HEADER, true);
+                try {
+                        $result = curl_exec($ch);
+                        $response = new stdClass();
+                        $response->data = json_decode($result)->data;
+                        $response->status = 'success';
+                        return $response;
+                } catch (Exception $e) {
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
+                        
+                }
+        }
+
+        function frappe_get_data_index($doctype,$params){
+                $doctype = str_replace(' ', '%20', $doctype);
+                $params = str_replace(' ', '%20', $params);
+                // $url = 'http://52.8.230.142/api/resource/'.$doctype.'/'.$params ;
+                $url = 'http://'.env('SERVER_ADD', '52.8.230.142').'/api/resource/'.$doctype.'/'.$params.'&limit_start=0&limit_page_length=500' ;
                 $ch = curl_init($url);
 
                 curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
@@ -158,7 +211,7 @@ use Illuminate\Support\Facades\Log;
         function frappe_register($data){
                 
                 // $ch = curl_init('http://52.8.230.142/api/method/frappe.www.login.custom_re');
-                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/frappe.www.login.custom_re'); 
+                $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.registration'); 
                 curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
                 curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($data)));
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -201,14 +254,14 @@ use Illuminate\Support\Facades\Log;
 
         function frappe_uploadimage($data){
             // $ch = curl_init('http://52.8.230.142/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
-            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/run_custom_method?cmd=uploadfile&doctype='.$data['doctype'].'&docname='.$data['docname'].'&file_type='.$data['file_type'].'&filename='.$data['filename'].'&filedata='.$data['filedata'].'&from_form=1|'); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
             try {
                         $result = curl_exec($ch);
                         $response = new stdClass();
-                        $response->data = json_decode($result)->data;
+                        $response->data = json_decode($result);
                         $response->status = 'success';
                         return $response;
                 } catch (Exception $e) {
@@ -281,13 +334,104 @@ use Illuminate\Support\Facades\Log;
         }
 
         function frappe_get_company(){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_company'); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            try {
+                $result = curl_exec($ch);
+                $response = new stdClass();
+                $response->data = json_decode($result)->message;
+                $response->status = 'success';
+                return $response;
+            } catch (Exception $e) {
+                $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                Log::error('frappe log: '.$error_msg);
+                $response->data = $error_msg;
+                $response->status = 'error';
+                return $response;
+                    
+            }
 
-                // $company_name = frappe_get_data('User',$_COOKIE['user_id'])->company;
-                $company_name = frappe_get_data('User','Administrator')->data->company;
-                $company = frappe_get_data('Company',$company_name);
-                return $company;
+        }
 
+        function frappe_get_user(){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_user'); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            try {
+                $result = curl_exec($ch);
+                $response = new stdClass();
+                $response->data = json_decode($result)->message;
+                $response->status = 'success';
+                return $response;
+            } catch (Exception $e) {
+                $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                Log::error('frappe log: '.$error_msg);
+                $response->data = $error_msg;
+                $response->status = 'error';
+                return $response;
+                    
+            }
                 
+        }
+
+        function frappe_update_user($data){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.update_user'); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($data)));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "post");
+            try {
+                $result = curl_exec($ch);
+                $response = new stdClass();
+                $response->data = json_decode($result)->message;
+                $response->status = 'success';
+                return $response;
+            } catch (Exception $e) {
+                $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                Log::error('frappe log: '.$error_msg);
+                $response->data = $error_msg;
+                $response->status = 'error';
+                return $response;
+                    
+            }
+                
+        }
+
+        function frappe_custom_function($data){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.'.$data['function']); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($data['data'])));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $data['method']);
+            try {
+                $result = curl_exec($ch);
+                $response = new stdClass();
+                $response->data = json_decode($result)->message;
+                $response->status = 'success';
+                return $response;
+            } catch (Exception $e) {
+                $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                Log::error('frappe log: '.$error_msg);
+                $response->data = $error_msg;
+                $response->status = 'error';
+                return $response;
+                    
+            }
+                
+        }
+
+
+        function frappe_test(){
+               
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_company'); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            $result = curl_exec($ch);
+            var_dump($result);
         }
 
 

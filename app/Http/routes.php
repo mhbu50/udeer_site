@@ -26,7 +26,7 @@ Route::get('/test2', function(){
 	return view('test2');
 });
 
-Route::get('/find/{doctype?}/{key?}', 'UdeerController@find');
+Route::get('/find/{doctype}/key/{key?}/field_search/{field_search?}', 'UdeerController@find');
 
 Route::get('/get_rent/property_unit/{name?}', 'UdeerController@get_rent');
 
@@ -423,6 +423,36 @@ Route::post('/debt/{name?}/delete','DebtController@delete');
 
 Route::post('/debt/delete_array', 'DebtController@delete_array');
 
+// doctype routes
+Route::get('/doctype/{doctype}/create', 'DoctypeController@create');
+Route::post('/doctype/{doctype}/create','DoctypeController@store');
+
+Route::get('/doctype/{doctype}/{name?}/edit','DoctypeController@edit');
+Route::post('/doctype/{doctype}/{name?}/edit','DoctypeController@update');
+
+Route::get('/doctype/{doctype}/index','DoctypeController@index');
+
+
+// debt routes
+Route::get('/user/create', 'UserController@create');
+Route::post('/user/create','UserController@store');
+
+Route::get('/user/{name?}/edit','UserController@edit');
+Route::post('/user/{name?}/edit','UserController@update');
+
+Route::get('/user/index','UserController@index');
+
+// doctype routes
+Route::get('/doctype/{doctype}/create', 'DoctypeController@create');
+Route::post('/doctype/{doctype}/create','DoctypeController@store');
+
+Route::get('/doctype/{doctype}/{name?}/edit','DoctypeController@edit');
+Route::post('/doctype/{doctype}/{name?}/edit','DoctypeController@update');
+
+Route::get('/doctype/{doctype}/index','DoctypeController@index');
+
+
+
 
 // dics routes
 
@@ -430,6 +460,18 @@ Route::get('/{doctype?}/{docname?}/doc/create','DocsController@create');
 Route::post('/{doctype?}/{docname?}/doc/create','DocsController@store');
 
 Route::get('/doc/{name?}/show','DocsController@show');
+
+
+// file_type
+
+Route::post('/file_type/create_ajax','File_typeController@store_ajax');
+
+
+// setting
+
+Route::get('/setting/account','UdeerController@edit_account');
+Route::post('/setting/account','UdeerController@update_account');
+
 
 
 

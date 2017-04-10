@@ -13,6 +13,7 @@ var ComponentsSelect2 = function() {
         $(".select2, .select2-multiple").select2({
             placeholder: placeholder,
             width: null
+            
         });
 
         $(".select2-allow-clear").select2({

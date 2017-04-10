@@ -61,9 +61,13 @@ class Property_ownerController extends Controller
         }
         $data = $request->all();
         unset($data["_token"]);
-        $result = frappe_insert('property_owner',$data)->data;
+        $result = frappe_insert('property_owner',$data);
         
-        return $result->name;
+        if($result->status == 'error'){
+            return 'error';  
+        }else{
+            return json_encode($result->data); 
+        }
     }
 
 
@@ -102,7 +106,7 @@ class Property_ownerController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property_owner','?fields=["name","first_name","last_name","email"]')->data;
+       $result = frappe_get_data_index('property_owner','?fields=["name","first_name","last_name","email"]')->data;
        
        
        return view('ar.property_owner.index',compact('result'));

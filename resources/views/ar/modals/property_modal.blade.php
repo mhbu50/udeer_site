@@ -1,7 +1,7 @@
 
 
 
-<div class="modal fade bs-modal-lg c-ud-modal"  tabindex="-1" id="PropertyModal" role="dialog"aria-labelledby="gridSystemModalLabel" >
+<div class="modal fade bs-modal-lg c-ud-modal"  id="Property_Modal" role="dialog"aria-labelledby="gridSystemModalLabel" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,16 +20,15 @@
                               <label for="">اسم العقار</label>
                           </div>
                         </div>
+                        
                         <div class="col-md-6">
-                          <div class="form-group form-md-line-input form-md-floating-label">
-                            
-                              <div class="">
-                                <input type="text" class="form-control typeahead" id="owner_name" placeholder="اسم المالك" name="owner_name" >
-                                
-                              </div>
-                              
-                          </div>  
-                        </div>
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <label>اسم المالك</label>
+                                  <select class="select2-c pmd-select2" id="property" doctype="property" doc-label="property_name" name="property">
+                                      <option></option>
+                                  </select>
+                            </div>                      
+                        </div>    
                         <div class="col-md-6">
                           <div class="form-group form-md-line-input form-md-floating-label">
                             
@@ -66,11 +65,7 @@
                               <label for="">الشارع</label>
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <div id="mapCanvas"></div>
-                            <input type="text" id="longitude" name="longitude" hidden>
-                            <input type="text" id="latitude" name="latitude" hidden>
-                        </div>
+                        
                         
                     </form>
                 </div>    

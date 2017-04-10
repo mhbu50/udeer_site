@@ -99,7 +99,7 @@ class Sell_agreementController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('sell_agreement','?fields=["name","buyer_name","seller_name","creation"]')->data;
+       $result = frappe_get_data_index('sell_agreement','?fields=["name","buyer_name","seller_name","creation"]')->data;
        
        // var_dump($result);
 

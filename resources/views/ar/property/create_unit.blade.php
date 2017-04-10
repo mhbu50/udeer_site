@@ -8,10 +8,13 @@
 @section('js_page')
   <script type="text/javascript">
     $(document).ready(function(){
+      data = {!!json_encode( session()->getOldInput())!!}
+      set_value(data)
       $("#unit_number").val("{{$last_unit_number+1}}")
       $("#unit_number").addClass("edited");
       $("#property").val("{{$property_name}}");
       $("#property").prop('readonly', true);
+      
 
       $("#annual_rent_amount").change(function(){
           com_val = $(this).val()*(5/200);

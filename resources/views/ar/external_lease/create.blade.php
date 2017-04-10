@@ -16,6 +16,8 @@
           $("#terms_group").change(function() {
             // $('#terms').summernote({height: 300});
             $("#terms").summernote("code", terms[this.value]);
+            data = {!!json_encode( session()->getOldInput())!!}
+            set_value(data)
             
             
           })

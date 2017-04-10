@@ -20,7 +20,7 @@
     </div>
     <div class="form-actions noborder">
       <div class="col-md-12">
-        <input type="submit" class="btn blue" value="حفظ"></button>
+        <input type="submit" class="btn blue" value="حفظ"/>
         <button type="button" class="btn default">الغاء</button>
       </div>
     </div>

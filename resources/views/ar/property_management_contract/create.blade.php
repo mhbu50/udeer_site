@@ -12,6 +12,8 @@
       <script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
       <script type="text/javascript">
       $(document).ready(function(){
+        data = {!!json_encode( session()->getOldInput())!!}
+        set_value(data)
         terms = {!!json_encode($terms)!!}
         $('#terms').hide();
           $("#terms_group").change(function() {

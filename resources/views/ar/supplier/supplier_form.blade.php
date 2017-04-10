@@ -16,7 +16,7 @@
 
     <div class='col-md-6'>
         <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="mobile_number" placeholder="" name="mobile_number">
+            <input type="number" class="form-control" id="mobile_number" placeholder="" name="mobile_number">
             <label for="mobile_number">رقم الجوال</label>
         </div>
     </div>

@@ -79,7 +79,7 @@ class Property_expenseController extends Controller
 
     public function index()
     {
-       $result = frappe_get_data('property_expense','?fields=["name","property","amount","date"]');  
+       $result = frappe_get_data_index('property_expense','?fields=["name","property","amount","date"]');  
        
        return view('ar.property_expenses.index',compact('result'));
     }

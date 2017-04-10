@@ -6,6 +6,12 @@
 
 @endsection
 @section('js_page')
+<script type="text/javascript">
+    $(document).ready(function(){
+      data = {!!json_encode( session()->getOldInput())!!}
+      set_value(data)
+    });
+  </script>
 @endsection
 
 @section('content')

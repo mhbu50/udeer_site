@@ -16,9 +16,9 @@
         set_value(instalment)
        
         if($('#status').val() =='not paid'){
-          $('#payment_method_war,#reciever_war,#payment_date_war').hide();
-          $('#payment_method,#receiver,#payment_date').val('');
-          $('#payment_method,#receiver,#payment_date').removeClass("edited");
+          $('#payment_method_war,#receiver_war,#payment_date_war').hide();
+          $('#payment_method,#receiver_war,#payment_date').val('');
+          $('#payment_method,#receiver_war,#payment_date').removeClass("edited");
         }
         $('#status').change(function(){
           switch($(this).val()) {

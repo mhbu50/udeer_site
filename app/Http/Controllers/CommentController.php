@@ -42,9 +42,9 @@ class CommentController extends Controller
         $result = frappe_insert('Communication',$data);
         
         if($result->status != 'error'){
-            return return redirect()->back()->with('status','لقد تم حفظ العقار');  
+            return redirect()->back()->with('status','لقد تم حفظ العقار');  
         }else{
-            return return redirect()->back()->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
+            return redirect()->back()->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
         }
         
     }
@@ -59,7 +59,7 @@ class CommentController extends Controller
         }else{
             return redirect('property/index')->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
         }
-        return view('ar.complain.edit',['complain' => $result->data]]);
+        return view('ar.complain.edit',['complain' => $result->data]);
 
     }
 
@@ -89,7 +89,7 @@ class CommentController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('complain','?fields=["name","about","title","status"]');
+       $result = frappe_get_data_index('complain','?fields=["name","about","title","status"]');
        
        
        return view('ar.complain.index',compact('result'));
@@ -102,9 +102,9 @@ class CommentController extends Controller
         $result = frappe_delete('complain',$name);
 
         if($result->status != 'error'){
-            return redirect('complain/index');->with('status','لقد تم حفظ العقار');  
+            return redirect('complain/index')->with('status','لقد تم اضافة الملاحظة');  
         }else{
-            return redirect('complain/index');->with('status','لم يتم حفظ العقار الرجاء المحاولة مرة اخرى ');  
+            return redirect('complain/index')->with('status','لم يتم حفظ الملاحظة الرجاء المحاولة مرة اخرى ');  
         }
 
     }

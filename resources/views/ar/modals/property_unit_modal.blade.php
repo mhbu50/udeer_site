@@ -9,14 +9,8 @@
             <div class="modal-body"> 
                 <div class="form-body">
                     <form  class="ajax-form" id="ajax-form" c-url="/property_unit/create_ajax" target="#property_unit">
-                        <input type='hidden' name='_token' value="{!! csrf_token() !!}">
-                        <div class="col-md-6">
-                          <div class="form-group form-md-line-input form-md-floating-label">
-                            
-                            <input type="text" class="form-control" id="property" placeholder="" name='property' value="{{$property_name or '' }}">
-                            <label for="property">العقار</label>
-                          </div>
-                        </div>
+                        <input type='hidden' name='_token' value="{!! csrf_token() !!}"> 
+                        
                         <div class="col-md-6">
                           <div class="form-group form-md-line-input form-md-floating-label">
                                 
@@ -24,6 +18,15 @@
                                 <label for="unit_number">رقم الوحدة</label>
                           </div>
                         </div>
+                        <div class="col-md-6">
+                            <!--Simple Select with Search-->
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <label>اسم العقار</label>
+                                  <select class="select2-c pmd-select2 form-control" id="property" doctype="property" doc-label="property_name" name="property">
+                                      <option></option>
+                                  </select>
+                            </div>               
+                        </div>       
                         <div class="col-md-6">
                           <div class="form-group form-md-line-input form-md-floating-label">
                             

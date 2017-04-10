@@ -8,6 +8,8 @@
 @section('js_page')
      <script type="text/javascript">
         $(document).ready(function(){
+            data = {!!json_encode( session()->getOldInput())!!}
+            set_value(data)
             google.maps.event.addDomListener(window, 'load', set_map(50.0301574,26.3320884));
         });
     </script>

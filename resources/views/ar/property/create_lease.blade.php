@@ -1,4 +1,5 @@
 @section('module','property_management')
+@section('page_title','property_show')
 @extends('template')
   
 @section('css_page')
@@ -10,29 +11,76 @@
     <script src="/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+            data = {!!json_encode( session()->getOldInput())!!}
+            set_value(data)
             $("#property").val("{{$property_name}}");
             $("#property").prop('readonly', true);
 
             terms = {!!json_encode($terms)!!}
             $('#terms').hide();
+            $('#instalment_number_war').hide();
+            annual_rent_amount = 0;
+            rent = 0;
+            dof_number = 0;
+            var start_day ;
+            var properties = new Bloodhound({
+              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              
+              remote: {
+                url: '/find/property%20unit/%QUERY',
+                wildcard: '%QUERY'
+              }
+            });
+           $('#property_unit_c1').typeahead({
+              minLength: 0,
+              highlight: true
+              }, 
+              {
+              name: 'property_unit',
+              display: 'name',
+              source: properties,
+              
+            }).on('typeahead:selected', function() {
+        
+              // the second argument has the info you want
+              $('#instalment_number_war').show();
+              $.ajax({
+                 url: '/get_rent/property_unit/'+this.value,
+                 type: "get",
+                success: function(msg) {
+                    
+                    if(msg != "error"){
+                        annual_rent_amount = msg;
+
+                    }
+                   
+                  }
+              });
+              $("#instalment_number").val('');
+              $("#instalment_group").empty();
+
+            });
             
             $("#terms_group").change(function() {
               // $('#terms').summernote({height: 300});
               $("#terms").summernote("code", terms[this.value]);
-                
-                
               })
 
-              $('#instalment_number').change(function(){
-                $("#instalment_amount").empty()
-                for(count=0;count<this.value;count++){
-                  $("#instalment_amount").append('<div class="col-md-6 .col-md-offset-6"><div class="form-group form-md-line-input form-md-floating-label"><input class="form-control form-control-inline " size="16" type="number"><label >دفعة رقم '+(count+1)+'</label></div></div>');
+              
+
+              $('#instalment_number,#lease_starting_date').change(function(){
+                $("#instalment_group").empty();
+                dof_number = $("#instalment_number").val();
+                rent = annual_rent_amount / dof_number ;
+                d = $('#lease_starting_date').val();
+                lease_starting_date = new Date(parseInt(d.substring(0, 4)),parseInt(d.substring(5,7)),parseInt(d.substring(8, 10))); 
+                for(count=0;count<dof_number;count++){
+                  lease_starting_date.setMonth(lease_starting_date.getMonth() + 1);
+                  $("#instalment_group").append('<tr><td>'+(count+1)+'</td><td><div class="form-group form-md-line-input "><div class="input-icon right"><input class="form-control form-control-inline instalment_amount edit_read_only " size="16" type="number" id="instalment_amount" name="instalment_amount['+count+']" value="'+rent+'" ></div></div></td><td><div class="form-group form-md-line-input "><div class="input-icon right"><input class="form-control form-control-inline date-picker" size="16" type="text" value="'+ (lease_starting_date).toISOString().slice(0,10) +'" id="due_date" placeholder="" name="due_date['+count+']" ><i class="fa fa-calendar"></i></div></div></td></tr>');
                 }
-                
-                
-
               })
-     
+  
         });
     </script>
 @endsection
@@ -55,7 +103,7 @@
       </div>
     </div>
    
-    @include('ar.modals.property_unit_modal')
+    @include('ar.modals.property_unit_c1_modal')
     @include('ar.modals.renter_modal')
     
 @endsection

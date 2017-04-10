@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-    <h1 class="page-title"> ادارة الاملاك العقارية</h1>
+    <h1 class="page-title"> ادارة الاملاك المحصل</h1>
     <div class="row">
       <div class="col-md-12">
         <div class="portlet light bordered ">

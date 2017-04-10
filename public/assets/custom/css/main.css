@@ -8,7 +8,7 @@ body *{
 }
 
 
-@media all and (min-width: 768px) {
+@media (min-width: 768px) {
     .small-s{
         display: none;
     }
@@ -140,4 +140,24 @@ hr{
   z-index: 9996 !important;
 }
 
+.auto-com p{
+  display: inline-block;
+}
 
+
+/*select2 pm */
+.pmd-textfield-floating-label label{
+  font-size: 11px !important;
+  height: 10px;
+}
+
+.select2-container--bootstrap{
+  margin: 0 0 31px;
+  width: 100% !important;
+
+}
+
+.modal-body .select2-container--bootstrap{
+  margin: 0 0 35px;
+
+}

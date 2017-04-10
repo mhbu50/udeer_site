@@ -78,7 +78,7 @@ class ComplainController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('complain','?fields=["name","about","title","status"]');
+       $result = frappe_get_data_index('complain','?fields=["name","about","title","status"]');
        
        
        return view('ar.complain.index',compact('result'));

@@ -39,15 +39,15 @@
                         <th><div class="th-inner ">تاريخ التحصيل</div></th> 
                         <th><div class="th-inner ">المحصل</div></th> 
                         <th><div class="th-inner ">طريقة الدفع</div></th> 
-                        <th></th> 
+                       
                     </tr> 
                 </thead> 
                 <tbody> 
                     
                         @foreach($result as $instalment)
-                        <tr>
+                        <tr class="{{ ($instalment->status == 'paid') ? 'success' : 'warning' }}">
                             <th scope="row"><a href="{{action('LeaseController@instalment_show',['instalment' => $instalment->name,'lease' => $lease_name])}}">{{ $instalment->number  }}</a></th>
-                            <td>{{$instalment->amount}}</td>
+                            <td>{{$instalment->amount or 'لايوجد'}}</td>
                             <td>{{$instalment->status}}</td>
                             <td>{{$instalment->due_date }}</td>
 

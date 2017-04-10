@@ -13,43 +13,43 @@ class ReceiptController extends Controller
 {
    public function create()
     {
-        $properties = frappe_get_data('property','?fields=["name"]')->daat;
+        $properties = frappe_get_data('property','?fields=["name"]')->data;
         $properties = $properties;
         return view('ar.receipt.create',compact('properties'));
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+      var_dump($request->get('test'));
+        // $validator = Validator::make($request->all(), [
            
                  
                 
-            ]);
+        //     ]);
 
-            if ($validator->fails()) {
-                return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+        //     if ($validator->fails()) {
+        //         return redirect()->back()
+        //                 ->withErrors($validator)
+        //                 ->withInput();
                 
-        }
-        $data = $request->all();
-        unset($data["_token"]);
-        $result = frappe_insert('receipt',$data);
+        // }
+        // $data = $request->all();
+        // unset($data["_token"]);
+        // $result = frappe_insert('receipt',$data);
         
-        $company_name = frappe_get_data('User','Administrator')->company;
-        $amount = 0;
-        if ($request->get('type') == 'catch'){
-          $amount = (int)$request->get('amount');
-        }elseif($request->get('type') == 'pay'){
-          $amount = -(int)$request->get('amount');
-        }
-        // $result = frappe_add_company_balance($company_name,$amount);
-        // var_dump($result);
-        if($result->status != 'error'){
-            return redirect('/receipt/index')->with('status','لقد تم حفظ السند');  
-        }else{
-            return redirect('/receipt/index')->with('status','لم يتم حفظ السند الرجاء المحاولة مرة اخرى');  
-        }
+        // $company_name = frappe_get_data('User','Administrator')->data->company;
+        // $amount = 0;
+        // if ($request->get('type') == 'catch'){
+        //   $amount = (int)$request->get('amount');
+        // }elseif($request->get('type') == 'pay'){
+        //   $amount = -(int)$request->get('amount');
+        // }
+        
+        // if($result->status != 'error'){
+        //     return redirect('/receipt/index')->with('status','لقد تم حفظ السند');  
+        // }else{
+        //     return redirect('/receipt/index')->with('status','لم يتم حفظ السند الرجاء المحاولة مرة اخرى');  
+        // }
         
         
     }
@@ -89,7 +89,7 @@ class ReceiptController extends Controller
 
     public function index()
     {
-       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]')->data;
+       $result = frappe_get_data_index('receipt','?fields=["name","amount","type","property","date"]')->data;
        
        // var_dump($result);
        return view('ar.receipt.index',['result' => $result,'type' => 'all']);
@@ -97,14 +97,14 @@ class ReceiptController extends Controller
 
     public function catch_index()
     {
-       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","catch"]]')->data;
+       $result = frappe_get_data_index('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","catch"]]')->data;
        
        // var_dump($result);
        return view('ar.receipt.index',['result' => $result,'type' => 'catch']);
     }
     public function pay_index()
     {
-       $result = frappe_get_data('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","pay"]]')->data;
+       $result = frappe_get_data_index('receipt','?fields=["name","amount","type","property","date"]&filters=[["receipt","type","=","pay"]]')->data;
       
        return view('ar.receipt.index',['result' => $result,'type' => 'pay']);
     }

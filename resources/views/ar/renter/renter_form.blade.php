@@ -32,12 +32,43 @@
                 <label for="id_number">رقم الهوية</label>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="form-group form-md-line-input form-md-floating-label">
+              <div class="input-icon right">
+                  <input class="form-control form-control-inline date-picker" size="16" type="text" id="id_expiry_date" placeholder="" name="id_expiry_date">
+                  <i class="fa fa-calendar"></i>  
+                  <label for="id_expiry_date">تاريخ انتهاء البطاقة</label>
+              </div>
+            </div>  
+        </div>
+        <div class='col-md-6'>
+            <div class="form-group form-md-line-input form-md-floating-label">
+                <input type="text" class="form-control" id="id_issuer" placeholder="" name="id_issuer">
+                <label for="id_issuer">جهة الاصدار</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-md-line-input form-md-floating-label">
+              <div class="input-icon right">
+                  <input class="form-control form-control-inline date-picker" size="16" type="text" id="birth_date" placeholder="" name="birth_date">
+                  <i class="fa fa-calendar"></i>  
+                  <label for="birth_date">تاريخ الميلاد</label>
+              </div>
+            </div>  
+        </div>
+        <div class='col-md-6'>
+            <div class="form-group form-md-line-input form-md-floating-label">
+                <input type="text" class="form-control" id="birth_place" placeholder="" name="birth_place">
+                <label for="birth_place">مكان الميلاد</label>
+            </div>
+        </div>
     </div>
 
     <div class='raw'>
         <div class='col-md-6'>
             <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" id="mobile_number" placeholder="" name="mobile_number">
+                <input type="number" class="form-control" id="mobile_number" placeholder="" name="mobile_number">
                 <label for="mobile_number">رقم الجوال</label>
             </div>
         </div>

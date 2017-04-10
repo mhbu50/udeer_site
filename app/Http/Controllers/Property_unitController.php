@@ -22,21 +22,21 @@ class Property_unitController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-                'property' => 'required|AlphaNum',
-                'unit_number' => 'numeric',
-                'unit_type' => 'in:apartment,room,villa,house',
-                'annual_rent_amount' => 'numeric',
-                'rent_currency' => 'AlphaNum',
-                'insurance_amount' => 'numeric',
-                'commission_type' => 'in:percentage,cash',
-                'unit_space' => 'numeric',
-                'finishing_status' => 'AlphaNum',
-                'room_slot' => 'numeric',
-                'number_of_bathrooms' => 'numeric',
-                'unit_activity' => 'in:commercial,residential',
-                'water_meter_number' => 'numeric',
-                'electricity_meter_number' => 'numeric',
-                'number_of_copies' => 'numeric',
+                // 'property' => 'required|AlphaNum',
+                // 'unit_number' => 'numeric',
+                // 'unit_type' => 'in:apartment,room,villa,house',
+                // 'annual_rent_amount' => 'numeric',
+                // 'rent_currency' => 'AlphaNum',
+                // 'insurance_amount' => 'numeric',
+                // 'commission_type' => 'in:percentage,cash',
+                // 'unit_space' => 'numeric',
+                // 'finishing_status' => 'AlphaNum',
+                // 'room_slot' => 'numeric',
+                // 'number_of_bathrooms' => 'numeric',
+                // 'unit_activity' => 'in:commercial,residential',
+                // 'water_meter_number' => 'numeric',
+                // 'electricity_meter_number' => 'numeric',
+                // 'number_of_copies' => 'numeric',
                 
             ]);
 
@@ -77,8 +77,13 @@ class Property_unitController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $result = frappe_insert('property%20unit',$data);
-        
-        return $result->name;
+
+        if($result->status == 'error'){
+            return 'error';  
+        }else{
+            return json_encode($result->data); 
+        }
+       
     }
 
 
@@ -119,7 +124,7 @@ class Property_unitController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('property%20unit','?fields=["name","property","unit_number"]')->data;
+       $result = frappe_get_data_index('property%20unit','?fields=["name","property","unit_number"]&order_by=unit_number')->data;
        
        return view('ar.property_unit.index',compact('result'));
 
@@ -164,7 +169,7 @@ class Property_unitController extends Controller
     public function lease_index($unit_name)
     {
 
-       $result = frappe_get_data('lease','?fields=["name","property","property_unit","lease_signature_date"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]')->data;
+       $result = frappe_get_data_index('lease','?fields=["name","property","property_unit","lease_signature_date"]&filters=[["lease","property_unit","=","'.$unit_name.'"]]')->data;
      
        // var_dump($result);
        return view('ar.property_unit.lease_index',compact('result','unit_name'));
@@ -173,11 +178,11 @@ class Property_unitController extends Controller
     }
     public function rent_index($unit_name)
     {
-       $lease = frappe_get_data('lease','?filters=[["lease","active","=",1],["lease","property_unit","=","'.$unit_name.'"]]')->data;
+       $lease = frappe_get_data_index('lease','?filters=[["lease","active","=",1],["lease","property_unit","=","'.$unit_name.'"]]')->data;
        
        $result= array();
        if($lease){
-            $result = frappe_get_data('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease[0]->name.'"]]')->data;
+            $result = frappe_get_data_index('Lease%20rent%20payment','?fields=["name","amount","renter","lease"]&filters=[["Lease%20rent%20payment","lease","=","'.$lease[0]->name.'"]]')->data;
             
        }
        
@@ -239,7 +244,7 @@ class Property_unitController extends Controller
 
     public function docs_index($unit_name)
     { 
-        $result = frappe_get_data('File','?fields=["name","file_name","file_url","creation"]&filters=[["File","attached_to_name","=","'.$unit_name.'"],["File","attached_to_doctype","=","property%20unit"]]')->data;
+        $result = frappe_get_data_index('File','?fields=["name","file_name","file_url","creation","file_type"]&filters=[["File","attached_to_name","=","'.$unit_name.'"],["File","attached_to_doctype","=","property%20unit"]]')->data;
         
         return view('ar.property_unit.docs',compact('result','unit_name'));
         

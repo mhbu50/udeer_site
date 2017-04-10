@@ -100,7 +100,7 @@ class External_leaseController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('external_lease','?fields=["name","buyer_name","seller_name","lease_start_day"]')->data;
+       $result = frappe_get_data_index('external_lease','?fields=["name","buyer_name","seller_name","lease_start_day"]')->data;
       
        // var_dump($result);
 

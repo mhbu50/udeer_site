@@ -63,9 +63,9 @@ class SupplierController extends Controller
         $result = frappe_insert('Supplier',$data);
 
         if($result->status == 'error'){
-            return 'error';
+            return 'error';  
         }else{
-            return $result->data->name;
+            return json_encode($result->data); 
         }
         
         
@@ -106,7 +106,7 @@ class SupplierController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('Supplier','?fields=["name","supplier_name","supplier_type"]')->data;
+       $result = frappe_get_data_index('Supplier','?fields=["name","supplier_name","supplier_type"]')->data;
        
        
        return view('ar.supplier.index',compact('result'));

@@ -62,12 +62,26 @@
                             </div>
                         </div> 
                         <div class="col-md-6">
-                          <div class="form-group form-md-line-input form-md-floating-label">
-                            
-                            <input type="text" class="form-control" id="property" placeholder="" name="property" vale="{{$property or ''}}">
-                            <label for="property">اسم العقار</label>
-                          </div>
-                        </div>
+                            <!--Simple Select with Search-->
+                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <label>اسم العقار</label>
+                                <div class="col-md-11">
+                                    <div class="row">
+                                        <select class="select2-c pmd-select2 form-control" id="property" doctype="property" doc-label="property_name" name="property">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="row">
+                                        <span class="input-group-btn btn-left">
+                                                <a class="btn blue btn-outline" href="#" data-toggle="modal" data-target="#Property_Modal"><i class="fa fa-plus"></i></a>
+                                        </span>
+                                    </div>    
+                                </div>
+                            </div>
+                                                        
+                        </div>    
                         <div class="col-md-6">
                           <div class="form-group form-md-line-input form-md-floating-label">
                             <input type="text" class="form-control" id="property_unit" placeholder="" name="property_unit" value="{{$property_unit or ''}}">

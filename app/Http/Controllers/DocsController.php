@@ -48,6 +48,7 @@ class DocsController extends Controller
         $base64 = base64_encode($file);
         $urlencode = urlencode($base64);
         $data['filedata'] = $urlencode;
+        $data['file_type'] = $request->get('file_type');
         $result = frappe_uploadimage($data);
         // var_dump($result);
         if($result->status != 'error'){

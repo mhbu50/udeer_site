@@ -18,22 +18,22 @@ class RenterController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        // $validator = Validator::make($request->all(), [
 
                
                 
-            ]);
+        //     ]);
 
-            if ($validator->fails()) {
-                return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+        //     if ($validator->fails()) {
+        //         return redirect()->back()
+        //                 ->withErrors($validator)
+        //                 ->withInput();
                 
-        }
+        // }
         $data = $request->all();
         unset($data["_token"]);
         $data["customer_group"] = "Commercial";
-        $data["customer_name"] = $request->get('first_name');
+        $data["customer_name"] = implode(' ',$request->only('first_name','second_name','third_name','last_name'));
         $result = frappe_insert('Customer',$data);
         if($result->status != 'error'){
             return redirect('/renter/index')->with('status','لقد تم حفظ المستاجر');  
@@ -57,11 +57,10 @@ class RenterController extends Controller
         $data["customer_group"] = "Commercial";
         $result = frappe_insert('Customer',$data);
 
-        if($result->status != 'error'){
-            return $result->data->name;
-             
+        if($result->status == 'error'){
+            return 'error';  
         }else{
-            return ; 
+            return json_encode($result->data); 
         }
         
     }
@@ -102,7 +101,7 @@ class RenterController extends Controller
     public function index()
     {
 
-       $result = frappe_get_data('Customer','?fields=["name","first_name","last_name","email"]')->data;
+       $result = frappe_get_data_index('Customer','?fields=["name","first_name","last_name","email"]')->data;
       
        
        return view('ar.renter.index',compact('result'));

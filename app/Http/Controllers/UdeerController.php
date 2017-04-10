@@ -13,10 +13,41 @@ use Validator;
 
 class UdeerController extends Controller
 {
+
    
-    public function create()
-    {
-        //
+    public function edit_account(){
+        $data['user'] = frappe_get_user();
+        $data['company'] = frappe_get_company();
+        // var_dump($data['company']);
+        return view('ar.setting.edit_account',compact('data'));
+    }
+
+    public function update_account(Request $request){
+        
+        $data['user'] = $request->only(['first_name','email','mobile_number']);
+        $data['user'] = frappe_update_user($data['user']);
+        $data['company'] = frappe_get_company();
+        if($request->hasFile('image')){
+            $data['doctype'] = 'Company';
+            $data['docname'] = $data['company']->data->company_name;
+            $data['filename'] = uniqid().'.'.$request->file('image')->getClientOriginalExtension();
+            $file = file_get_contents($request->file('image'));
+            $base64 = base64_encode($file);
+            $urlencode = urlencode($base64);
+            $data['filedata'] = $urlencode;
+            $data['file_type'] = $request->get('file_type');
+            $result = frappe_uploadimage($data);
+            if($result->status == 'success'){
+                // $s_data = [];
+                $s_data['logo'] = $result->data->message->file_url;
+                $data['company'] = frappe_custom_function(array('function'=> 'update_company','method' => 'post','data'=> $s_data ));
+                // var_dump($data['company']);
+            }
+           
+            
+        }
+        
+        return view('ar.setting.edit_account',compact('data'));
     }
 
    
@@ -37,8 +68,8 @@ class UdeerController extends Controller
 
     public function test(Request $request)
     {
-       
-        return view('test');
+       frappe_test();
+        // return view('test');
     } 
 
      public function ptest(Request $request)
@@ -79,12 +110,12 @@ class UdeerController extends Controller
         return ;
     }
 
-    public function find($doctype,$key='all')
+    public function find($doctype,$key='all',$field_search='name')
     {
         if($key=='all'){
-            $result = frappe_get_data($doctype,'?fields=["name"]')->data;
+            $result = frappe_get_data($doctype,'?fields=["*"]')->data;
         }else{
-            $result = frappe_get_data($doctype,'?fields=["name"]&filters=[["'.$doctype.'","name","like","%'.$key.'%"]]')->data;
+            $result = frappe_get_data($doctype,'?fields=["*"]&filters=[["'.$doctype.'","'.$field_search.'","like","%'.$key.'%"]]')->data;
         }
         
         
