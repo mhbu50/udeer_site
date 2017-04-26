@@ -3,15 +3,10 @@
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
             <input type="text" class="form-control" id="first_name" placeholder="" name="first_name">
-            <label for="">اسم</label>
+            <label for="">اسم المستخدم</label>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group form-md-line-input form-md-floating-label">
-            <input type="text" class="form-control" id="last_name" placeholder="" name="last_name">
-            <label for="">اسم العائلة</label>
-        </div>
-    </div>
+
     <div class="col-md-6">
         <div class="form-group form-md-line-input form-md-floating-label">
             <input type="number" class="form-control" id="mobile_number" placeholder="" name="mobile_number">

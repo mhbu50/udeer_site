@@ -433,7 +433,7 @@ Route::post('/doctype/{doctype}/{name?}/edit','DoctypeController@update');
 Route::get('/doctype/{doctype}/index','DoctypeController@index');
 
 
-// debt routes
+// uder routes
 Route::get('/user/create', 'UserController@create');
 Route::post('/user/create','UserController@store');
 
@@ -441,6 +441,15 @@ Route::get('/user/{name?}/edit','UserController@edit');
 Route::post('/user/{name?}/edit','UserController@update');
 
 Route::get('/user/index','UserController@index');
+
+// role routes
+Route::get('/role/create', 'RoleController@create');
+Route::post('/role/create','RoleController@store');
+
+Route::get('/role/{name?}/edit','RoleController@edit');
+Route::post('/role/{name?}/edit','RoleController@update');
+
+Route::get('/role/index','RoleController@index');
 
 // doctype routes
 Route::get('/doctype/{doctype}/create', 'DoctypeController@create');
@@ -450,6 +459,8 @@ Route::get('/doctype/{doctype}/{name?}/edit','DoctypeController@edit');
 Route::post('/doctype/{doctype}/{name?}/edit','DoctypeController@update');
 
 Route::get('/doctype/{doctype}/index','DoctypeController@index');
+
+
 
 
 

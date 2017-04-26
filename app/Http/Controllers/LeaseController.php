@@ -92,11 +92,11 @@ class LeaseController extends Controller
         $lease = frappe_get_data('lease',$name)->data;
         // $data['user'] = frappe_get_data('User',$_COOKIE['user_id']);
         $data['user'] = frappe_get_data('User','Administrator')->data;
-        $data['company'] = frappe_get_company();
+        $data['company'] = frappe_get_current_company();
         $data['renter'] = frappe_get_data('Customer',$lease->renter)->data;
         $data['property'] = frappe_get_data('property',$lease->property)->data;
         $data['property_unit'] = frappe_get_data('property%20unit',$lease->property_unit)->data;
-        $data['owner'] = frappe_get_data('property_owner',$data['property']->owner_name)->data;
+        $data['owner'] = frappe_get_data('property_owner',$data['property']->property_owner)->data;
         return view('ar.lease.edit',compact('lease','data'));
 
     }

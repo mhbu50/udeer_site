@@ -55,7 +55,9 @@
                     </div>
                 </div>
                 <div class="col-md-7">
+                  @if(isset($data['company']->data->logo))
                     <img src="http://{{env('SERVER_ADD', '52.8.230.142').$data['company']->data->logo}}" max-width="100%">
+                  @endif
                 </div>
                 <div class="col-md-7">
                     <div class="form-group form-md-line-input form-md-floating-label">

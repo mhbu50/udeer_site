@@ -12,6 +12,7 @@
 @section('js_page')
     <script src="/assets/pages/scripts/table-bootstrap.min.js" type="text/javascript"></script>
     <script src="/assets/global/plugins/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
+    <script src="/assets/custom/scripts/trans.js" type="text/javascript"></script>
 @endsection
 
 @section('content')
@@ -21,7 +22,7 @@
         <div class="portlet light bordered ">
           <div class="portlet-title">
             <div class="caption font-red-sunglo">
-                <span class="tr-{{rawurlencode($doctype)}}"></span>{{$doctype}}
+                <span class="tr-{{rawurlencode($doctype)}}">{{$doctype}}</span>
             </div>
             <div class="actions">
 

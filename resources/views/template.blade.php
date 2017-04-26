@@ -198,7 +198,10 @@
         <script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://propeller.in/components/textfield/js/textfield.js"></script>
         <script src="/assets/global/plugins/select2/js/pmd-select2.js" type="text/javascript"></script>
+
+        <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>  
+        <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
         
-        @yield('js_page')
+      
     </body>        
 <html>

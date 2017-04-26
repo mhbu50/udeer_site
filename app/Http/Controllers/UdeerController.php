@@ -16,17 +16,21 @@ class UdeerController extends Controller
 
    
     public function edit_account(){
-        $data['user'] = frappe_get_user();
-        $data['company'] = frappe_get_company();
-        // var_dump($data['company']);
+        $data['user'] = frappe_get_current_user();
+        $data['company'] = frappe_get('Company',frappe_get_current_user()->data->company);
+        // var_dump($data['user']);
         return view('ar.setting.edit_account',compact('data'));
     }
 
     public function update_account(Request $request){
         
         $data['user'] = $request->only(['first_name','email','mobile_number']);
-        $data['user'] = frappe_update_user($data['user']);
-        $data['company'] = frappe_get_company();
+        $data['user'] = frappe_update_user(frappe_get_current_user()->data->name,$data['user']);
+        $data['company'] = frappe_get_data('Company',frappe_get_current_user()->data->company);
+        
+        $s_data['logo'] = $data['company']->data->logo;
+        $s_data['longitude'] = $request->get('longitude');
+        $s_data['latitude'] = $request->get('latitude');
         if($request->hasFile('image')){
             $data['doctype'] = 'Company';
             $data['docname'] = $data['company']->data->company_name;
@@ -38,14 +42,16 @@ class UdeerController extends Controller
             $data['file_type'] = $request->get('file_type');
             $result = frappe_uploadimage($data);
             if($result->status == 'success'){
-                // $s_data = [];
+                
                 $s_data['logo'] = $result->data->message->file_url;
-                $data['company'] = frappe_custom_function(array('function'=> 'update_company','method' => 'post','data'=> $s_data ));
-                // var_dump($data['company']);
+                
+                
             }
            
             
-        }
+        }                                     
+        $data['company'] = frappe_update_company(frappe_get_current_user()->data->company,$s_data);
+        
         
         return view('ar.setting.edit_account',compact('data'));
     }

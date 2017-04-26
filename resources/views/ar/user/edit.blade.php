@@ -12,12 +12,15 @@
     <script type="text/javascript">
         $(document).ready(function(){
           user = {!!json_encode($user)!!}
-          role = user.user_roles
-          console.log(role)
+        
+          set_value(user)
+
+
+
+          role = user.roles
+          
           role.forEach(function(element) {
               $('#'+(element.role).replace(/\s+/g, '-') ).attr("checked", true);
-              
-
           });
           
         });

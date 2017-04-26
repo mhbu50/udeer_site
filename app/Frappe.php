@@ -275,6 +275,31 @@ use Illuminate\Support\Facades\Log;
 
         }
 
+        function frappe_get_permissions($name){
+           $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142')); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('cmd' => 'frappe.core.page.permission_manager.permission_manager.get_permissions',
+                                                        'role' => $name,
+                                                        'doctype' => ''));
+            try {
+                        $result = curl_exec($ch);
+                        $response = new stdClass();
+                        $response->data = json_decode($result);
+                        $response->status = 'success';
+                        return $response;
+                } catch (Exception $e) {
+                    $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                    Log::error('frappe log: '.$error_msg);
+                    $response->data = $error_msg;
+                    $response->status = 'error';
+                    return $response;
+                        
+                }
+
+        }
+
         function get_list($doctype){
                 try {
                     $resultObj = frappe_get_data($doctype,'?fields=["name"]');
@@ -333,8 +358,31 @@ use Illuminate\Support\Facades\Log;
                 return $result;
         }
 
-        function frappe_get_company(){
-            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_company'); 
+        function frappe_get_current_company(){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_current_company'); 
+            curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            try {
+                $result = curl_exec($ch);
+                $response = new stdClass();
+                $response->data = json_decode($result)->message;
+                $response->status = 'success';
+                return $response;
+            } catch (Exception $e) {
+                
+                $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
+                Log::error('frappe log: '.$error_msg);
+                $response->data = $result;
+                $response->status = 'error';
+                return $response;
+                    
+            }
+
+        }
+
+        function frappe_get_current_user(){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_current_user'); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
@@ -347,19 +395,20 @@ use Illuminate\Support\Facades\Log;
             } catch (Exception $e) {
                 $error_msg = preg_match('/<pre>(.*?)<\/pre>/ims', $result, $matches) ? $matches[1] : null;
                 Log::error('frappe log: '.$error_msg);
-                $response->data = $error_msg;
+                $response->data = $result;
                 $response->status = 'error';
                 return $response;
                     
             }
-
+                
         }
 
-        function frappe_get_user(){
-            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_user'); 
+        function frappe_update_user($name,$data){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.update_user'); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('name' => json_encode($name),'data' => json_encode($data)));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "post");
             try {
                 $result = curl_exec($ch);
                 $response = new stdClass();
@@ -377,11 +426,11 @@ use Illuminate\Support\Facades\Log;
                 
         }
 
-        function frappe_update_user($data){
-            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.update_user'); 
+        function frappe_update_company($name,$data){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.update_company'); 
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-            curl_setopt($ch, CURLOPT_POSTFIELDS, array('data' => json_encode($data)));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('name' => json_encode($name),'data' => json_encode($data)));
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "post");
             try {
                 $result = curl_exec($ch);
@@ -424,9 +473,9 @@ use Illuminate\Support\Facades\Log;
         }
 
 
-        function frappe_test(){
-               
-            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.custom.get_company'); 
+        function frappe_test($customer = 'cus_1'){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.mobile_api.my_address'); 
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('customer' => json_encode($customer)));
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
