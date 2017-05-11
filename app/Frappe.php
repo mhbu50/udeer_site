@@ -473,9 +473,9 @@ use Illuminate\Support\Facades\Log;
         }
 
 
-        function frappe_test($customer = 'cus_1'){
-            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.mobile_api.my_address'); 
-            curl_setopt($ch, CURLOPT_POSTFIELDS, array('customer' => json_encode($customer)));
+        function frappe_test($data = 'cus1'){
+            $ch = curl_init('http://'.env('SERVER_ADD', '52.8.230.142').'/api/method/udeer.custom_functions.mobile_api.office_contact');
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, array('customer' => json_encode($data)));
             curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");

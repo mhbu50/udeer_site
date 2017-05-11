@@ -461,7 +461,42 @@ Route::post('/doctype/{doctype}/{name?}/edit','DoctypeController@update');
 Route::get('/doctype/{doctype}/index','DoctypeController@index');
 
 
+// role routes
+Route::get('/report/property', 'ReportController@property');
+Route::get('/report/customer','ReportController@customer');
+Route::get('/report/contract','ReportController@contract');
+Route::get('/report/instalment','ReportController@instalment');
+Route::get('/report/owner_fin','ReportController@owner_fin');
+Route::get('/report/instalment_all','ReportController@instalment_all');
 
+Route::get('/report/lease_report','ReportController@lease_report');
+Route::get('/report/client_report','ReportController@client_report');
+Route::get('/report/unpaid_instalment_report','ReportController@unpaid_instalment_report');
+Route::get('/report/pay_reciept_report','ReportController@pay_reciept_report');
+Route::get('/report/property_unit','ReportController@property_unit');
+Route::get('/report/fin_property_report','ReportController@fin_property_report');
+Route::get('/report/fin_owner_report','ReportController@fin_owner_report');
+Route::get('/report/fin_renter_acount_report','ReportController@fin_owner_report');
+Route::get('/report/fin_renter_report','ReportController@fin_renter_report');
+Route::get('/report/fine_unit_report','ReportController@fine_unit_report');
+Route::get('/report/fine_acount_report','ReportController@fine_acount_report');
+Route::get('/report/fine_management_report','ReportController@fine_management_report');
+
+
+// ticket routes
+Route::get('/ticket/index','TicketController@index');
+
+Route::get('/offer_add',function (){
+	return view('ar.pages.offer_add'); 
+});
+
+Route::get('/offer_show',function (){
+	return view('ar.pages.offer_show'); 
+});
+
+Route::get('/order_add',function (){
+	return view('ar.pages.order_add'); 
+});
 
 
 
@@ -471,6 +506,35 @@ Route::get('/{doctype?}/{docname?}/doc/create','DocsController@create');
 Route::post('/{doctype?}/{docname?}/doc/create','DocsController@store');
 
 Route::get('/doc/{name?}/show','DocsController@show');
+
+
+// maintenance routes
+
+Route::get('/maintenance/issue/index','MaintenanceController@issue_index');
+Route::get('/maintenance/team','MaintenanceController@maintenance_team');
+Route::get('/maintenance/mission_tickt','MaintenanceController@mission_tickt');
+
+// maintenance routes
+
+Route::get('/offer/create',function(){
+	return view('ar.offer_and_order.create_offer');
+});
+
+Route::get('/offer/index',function(){
+	return view('ar.offer_and_order.offer_index');
+});
+
+Route::get('/order/create',function(){
+	return view('ar.offer_and_order.create_order');
+});
+
+Route::get('/order/index',function(){
+	return view('ar.offer_and_order.order_index');
+});
+
+Route::get('/offer/share',function(){
+	return view('ar.offer_and_order.share');
+});
 
 
 // file_type

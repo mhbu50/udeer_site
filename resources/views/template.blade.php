@@ -97,12 +97,12 @@
             
                             <li class="c-menue-item"><a href="{{url('/')}}"><img src="/image/home.png"><p>الصفحة الرئيسية</p></a></li>
                             <li class="c-menue-item "><a href="{{action('PropertyController@index')}}"><img src="/image/Office.png"><p>ادارة الاملاك العقارية</p></a></li>
-                            <li class="c-menue-item"><a href="#"><img src="/image/File.png"><p>التقارير</p></a></li>
-                            <li class="c-menue-item"><a href="#"><img src="/image/Tag.png"><p>العروض و الصيانة</p></a></li>
-                            <li class="c-menue-item"><a href="#"><img src="/image/setting.png"><p>الصيانة</p></a></li>
+                            <li class="c-menue-item"><a href="/report/property"><img src="/image/File.png"><p>التقارير</p></a></li>
+                            <li class="c-menue-item"><a href="/offer/index"><img src="/image/Tag.png"><p>العروض و الطلبات</p></a></li>
+                            <li class="c-menue-item"><a href="/maintenance/issue/index"><img src="/image/setting.png"><p>الصيانة</p></a></li>
                             <li class="c-menue-item"><a href="#"><img src="/image/Bell.png"><p>الاشعارات</p></a></li>
                             <li class="c-menue-item"><a href="#"><img src="/image/tick.png"><p>التذاكر و المهام</p></a></li>
-                            <li class="c-menue-item com_a"><a href="{{action('ComplainController@index')}}"><img src="/image/search.png"><p>الشكاوي و التحقيق</p></a></li>
+                            <li class="c-menue-item com_a"><a href="#"><img src="/image/search.png"><p>الشكاوي و التحقيق</p></a></li>
                             
                             
                         </ul>
@@ -127,6 +127,12 @@
                         @include('ar.sidebar.property_management')
                     @elseif($module == 'setting')
                         @include('ar.sidebar.setting')
+                    @elseif($module == 'maintenance')
+                        @include('ar.sidebar.maintenance')    
+                    @elseif($module == 'offer')
+                        @include('ar.sidebar.offers')        
+                    @elseif($module == 'reports')
+                        @include('ar.sidebar.reports')
                     @endif
                     <!-- END SIDEBAR -->
                 </div>
@@ -201,7 +207,7 @@
 
         <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>  
         <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
-        
+        @yield('js_page')
       
     </body>        
 <html>

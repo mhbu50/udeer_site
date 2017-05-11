@@ -302,9 +302,9 @@ $(document).ready(function(){
               url: function (params) {
                 global['doc-label'] = $(this).attr('doc-label')
                 if(params.term){
-                  return 'http://localhost:8000/find/'+$(this).attr('doctype')+'/key/'+params.term+'/field_search/'+$(this).attr('doc-label')
+                  return 'http://localhost:8001/find/'+$(this).attr('doctype')+'/key/'+params.term+'/field_search/'+$(this).attr('doc-label')
                 }else{
-                  return 'http://localhost:8000/find/'+$(this).attr('doctype')+'/key/all/field_search/name'
+                  return 'http://localhost:8001/find/'+$(this).attr('doctype')+'/key/all/field_search/name'
                 }
                 
               },
