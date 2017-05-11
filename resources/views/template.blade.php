@@ -102,7 +102,7 @@
                             <li class="c-menue-item"><a href="/maintenance/issue/index"><img src="/image/setting.png"><p>الصيانة</p></a></li>
                             <li class="c-menue-item"><a href="#"><img src="/image/Bell.png"><p>الاشعارات</p></a></li>
                             <li class="c-menue-item"><a href="#"><img src="/image/tick.png"><p>التذاكر و المهام</p></a></li>
-                            <li class="c-menue-item com_a"><a href="#"><img src="/image/search.png"><p>الشكاوي و التحقيق</p></a></li>
+                            <li class="c-menue-item com_a"><a href="/doctype/Issue/index"><img src="/image/search.png"><p>الشكاوي و التحقيق</p></a></li>
                             
                             
                         </ul>
