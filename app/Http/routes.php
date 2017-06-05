@@ -510,9 +510,12 @@ Route::get('/doc/{name?}/show','DocsController@show');
 
 // maintenance routes
 
-Route::get('/maintenance/issue/index','MaintenanceController@issue_index');
+Route::get('/maintenance/open_issue/index','MaintenanceController@open_issue_index');
+Route::get('/maintenance/colsed_issue/index','MaintenanceController@closed_issue_index');
 Route::get('/maintenance/team','MaintenanceController@maintenance_team');
 Route::get('/maintenance/mission_tickt','MaintenanceController@mission_tickt');
+
+Route::get('/maintenance/{name?}/edit','MaintenanceController@edit');
 
 // maintenance routes
 

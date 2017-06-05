@@ -54,7 +54,7 @@
         <li class="nav-item" id="side_account_m">
             <a href="/supplier/create" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
-                <span class="title">اضافة مزود الخدمة</span>
+                <span class="title">اضافة الصيانة</span>
                 
             </a>
         </li> 

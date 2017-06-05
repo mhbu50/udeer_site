@@ -14,19 +14,27 @@ class MaintenanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function issue_index()
+    public function open_issue_index()
     {
-        return view('ar.maintenance.issueـ_index');
+        $result = frappe_get_data_index('Issue','?fields=["*"]&filters=[["Issue","Status","=","open"]]')->data;
+        return view('ar.maintenance.open_issue_index',compact('result'));
+    }
+
+    public function closed_issue_index()
+    {
+        $result = frappe_get_data_index('Issue','?fields=["*"]&filters=[["Issue","Status","=","closed"]]')->data;
+        return view('ar.maintenance.closed_issue_index',compact('result'));
     }
 
     public function maintenance_team()
     {
-        return view('ar.maintenance.maintenance_team');
+        return view('ar.maintenance.closed_issue_index.');
     }
 
-    public function mission_tickt()
+    public function edit()
     {
-        return view('ar.maintenance.mission_tickt');
+        // return view('ar.maintenance.mission_tickt');
+        return 'ss';
     }
     
     
@@ -69,10 +77,7 @@ class MaintenanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
